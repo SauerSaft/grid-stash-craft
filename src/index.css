@@ -75,16 +75,7 @@
   }
 }
 
-/* Game UI Grid Overlay */
-.game-grid-overlay {
-  position: fixed;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.008) 2px, rgba(255, 255, 255, 0.008) 4px),
-    radial-gradient(ellipse at 50% 0%, rgba(255, 217, 0, 0.02) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* Game UI Grid Overlay - now used inside menu via images */
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {

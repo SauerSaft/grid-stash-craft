@@ -42,8 +42,8 @@ const StorageTable = () => {
   return (
     <div className="flex flex-col flex-1 gap-3 overflow-hidden">
       {/* Page Header */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-card/60 rounded-sm border border-border/50">
-        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/25">
+      <div className="flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-sm border border-white/[0.06]">
+        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
           <Package size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px rgba(255,217,0,0.5))" }} />
         </div>
         <div className="flex flex-col">
@@ -60,7 +60,7 @@ const StorageTable = () => {
             flex items-center gap-1.5 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all
             ${activeTab === "auslagern"
               ? "bg-primary/20 border border-primary/50 text-primary shadow-[0_0_10px_rgba(255,217,0,0.15)]"
-              : "bg-secondary border border-border text-muted-foreground hover:bg-surface-hover hover:text-foreground"
+              : "bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
             }
           `}
         >
@@ -73,7 +73,7 @@ const StorageTable = () => {
             flex items-center gap-1.5 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all
             ${activeTab === "einlagern"
               ? "bg-primary/20 border border-primary/50 text-primary shadow-[0_0_10px_rgba(255,217,0,0.15)]"
-              : "bg-secondary border border-border text-muted-foreground hover:bg-surface-hover hover:text-foreground"
+              : "bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
             }
           `}
         >
@@ -83,9 +83,9 @@ const StorageTable = () => {
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-y-auto rounded-sm border border-border/50 bg-card/30">
+      <div className="flex-1 overflow-y-auto rounded-sm border border-white/[0.06] bg-white/[0.02]">
         {/* Table Header */}
-        <div className="grid grid-cols-[1fr_100px_140px_110px] px-4 py-2.5 border-b border-border/80 bg-background/80 sticky top-0 z-10">
+        <div className="grid grid-cols-[1fr_100px_140px_110px] px-4 py-2.5 border-b border-white/[0.08] bg-black/50 sticky top-0 z-10">
           <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Name</span>
           <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Bestand</span>
           <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Menge</span>
@@ -97,7 +97,7 @@ const StorageTable = () => {
           {mockItems.map((item, index) => (
             <div
               key={item.id}
-              className="grid grid-cols-[1fr_100px_140px_110px] items-center px-4 py-2.5 border-b border-border/30 hover:bg-surface-hover transition-colors group"
+              className="grid grid-cols-[1fr_100px_140px_110px] items-center px-4 py-2.5 border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group"
             >
               {/* Name */}
               <div className="flex items-center gap-2.5">
@@ -122,10 +122,10 @@ const StorageTable = () => {
 
               {/* Amount Stepper */}
               <div className="flex justify-center">
-                <div className="flex items-center gap-0 rounded-sm border border-border/60 overflow-hidden bg-background/60">
+                <div className="flex items-center gap-0 rounded-sm border border-white/[0.08] overflow-hidden bg-black/40">
                   <button
                     onClick={() => decrement(item.id, item.stock)}
-                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors border-r border-border/40"
+                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/[0.06] transition-colors border-r border-white/[0.06]"
                   >
                     <Minus size={11} />
                   </button>
@@ -139,7 +139,7 @@ const StorageTable = () => {
                   />
                   <button
                     onClick={() => increment(item.id, item.stock)}
-                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors border-l border-border/40"
+                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/[0.06] transition-colors border-l border-white/[0.06]"
                   >
                     <Plus size={11} />
                   </button>
