@@ -12,7 +12,7 @@ const EquipmentLayout = () => {
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black">
       {/* Main Container - bigger */}
-      <div className="relative flex flex-col w-[92vw] max-w-[1400px] h-[88vh] max-h-[850px] rounded-sm shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_30px_rgba(255,217,0,0.04)] overflow-hidden">
+      <div className="relative flex flex-col w-[75vw] h-[75vh] rounded-sm shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_30px_rgba(255,217,0,0.04)] overflow-hidden">
         {/* Background image layer */}
         <img
           src={bgImage}
