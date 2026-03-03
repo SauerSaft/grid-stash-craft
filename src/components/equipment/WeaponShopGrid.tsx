@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ShoppingCart, Check, Wrench } from "lucide-react";
+import WeaponModifyModal from "./WeaponModifyModal";
 
 import weaponCarbine from "@/assets/weapons/WEAPON_CARBINERIFLE.webp";
 import weaponPistol from "@/assets/weapons/WEAPON_PISTOL.webp";
@@ -25,6 +27,8 @@ const formatPrice = (price: number) =>
   `$${price.toLocaleString("de-DE")}`;
 
 const WeaponShopGrid = () => {
+  const [modifyWeapon, setModifyWeapon] = useState<ShopWeapon | null>(null);
+
   return (
     <div className="ginshi_shop_container flex flex-col flex-1 gap-3 overflow-hidden">
       {/* Page Header */}
@@ -48,9 +52,7 @@ const WeaponShopGrid = () => {
             >
               {/* Image Area */}
               <div className="ginshi_weapon_image relative h-[80px] bg-black/40 flex items-center justify-center overflow-hidden">
-                {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-transparent pointer-events-none" />
-                {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-4 h-[1px] bg-gradient-to-r from-primary/30 to-transparent" />
                 <div className="absolute top-0 left-0 w-[1px] h-3 bg-gradient-to-b from-primary/30 to-transparent" />
                 <div className="absolute bottom-0 right-0 w-4 h-[1px] bg-gradient-to-l from-primary/20 to-transparent" />
@@ -62,25 +64,21 @@ const WeaponShopGrid = () => {
                   draggable={false}
                 />
 
-                {/* Owned badge */}
                 {weapon.owned && (
                   <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-success/20 border border-success/40 flex items-center justify-center">
                     <Check size={8} className="text-success" />
                   </div>
                 )}
 
-                {/* Bottom line */}
                 <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
               </div>
 
               {/* Content */}
               <div className="ginshi_weapon_info flex flex-col gap-1.5 p-2.5 pt-2">
-                {/* Name */}
                 <h3 className="ginshi_weapon_name text-xs font-bold text-foreground uppercase tracking-wide truncate leading-none">
                   {weapon.name}
                 </h3>
 
-                {/* Price */}
                 <div className="ginshi_weapon_price flex items-center justify-between">
                   <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Preis</span>
                   <span className="text-xs font-extrabold text-primary tabular-nums tracking-tight">
@@ -88,10 +86,8 @@ const WeaponShopGrid = () => {
                   </span>
                 </div>
 
-                {/* Divider */}
                 <div className="w-full h-[1px] bg-white/[0.06]" />
 
-                {/* Actions */}
                 <div className="ginshi_weapon_actions flex gap-1.5">
                   {!weapon.owned ? (
                     <button className="ginshi_btn_buy flex-1 flex items-center justify-center gap-1 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-info/15 border border-info/30 text-info hover:bg-info/25 hover:border-info/50 transition-colors">
@@ -108,7 +104,10 @@ const WeaponShopGrid = () => {
                         Ausgerüstet
                       </button>
                       {weapon.modifiable && (
-                        <button className="ginshi_btn_modify flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors">
+                        <button
+                          onClick={() => setModifyWeapon(weapon)}
+                          className="ginshi_btn_modify flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors"
+                        >
                           <Wrench size={9} />
                         </button>
                       )}
@@ -120,6 +119,16 @@ const WeaponShopGrid = () => {
           ))}
         </div>
       </div>
+
+      {/* Modify Modal */}
+      {modifyWeapon && (
+        <WeaponModifyModal
+          open={!!modifyWeapon}
+          onOpenChange={(open) => { if (!open) setModifyWeapon(null); }}
+          weaponName={modifyWeapon.name}
+          weaponImage={modifyWeapon.image}
+        />
+      )}
     </div>
   );
 };
