@@ -4,11 +4,12 @@ import EquipmentHeader from "./EquipmentHeader";
 import CategorySidebar from "./CategorySidebar";
 import StorageTable from "./StorageTable";
 import ArmoryTable from "./ArmoryTable";
+import WeaponShopGrid from "./WeaponShopGrid";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
 const EquipmentLayout = () => {
-  const [selectedCategory, setSelectedCategory] = useState("fraklager");
+  const [selectedCategory, setSelectedCategory] = useState("waffen-shop");
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black">
@@ -41,7 +42,9 @@ const EquipmentLayout = () => {
 
             {/* Content */}
             <div className="flex-1 flex flex-col p-4 overflow-hidden">
-              {selectedCategory === "fraklager" ? (
+              {selectedCategory === "waffen-shop" ? (
+                <WeaponShopGrid />
+              ) : selectedCategory === "fraklager" ? (
                 <StorageTable />
               ) : selectedCategory === "waffenkammer" ? (
                 <ArmoryTable />
