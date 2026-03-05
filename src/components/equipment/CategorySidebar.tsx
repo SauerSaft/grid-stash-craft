@@ -9,6 +9,7 @@ const categories: Category[] = [
   { id: "waffen-shop", label: "Waffen Shop" },
   { id: "waffenkammer", label: "Waffenkammer" },
   { id: "fraklager", label: "Fraklager" },
+  { id: "fraktionskasse", label: "Fraktionskasse" },
 ];
 
 interface CategorySidebarProps {
