@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Landmark, ArrowDownToLine, ArrowUpFromLine, TrendingUp, TrendingDown, Clock, Wallet, Banknote } from "lucide-react";
+import { Landmark, ArrowDownToLine, ArrowUpFromLine, TrendingUp, TrendingDown, Clock, Wallet } from "lucide-react";
 
 const formatCurrency = (amount: number) =>
   `$${amount.toLocaleString("de-DE")}`;
@@ -59,12 +59,26 @@ const FactionTreasury = () => {
           <div className="absolute bottom-0 right-0 w-8 h-[1px] bg-gradient-to-l from-primary/20 to-transparent" />
           <div className="absolute bottom-0 right-0 w-[1px] h-6 bg-gradient-to-t from-primary/20 to-transparent" />
 
-          {/* Decorative icon */}
-          <Banknote
-            size={100}
-            className="absolute bottom-2 right-3 text-primary opacity-[0.07] pointer-events-none select-none"
-            strokeWidth={1}
-          />
+          {/* Decorative money icons - layered */}
+          <div className="absolute -bottom-2 -right-2 pointer-events-none select-none" style={{ transform: "rotate(-12deg)" }}>
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" className="opacity-[0.06]">
+              <rect x="2" y="6" width="20" height="12" rx="2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+              <circle cx="12" cy="12" r="3" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+              <path d="M2 9h2M20 9h2M2 15h2M20 15h2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+            </svg>
+          </div>
+          <div className="absolute -bottom-4 right-10 pointer-events-none select-none" style={{ transform: "rotate(-20deg)" }}>
+            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" className="opacity-[0.04]">
+              <rect x="2" y="6" width="20" height="12" rx="2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+              <circle cx="12" cy="12" r="3" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+            </svg>
+          </div>
+          <div className="absolute bottom-3 right-24 pointer-events-none select-none" style={{ transform: "rotate(5deg)" }}>
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" className="opacity-[0.05]">
+              <circle cx="12" cy="12" r="8" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+              <path d="M12 8v8M9 10h6M9 14h6" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
+            </svg>
+          </div>
 
           <div className="relative z-10 p-5 flex flex-col gap-1">
             <span className="ginshi_treasury_label text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
