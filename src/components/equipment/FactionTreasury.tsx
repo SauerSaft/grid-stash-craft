@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Landmark, ArrowDownToLine, ArrowUpFromLine, TrendingUp, TrendingDown, Clock, Users } from "lucide-react";
-import coinsImg from "@/assets/coins_bills.png";
+import { Landmark, ArrowDownToLine, ArrowUpFromLine, TrendingUp, TrendingDown, Clock, Wallet, Banknote } from "lucide-react";
 
 const formatCurrency = (amount: number) =>
   `$${amount.toLocaleString("de-DE")}`;
@@ -60,12 +59,11 @@ const FactionTreasury = () => {
           <div className="absolute bottom-0 right-0 w-8 h-[1px] bg-gradient-to-l from-primary/20 to-transparent" />
           <div className="absolute bottom-0 right-0 w-[1px] h-6 bg-gradient-to-t from-primary/20 to-transparent" />
 
-          {/* Decorative coins image */}
-          <img
-            src={coinsImg}
-            alt=""
-            className="absolute bottom-0 right-0 w-[140px] h-[140px] object-contain opacity-[0.12] pointer-events-none select-none"
-            draggable={false}
+          {/* Decorative icon */}
+          <Banknote
+            size={100}
+            className="absolute bottom-2 right-3 text-primary opacity-[0.07] pointer-events-none select-none"
+            strokeWidth={1}
           />
 
           <div className="relative z-10 p-5 flex flex-col gap-1">
@@ -84,7 +82,7 @@ const FactionTreasury = () => {
           {[
             { icon: TrendingUp, label: "Einnahmen (Monat)", value: "$117.000", color: "text-success" },
             { icon: TrendingDown, label: "Ausgaben (Monat)", value: "$23.000", color: "text-destructive" },
-            { icon: Users, label: "Mitglieder", value: "12", color: "text-info" },
+            { icon: Wallet, label: "Bargeld verfügbar", value: "$84.500", color: "text-primary" },
           ].map((stat) => (
             <div key={stat.label} className="ginshi_stat_box flex items-center gap-2.5 p-3 rounded-sm bg-white/[0.02] border border-white/[0.06]">
               <div className="p-1.5 rounded-sm bg-white/[0.04]">
