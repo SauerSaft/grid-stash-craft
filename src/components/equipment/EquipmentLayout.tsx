@@ -7,6 +7,7 @@ import ArmoryTable from "./ArmoryTable";
 import WeaponShopGrid from "./WeaponShopGrid";
 import FactionTreasury from "./FactionTreasury";
 import FactionMembers from "./FactionMembers";
+import FactionLogs from "./FactionLogs";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
@@ -54,6 +55,8 @@ const EquipmentLayout = () => {
                 <FactionTreasury />
               ) : selectedCategory === "mitglieder" ? (
                 <FactionMembers />
+              ) : selectedCategory === "logs" ? (
+                <FactionLogs />
               ) : (
                 <div className="flex-1 flex items-center justify-center">
                   <div className="text-center opacity-40">
