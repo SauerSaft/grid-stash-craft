@@ -1,21 +1,21 @@
-import { ShoppingBag, Plus, Heart, Wrench, Shield, Radio, Flashlight, Zap } from "lucide-react";
+import { ShoppingBag, ShoppingCart } from "lucide-react";
 
 interface ShopItem {
   id: string;
   name: string;
   price: number;
-  quickAmounts: number[];
-  icon: typeof Heart;
-  color: string;
+  amount: number;
 }
 
 const shopItems: ShopItem[] = [
-  { id: "1", name: "Medikit", price: 250, quickAmounts: [1, 5, 10, 25], icon: Heart, color: "text-red-400" },
-  { id: "2", name: "Repairkit", price: 500, quickAmounts: [1, 5, 10], icon: Wrench, color: "text-blue-400" },
-  { id: "3", name: "Schutzweste", price: 1500, quickAmounts: [1, 3, 5], icon: Shield, color: "text-primary" },
-  { id: "4", name: "Funkgerät", price: 300, quickAmounts: [1, 5, 10], icon: Radio, color: "text-emerald-400" },
-  { id: "5", name: "Taschenlampe", price: 150, quickAmounts: [1, 5, 10, 20], icon: Flashlight, color: "text-amber-300" },
-  { id: "6", name: "Adrenalin", price: 800, quickAmounts: [1, 3, 5], icon: Zap, color: "text-orange-400" },
+  { id: "1", name: "Medikit", price: 250, amount: 10 },
+  { id: "2", name: "Repairkit", price: 500, amount: 5 },
+  { id: "3", name: "Schutzweste", price: 1500, amount: 3 },
+  { id: "4", name: "Funkgerät", price: 300, amount: 5 },
+  { id: "5", name: "Taschenlampe", price: 150, amount: 10 },
+  { id: "6", name: "Adrenalin", price: 800, amount: 3 },
+  { id: "7", name: "Handschellen", price: 200, amount: 10 },
+  { id: "8", name: "Nagelbänder", price: 350, amount: 5 },
 ];
 
 const formatPrice = (price: number) => `$${price.toLocaleString("de-DE")}`;
@@ -34,63 +34,53 @@ const ItemShopGrid = () => {
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="ginshi_itemshop_grid flex-1 overflow-y-auto">
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2.5">
+      {/* Table */}
+      <div className="flex-1 overflow-y-auto rounded-sm border border-white/[0.06] bg-white/[0.02]">
+        {/* Table Header */}
+        <div className="grid grid-cols-[1fr_80px_100px_100px_110px] px-4 py-2.5 border-b border-white/[0.08] bg-black/50 sticky top-0 z-10">
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Name</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Menge</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Stückpreis</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Gesamt</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-right">Aktion</span>
+        </div>
+
+        {/* Rows */}
+        <div className="flex flex-col">
           {shopItems.map((item) => (
             <div
               key={item.id}
-              className="ginshi_item_card group flex flex-col rounded-sm overflow-hidden border border-primary/[0.12] bg-black/30 hover:border-primary/30 hover:bg-black/50 transition-all"
+              className="grid grid-cols-[1fr_80px_100px_100px_110px] items-center px-4 py-2.5 border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group"
             >
-              {/* Icon Area */}
-              <div className="relative h-[72px] bg-black/40 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-transparent pointer-events-none" />
-                <div className="absolute top-0 left-0 w-4 h-[1px] bg-gradient-to-r from-primary/30 to-transparent" />
-                <div className="absolute top-0 left-0 w-[1px] h-3 bg-gradient-to-b from-primary/30 to-transparent" />
-                <div className="absolute bottom-0 right-0 w-4 h-[1px] bg-gradient-to-l from-primary/20 to-transparent" />
-
-                <item.icon
-                  size={30}
-                  className={`${item.color} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all`}
-                  strokeWidth={1.5}
-                />
-
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+              {/* Name */}
+              <div className="flex items-center gap-2.5">
+                <div className="w-1 h-1 rounded-full bg-primary/40 group-hover:bg-primary group-hover:shadow-[0_0_6px_hsl(48_100%_50%_/_0.5)] transition-all" />
+                <span className="text-sm font-semibold text-foreground tracking-tight">{item.name}</span>
               </div>
 
-              {/* Content */}
-              <div className="flex flex-col gap-1.5 p-2.5 pt-2">
-                <h3 className="text-xs font-bold text-foreground uppercase tracking-wide truncate leading-none">
-                  {item.name}
-                </h3>
+              {/* Amount Badge */}
+              <div className="flex justify-center">
+                <span className="inline-flex items-center justify-center min-w-[36px] px-2 py-0.5 rounded-sm text-xs font-bold tabular-nums bg-primary/10 text-primary border border-primary/20">
+                  {item.amount}x
+                </span>
+              </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Stückpreis</span>
-                  <span className="text-xs font-extrabold text-primary tabular-nums tracking-tight">
-                    {formatPrice(item.price)}
-                  </span>
-                </div>
+              {/* Unit Price */}
+              <div className="flex justify-center">
+                <span className="text-xs font-semibold tabular-nums text-muted-foreground">{formatPrice(item.price)}</span>
+              </div>
 
-                <div className="w-full h-[1px] bg-white/[0.06]" />
+              {/* Total */}
+              <div className="flex justify-center">
+                <span className="text-xs font-extrabold tabular-nums text-foreground">{formatPrice(item.price * item.amount)}</span>
+              </div>
 
-                {/* Quick Buy Buttons */}
-                <div className="flex flex-col gap-1">
-                  {item.quickAmounts.map((amount) => (
-                    <button
-                      key={amount}
-                      className="ginshi_btn_quickbuy flex items-center justify-between px-2.5 py-[5px] rounded-sm text-[10px] font-bold bg-white/[0.03] border border-white/[0.06] hover:bg-primary/15 hover:border-primary/30 hover:text-primary transition-all group/btn"
-                    >
-                      <span className="flex items-center gap-1 text-muted-foreground group-hover/btn:text-primary transition-colors">
-                        <Plus size={8} className="opacity-50" />
-                        <span className="tabular-nums">{amount}x</span>
-                        <span className="uppercase tracking-wider">{item.name}</span>
-                      </span>
-                      <span className="tabular-nums font-extrabold text-foreground/60 group-hover/btn:text-primary transition-colors">
-                        {formatPrice(item.price * amount)}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+              {/* Buy Button */}
+              <div className="flex justify-end">
+                <button className="ginshi_btn_buy flex items-center gap-1 px-3 py-1.5 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-info/15 border border-info/30 text-info hover:bg-info/25 hover:border-info/50 hover:shadow-[0_0_10px_hsl(199_89%_48%_/_0.2)] transition-all">
+                  <ShoppingCart size={10} />
+                  Kaufen
+                </button>
               </div>
             </div>
           ))}
