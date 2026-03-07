@@ -8,6 +8,7 @@ import WeaponShopGrid from "./WeaponShopGrid";
 import FactionTreasury from "./FactionTreasury";
 import FactionMembers from "./FactionMembers";
 import FactionLogs from "./FactionLogs";
+import ItemShopGrid from "./ItemShopGrid";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
@@ -47,6 +48,8 @@ const EquipmentLayout = () => {
             <div className="flex-1 flex flex-col p-4 overflow-hidden">
               {selectedCategory === "waffen-shop" ? (
                 <WeaponShopGrid />
+              ) : selectedCategory === "item-shop" ? (
+                <ItemShopGrid />
               ) : selectedCategory === "fraklager" ? (
                 <StorageTable />
               ) : selectedCategory === "waffenkammer" ? (
