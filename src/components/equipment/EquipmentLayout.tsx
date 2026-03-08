@@ -9,6 +9,7 @@ import FactionTreasury from "./FactionTreasury";
 import FactionMembers from "./FactionMembers";
 import FactionLogsV2 from "./FactionLogsV2";
 import ItemShopGrid from "./ItemShopGrid";
+import LoadoutsPage from "./LoadoutsPage";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
