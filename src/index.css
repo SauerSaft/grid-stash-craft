@@ -495,14 +495,19 @@
 }
 
 .ginshi_action_btn {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.125rem;
   transition: all 0.15s;
   cursor: pointer;
+}
+
+.ginshi_action_btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .ginshi_action_btn_success {
