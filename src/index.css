@@ -1495,7 +1495,7 @@
 }
 
 .treasury_stat_label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1506,7 +1506,7 @@
 }
 
 .treasury_stat_value {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
