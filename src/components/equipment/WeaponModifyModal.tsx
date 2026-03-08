@@ -116,7 +116,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
                   />
                   {att.equipped && (
                     <div className="absolute inset-0 bg-primary/[0.06] flex items-center justify-center">
-                      <Check size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 4px hsl(48 100% 50% / 0.5))" }} />
+                      <Check size={16} className="text-primary" style={{ filter: "drop-shadow(0 0 4px hsl(48 100% 50% / 0.5))" }} />
                     </div>
                   )}
                 </div>
