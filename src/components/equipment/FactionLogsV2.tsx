@@ -54,7 +54,7 @@ const FactionLogsV2 = () => {
   const renderRow = (log: any) => {
     if (activeTab === "waffenshop") {
       return (
-        <div key={log.id} className="logs_row logs_cols">
+        <div key={log.id} className="ginshi_grid_row logs_cols">
           <span className="logs_row_id">#{log.id}</span>
           <div className="logs_row_name">
             <div className="logs_row_dot" />
@@ -73,7 +73,7 @@ const FactionLogsV2 = () => {
     if (activeTab === "waffenkammer") {
       const isOut = (log as ArmoryLog).direction === "out";
       return (
-        <div key={log.id} className="logs_row logs_cols">
+        <div key={log.id} className="ginshi_grid_row logs_cols">
           <span className="logs_row_id">#{log.id}</span>
           <div className="logs_row_name">
             <div className="logs_row_dot" />
@@ -95,7 +95,7 @@ const FactionLogsV2 = () => {
       const sLog = log as StorageLog;
       const sOut = sLog.direction === "out";
       return (
-        <div key={log.id} className="logs_row logs_cols">
+        <div key={log.id} className="ginshi_grid_row logs_cols">
           <span className="logs_row_id">#{log.id}</span>
           <div className="logs_row_name">
             <div className="logs_row_dot" />
@@ -116,7 +116,7 @@ const FactionLogsV2 = () => {
     const tLog = log as TreasuryLog;
     const isDep = tLog.type === "deposit";
     return (
-      <div key={log.id} className="logs_row logs_cols">
+      <div key={log.id} className="ginshi_grid_row logs_cols">
         <span className="logs_row_id">#{log.id}</span>
         <div className="logs_row_name">
           <div className="logs_row_dot" />
@@ -169,7 +169,7 @@ const FactionLogsV2 = () => {
             >
               <tab.icon />
               {tab.label}
-              <span className={`logs_tab_count ${isActive ? "logs_tab_count_active" : "logs_tab_count_inactive"}`}>
+              <span className={`ginshi_tab_count ${isActive ? "ginshi_tab_count_active" : "ginshi_tab_count_inactive"}`}>
                 {tab.count}
               </span>
             </button>
@@ -194,30 +194,30 @@ const FactionLogsV2 = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="logs_pagination">
-            <span className="logs_pagination_info">
+          <div className="ginshi_pagination">
+            <span className="ginshi_pagination_info">
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
             </span>
-            <div className="logs_pagination_btns">
-              <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="logs_page_btn">
+            <div className="ginshi_pagination_btns">
+              <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="ginshi_page_btn">
                 <ChevronsLeft />
               </button>
-              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="ginshi_page_btn">
                 <ChevronLeft />
               </button>
               {getPageRange().map((p) => (
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`logs_page_num ${p === currentPage ? "logs_page_num_active" : ""}`}
+                  className={`ginshi_page_num ${p === currentPage ? "ginshi_page_num_active" : ""}`}
                 >
                   {p}
                 </button>
               ))}
-              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="ginshi_page_btn">
                 <ChevronRight />
               </button>
-              <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} className="ginshi_page_btn">
                 <ChevronsRight />
               </button>
             </div>

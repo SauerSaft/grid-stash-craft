@@ -1766,96 +1766,11 @@
 
 /* ---- 3.7 Logs ---- */
 
-.logs_card {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-}
+/* columns */
+.logs_cols { grid-template-columns: 55px 1fr 1fr 110px; }
 
-.logs_header {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.85rem 1.1rem;
-}
-
-.logs_header_count {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.3rem 0.7rem;
-  border-radius: var(--radius);
-  background: var(--glass-subtle);
-  border: 1px solid var(--glass-border);
-}
-
-.logs_header_count_label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: hsl(var(--muted-foreground));
-}
-
-.logs_header_count_value {
-  font-size: 14px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: hsl(var(--primary));
-}
-
-.logs_separator { border-bottom: 1px solid var(--glass-border); }
-
-/* tabs */
-.logs_tab_bar {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.7rem 1.1rem;
-}
-
-.logs_tab {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 1rem;
-  border-radius: var(--radius);
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  transition: all 0.15s;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: hsl(var(--muted-foreground));
-}
-
-.logs_tab:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: hsl(var(--foreground));
-}
-
-.logs_tab svg { width: 13px; height: 13px; }
-
-.logs_tab_active {
-  background: hsl(var(--primary) / 0.15);
-  border-color: hsl(var(--primary) / 0.4);
-  color: hsl(var(--primary));
-  box-shadow: 0 0 10px hsl(var(--gold-glow) / 0.1);
-}
-
-.logs_tab_active:hover {
-  background: hsl(var(--primary) / 0.2);
-  color: hsl(var(--primary));
-}
-
-.logs_tab_count {
+/* tab count badge */
+.ginshi_tab_count {
   font-size: 10px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -1864,50 +1779,17 @@
   border-radius: var(--radius);
 }
 
-.logs_tab_count_active {
+.ginshi_tab_count_active {
   background: hsl(var(--primary) / 0.2);
   color: hsl(var(--primary));
 }
 
-.logs_tab_count_inactive {
+.ginshi_tab_count_inactive {
   background: var(--glass-bg-hover);
   color: hsl(var(--muted-foreground) / 0.5);
 }
 
-/* table */
-.logs_cols { grid-template-columns: 55px 1fr 1fr 110px; }
-
-.logs_thead {
-  display: grid;
-  padding: 0.55rem 0.85rem;
-  border-top: 1px solid var(--glass-border-strong);
-  border-bottom: 1px solid var(--glass-border-strong);
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.logs_th {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: hsl(var(--muted-foreground));
-}
-
-.logs_tbody {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.logs_row {
-  display: grid;
-  align-items: center;
-  padding: 0.7rem 1.1rem;
-  border-bottom: 1px solid var(--glass-row-border);
-  transition: background-color 0.15s;
-}
-
-.logs_row:hover { background: var(--glass-subtle); }
-
+/* row elements */
 .logs_row_id {
   font-size: 13px;
   font-weight: 700;
@@ -1984,8 +1866,9 @@
   text-align: right;
 }
 
-/* pagination */
-.logs_pagination {
+/* ---- 3.8 Pagination (shared) ---- */
+
+.ginshi_pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1993,19 +1876,19 @@
   border-top: 1px solid var(--glass-border);
 }
 
-.logs_pagination_info {
+.ginshi_pagination_info {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--muted-foreground) / 0.5);
 }
 
-.logs_pagination_btns {
+.ginshi_pagination_btns {
   display: flex;
   align-items: center;
   gap: 0.15rem;
 }
 
-.logs_page_btn {
+.ginshi_page_btn {
   padding: 0.35rem;
   border-radius: var(--radius);
   color: hsl(var(--muted-foreground));
@@ -2015,19 +1898,19 @@
   border: none;
 }
 
-.logs_page_btn:hover {
+.ginshi_page_btn:hover {
   color: hsl(var(--foreground));
   background: rgba(255, 255, 255, 0.05);
 }
 
-.logs_page_btn:disabled {
+.ginshi_page_btn:disabled {
   opacity: 0.2;
   pointer-events: none;
 }
 
-.logs_page_btn svg { width: 14px; height: 14px; }
+.ginshi_page_btn svg { width: 14px; height: 14px; }
 
-.logs_page_num {
+.ginshi_page_num {
   min-width: 1.85rem;
   height: 1.85rem;
   display: flex;
@@ -2044,12 +1927,12 @@
   border: none;
 }
 
-.logs_page_num:hover {
+.ginshi_page_num:hover {
   color: hsl(var(--foreground));
   background: rgba(255, 255, 255, 0.05);
 }
 
-.logs_page_num_active {
+.ginshi_page_num_active {
   background: hsl(var(--primary) / 0.2);
   border: 1px solid hsl(var(--primary) / 0.4);
   color: hsl(var(--primary));
