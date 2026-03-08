@@ -39,6 +39,8 @@ const EquipmentLayout = () => {
               <StorageTable />
             ) : selectedCategory === "loadouts" ? (
               <LoadoutsPage />
+            ) : selectedCategory === "loadouts2" ? (
+              <LoadoutsPage2 />
             ) : selectedCategory === "waffenkammer" ? (
               <ArmoryTable />
             ) : selectedCategory === "fraktionskasse" ? (
