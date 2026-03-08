@@ -271,7 +271,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  width: 11.5rem;
+  width: 13.5rem;
   flex-shrink: 0;
   padding: 0.25rem 0;
 }
@@ -280,7 +280,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.6rem 0.75rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 0.125rem;
   text-align: left;
   transition: background-color 0.15s, border-color 0.15s;
@@ -315,7 +315,7 @@
 }
 
 .ginshi_nav_label {
-  font-size: 0.85rem;
+  font-size: 1.02rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -384,7 +384,7 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.35rem 0.8rem;
+  padding: 0.4rem 0.95rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -392,12 +392,12 @@
 
 .ginshi_badge_icon {
   color: hsl(var(--muted-foreground));
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .ginshi_badge_value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--foreground));
@@ -407,7 +407,7 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.35rem 0.8rem;
+  padding: 0.4rem 0.95rem;
   border-radius: 0.125rem;
   background: hsl(var(--success) / 0.06);
   border: 1px solid hsl(var(--success) / 0.15);
@@ -418,7 +418,7 @@
 }
 
 .ginshi_badge_online_text {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--success));
@@ -452,13 +452,13 @@
 }
 
 .ginshi_th {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: hsl(var(--muted-foreground));
   text-align: left;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.1rem;
 }
 
 .ginshi_th_center {
@@ -483,7 +483,7 @@
 }
 
 .ginshi_td {
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
 }
 
 /* Table Actions */
@@ -491,12 +491,12 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
 .ginshi_action_btn {
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -506,8 +506,8 @@
 }
 
 .ginshi_action_btn svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .ginshi_action_btn_success {
@@ -547,10 +547,10 @@
 .ginshi_status_badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 0.125rem;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -590,7 +590,7 @@
 }
 
 .ginshi_member_name_text {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: hsl(var(--foreground));
   overflow: hidden;
@@ -599,8 +599,8 @@
 }
 
 .ginshi_member_avatar {
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -611,7 +611,7 @@
 }
 
 .ginshi_member_avatar_initials {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   color: hsl(var(--muted-foreground));
 }
@@ -635,7 +635,7 @@
 .ginshi_rank_dot_low { background: hsl(var(--muted-foreground) / 0.4); }
 
 .ginshi_rank_text {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
