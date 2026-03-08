@@ -2296,3 +2296,245 @@
   color: hsl(var(--primary) / 0.8);
   font-variant-numeric: tabular-nums;
 }
+
+
+/* ================================================================
+   LOADOUTS PAGE
+   ================================================================ */
+
+.loadout_grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* -- Card -- */
+.loadout_card {
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.loadout_card:hover {
+  border-color: var(--glass-border-strong);
+  background: var(--glass-bg-hover);
+}
+
+.loadout_card_expanded {
+  border-color: hsl(var(--primary) / 0.2);
+  background: hsl(var(--primary) / 0.02);
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.04), inset 0 1px 0 hsl(var(--primary) / 0.06);
+}
+
+/* -- Card Header -- */
+.loadout_card_header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.loadout_card_icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  background: hsl(var(--primary) / 0.1);
+  border: 1px solid hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+  flex-shrink: 0;
+}
+
+.loadout_card_icon svg {
+  filter: drop-shadow(0 0 4px hsl(var(--gold-glow) / 0.4));
+}
+
+.loadout_card_title_area {
+  flex: 1;
+  min-width: 0;
+}
+
+.loadout_card_name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.loadout_card_meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.1rem;
+}
+
+.loadout_card_meta_item {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+}
+
+.loadout_card_meta_sep {
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground) / 0.4);
+}
+
+.loadout_card_actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* -- Expand Bar -- */
+.loadout_expand_bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.45rem 1rem;
+  background: var(--glass-subtle);
+  border: none;
+  border-top: 1px solid var(--glass-row-border);
+  cursor: pointer;
+  transition: background-color 0.15s;
+  gap: 0.5rem;
+}
+
+.loadout_expand_bar:hover {
+  background: var(--glass-bg-hover);
+}
+
+.loadout_expand_bar_text {
+  flex: 1;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loadout_expand_chevron {
+  color: hsl(var(--muted-foreground) / 0.5);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.loadout_expand_chevron_open {
+  transform: rotate(180deg);
+}
+
+/* -- Detail Panel -- */
+.loadout_detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0.75rem 0.75rem;
+  animation: loadout_slideDown 0.2s ease;
+}
+
+@keyframes loadout_slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* -- Source Group -- */
+.loadout_source_group {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 0.35rem;
+}
+
+.loadout_source_header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.loadout_source_items {
+  display: flex;
+  flex-direction: column;
+}
+
+.loadout_action_row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.7rem 0.35rem 1.4rem;
+  transition: background-color 0.1s;
+}
+
+.loadout_action_row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.loadout_action_dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--muted-foreground) / 0.3);
+  flex-shrink: 0;
+}
+
+.loadout_action_name {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: hsl(var(--foreground) / 0.85);
+}
+
+.loadout_action_amount {
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--primary));
+  min-width: 2rem;
+  text-align: right;
+}
+
+/* -- Source color variants -- */
+.loadout_source_storage .loadout_source_header {
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+}
+.loadout_source_storage .loadout_action_dot {
+  background: hsl(var(--primary) / 0.5);
+}
+
+.loadout_source_armory .loadout_source_header {
+  background: hsl(var(--success) / 0.08);
+  color: hsl(var(--success));
+}
+.loadout_source_armory .loadout_action_dot {
+  background: hsl(var(--success) / 0.5);
+}
+
+.loadout_source_itemshop .loadout_source_header {
+  background: hsl(var(--info) / 0.08);
+  color: hsl(var(--info));
+}
+.loadout_source_itemshop .loadout_action_dot {
+  background: hsl(var(--info) / 0.5);
+}
+
+.loadout_source_weaponshop .loadout_source_header {
+  background: hsl(var(--destructive) / 0.08);
+  color: hsl(var(--destructive));
+}
+.loadout_source_weaponshop .loadout_action_dot {
+  background: hsl(var(--destructive) / 0.5);
+}
