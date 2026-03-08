@@ -1942,7 +1942,7 @@
 .logs_row {
   display: grid;
   align-items: center;
-  padding: 0.5rem 0.85rem;
+  padding: 0.7rem 1.1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   transition: background-color 0.15s;
 }
