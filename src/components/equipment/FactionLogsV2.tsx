@@ -63,7 +63,7 @@ const FactionLogsV2 = () => {
           <div className="logs_row_detail">
             <ShoppingCart className="ginshi_icon_primary" style={{ opacity: 0.6 }} />
             <span className="logs_row_detail_text" style={{ color: "hsl(var(--primary) / 0.8)" }}>{log.weapon}</span>
-            <span className="logs_row_badge logs_row_badge_primary">Gekauft</span>
+            <span className="ginshi_inline_badge ginshi_inline_badge_primary">Gekauft</span>
           </div>
           <span className="logs_row_date">{log.date}</span>
         </div>
@@ -82,7 +82,7 @@ const FactionLogsV2 = () => {
           <div className="logs_row_detail">
             {isOut ? <ArrowUpFromLine className="ginshi_icon_destructive" style={{ opacity: 0.8 }} /> : <ArrowDownToLine className="ginshi_icon_success" style={{ opacity: 0.8 }} />}
             <span className="logs_row_detail_text" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{(log as ArmoryLog).weapon}</span>
-            <span className={`logs_row_badge ${isOut ? "logs_row_badge_destructive" : "logs_row_badge_success"}`}>
+            <span className={`ginshi_inline_badge ${isOut ? "ginshi_inline_badge_destructive" : "ginshi_inline_badge_success"}`}>
               {isOut ? "Entnommen" : "Eingelagert"}
             </span>
           </div>
@@ -104,7 +104,7 @@ const FactionLogsV2 = () => {
           <div className="logs_row_detail">
             {sOut ? <ArrowUpFromLine className="ginshi_icon_destructive" style={{ opacity: 0.8 }} /> : <ArrowDownToLine className="ginshi_icon_success" style={{ opacity: 0.8 }} />}
             <span className="logs_row_detail_text" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{sLog.item}</span>
-            <span className={`logs_row_badge ${sOut ? "logs_row_badge_destructive" : "logs_row_badge_success"}`}>
+            <span className={`ginshi_inline_badge ${sOut ? "ginshi_inline_badge_destructive" : "ginshi_inline_badge_success"}`}>
               {sOut ? `-${sLog.amount}` : `+${sLog.amount}`}
             </span>
           </div>
@@ -127,7 +127,7 @@ const FactionLogsV2 = () => {
           <span className={`logs_row_detail_text ${isDep ? "ginshi_icon_success" : "ginshi_icon_destructive"}`} style={{ fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>
             {isDep ? "+" : "-"}${tLog.amount.toLocaleString("de-DE")}
           </span>
-          <span className={`logs_row_badge ${isDep ? "logs_row_badge_success" : "logs_row_badge_destructive"}`}>
+          <span className={`ginshi_inline_badge ${isDep ? "ginshi_inline_badge_success" : "ginshi_inline_badge_destructive"}`}>
             {isDep ? "Einzahlung" : "Auszahlung"}
           </span>
         </div>
