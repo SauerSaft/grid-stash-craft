@@ -392,8 +392,8 @@
 
 .ginshi_badge_icon {
   color: hsl(var(--muted-foreground));
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .ginshi_badge_value {
