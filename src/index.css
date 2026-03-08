@@ -1293,6 +1293,194 @@
 }
 
 
+/* ---- 2.24 Modal (dialog overlay) ---- */
+
+.ginshi_modal {
+  max-width: 700px;
+  padding: 0;
+  gap: 0;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid hsl(var(--primary) / 0.12);
+  border-radius: var(--radius);
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+}
+
+/* Hide default Radix close button inside ginshi_modal */
+.ginshi_modal > button[class*="absolute"] { display: none; }
+
+.ginshi_modal_header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  height: 3.2rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.ginshi_modal_title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: hsl(var(--foreground));
+}
+
+.ginshi_modal_title span { color: hsl(var(--primary)); }
+
+.ginshi_modal_spacer { flex: 1; }
+
+.ginshi_modal_close {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ginshi_modal_close:hover {
+  background: var(--glass-bg-hover);
+  border-color: hsl(var(--destructive) / 0.3);
+}
+
+.ginshi_modal_close svg { width: 13px; height: 13px; }
+
+.ginshi_modal_body { padding: 1.25rem; }
+
+.ginshi_modal_actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+/* ---- 2.25 Accent Bar ---- */
+
+.ginshi_accent_bar {
+  width: 3px;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--gold-glow) / 0.4);
+  flex-shrink: 0;
+}
+
+/* ---- 2.26 Corner Accents ---- */
+
+.ginshi_corner_tl {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.ginshi_corner_tl::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 1.5rem; height: 1px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.3), transparent);
+}
+
+.ginshi_corner_tl::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 1.25rem;
+  background: linear-gradient(to bottom, hsl(var(--primary) / 0.3), transparent);
+}
+
+.ginshi_corner_br {
+  position: absolute;
+  bottom: 0; right: 0;
+}
+
+.ginshi_corner_br::before {
+  content: "";
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 1.5rem; height: 1px;
+  background: linear-gradient(to left, hsl(var(--primary) / 0.2), transparent);
+}
+
+.ginshi_corner_br::after {
+  content: "";
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 1px; height: 1.25rem;
+  background: linear-gradient(to top, hsl(var(--primary) / 0.2), transparent);
+}
+
+/* ---- 2.27 Radial Glow ---- */
+
+.ginshi_radial_glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, hsl(var(--gold-glow) / 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ---- 2.28 Section Label ---- */
+
+.ginshi_label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ---- 2.29 Ghost Button (secondary/cancel) ---- */
+
+.ginshi_btn_ghost {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--glass-subtle);
+  border: 1px solid var(--glass-border);
+  color: hsl(var(--muted-foreground));
+}
+
+.ginshi_btn_ghost:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  color: hsl(var(--foreground));
+}
+
+/* ---- 2.30 Counter Badge (small pill) ---- */
+
+.ginshi_counter_badge {
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius);
+  background: hsl(var(--primary) / 0.08);
+  border: 1px solid hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary) / 0.7);
+}
+
+/* ---- 2.31 Flex helpers ---- */
+
+.ginshi_flex_between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ginshi_btn_flex_1 { flex: 1; justify-content: center; }
+
+
 /* ================================================================
    3. PAGES — View-specific Styles
    ================================================================ */
@@ -1801,4 +1989,122 @@
   font-variant-numeric: tabular-nums;
   color: hsl(var(--muted-foreground) / 0.6);
   text-align: right;
+}
+
+/* ---- 3.8 Weapon Modification Modal ---- */
+
+.weaponmod_preview {
+  position: relative;
+  height: 190px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaponmod_preview_img {
+  max-height: 150px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6));
+}
+
+.weaponmod_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.weaponmod_slot {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.weaponmod_slot:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+}
+
+.weaponmod_slot_active {
+  background: hsl(var(--primary) / 0.08);
+  border-color: hsl(var(--primary) / 0.25);
+}
+
+.weaponmod_slot_active:hover {
+  background: hsl(var(--primary) / 0.12);
+  border-color: hsl(var(--primary) / 0.35);
+}
+
+.weaponmod_slot_thumb {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.weaponmod_slot_thumb img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: brightness(0.9);
+}
+
+.weaponmod_slot_check {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--primary) / 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaponmod_slot_check svg {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--primary));
+  filter: drop-shadow(0 0 4px hsl(var(--gold-glow) / 0.5));
+}
+
+.weaponmod_slot_info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.weaponmod_slot_name {
+  font-size: 13px;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.weaponmod_slot_price {
+  font-size: 11px;
+  font-weight: 600;
+  color: hsl(var(--primary) / 0.8);
+  font-variant-numeric: tabular-nums;
 }
