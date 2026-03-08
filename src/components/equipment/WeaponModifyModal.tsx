@@ -107,11 +107,11 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
                 }`}
               >
                 {/* Attachment image */}
-                <div className="ginshi_attachment_img relative w-10 h-10 rounded-sm bg-black/50 border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <div className="ginshi_attachment_img relative w-12 h-12 rounded-sm bg-black/50 border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
                   <img
                     src={att.image}
                     alt={att.name}
-                    className="w-8 h-8 object-contain brightness-90"
+                    className="w-10 h-10 object-contain brightness-90"
                     draggable={false}
                   />
                   {att.equipped && (
