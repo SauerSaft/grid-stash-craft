@@ -204,16 +204,16 @@ const FactionLogsV2 = () => {
           })}
         </div>
 
-        {/* ─── Divider before table ─── */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-
-        {/* ─── Table Header ─── */}
-        <div className="grid grid-cols-[44px_1fr_1fr_90px] px-3 py-2 border-b border-white/[0.06] bg-black/40">
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/60">ID</span>
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/60">Name</span>
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/60">Details</span>
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/60 text-right">Zeit</span>
-        </div>
+        {/* ─── Inset area: subtle column labels + rows ─── */}
+        <div className="mx-3 mt-1 mb-0 flex flex-col flex-1 overflow-hidden rounded-sm border border-white/[0.04] bg-black/25">
+          {/* Column labels as a soft inner header */}
+          <div className="grid grid-cols-[44px_1fr_1fr_90px] px-3 py-1.5 bg-white/[0.015]">
+            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">ID</span>
+            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">Name</span>
+            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">Details</span>
+            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30 text-right">Zeit</span>
+          </div>
+          <div className="h-px w-full bg-white/[0.04]" />
 
         {/* ─── Rows ─── */}
         <div className="flex-1 overflow-y-auto">
