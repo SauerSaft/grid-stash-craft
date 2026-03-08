@@ -19,6 +19,12 @@ const mockTransactions: Transaction[] = [
   { id: "4", type: "withdraw", amount: 15000, by: "Anna Weber", date: "02.03.2026, 08:22" },
   { id: "5", type: "deposit", amount: 30000, by: "Leon Schmidt", date: "01.03.2026, 22:05" },
   { id: "6", type: "deposit", amount: 12000, by: "Anna Weber", date: "28.02.2026, 16:40" },
+  { id: "7", type: "withdraw", amount: 5000, by: "Jonas Fischer", date: "27.02.2026, 10:12" },
+  { id: "8", type: "deposit", amount: 40000, by: "Max Müller", date: "26.02.2026, 18:55" },
+  { id: "9", type: "withdraw", amount: 20000, by: "Sophie Braun", date: "25.02.2026, 09:30" },
+  { id: "10", type: "deposit", amount: 18000, by: "Leon Schmidt", date: "24.02.2026, 14:20" },
+  { id: "11", type: "withdraw", amount: 3500, by: "Emma Hoffmann", date: "23.02.2026, 21:45" },
+  { id: "12", type: "deposit", amount: 60000, by: "Max Müller", date: "22.02.2026, 12:10" },
 ];
 
 const FactionTreasury = () => {
