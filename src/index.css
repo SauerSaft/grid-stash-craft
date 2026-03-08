@@ -452,13 +452,13 @@
 }
 
 .ginshi_th {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: hsl(var(--muted-foreground));
   text-align: left;
-  padding: 0.7rem 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .ginshi_th_center {
@@ -483,7 +483,7 @@
 }
 
 .ginshi_td {
-  padding: 0.55rem 1rem;
+  padding: 0.6rem 1rem;
 }
 
 /* Table Actions */
