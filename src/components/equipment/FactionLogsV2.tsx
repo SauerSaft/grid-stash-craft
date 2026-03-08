@@ -215,9 +215,10 @@ const FactionLogsV2 = () => {
           </div>
           <div className="h-px w-full bg-white/[0.04]" />
 
-        {/* ─── Rows ─── */}
-        <div className="flex-1 overflow-y-auto">
-          {paginatedLogs.map(renderRow)}
+          {/* ─── Rows ─── */}
+          <div className="flex-1 overflow-y-auto">
+            {paginatedLogs.map(renderRow)}
+          </div>
         </div>
 
         {/* ─── Pagination Footer (inside the card) ─── */}
