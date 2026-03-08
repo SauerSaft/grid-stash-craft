@@ -10,6 +10,7 @@ import FactionMembers from "./FactionMembers";
 import FactionLogsV2 from "./FactionLogsV2";
 import ItemShopGrid from "./ItemShopGrid";
 import LoadoutsPage from "./LoadoutsPage";
+import LoadoutsPage2 from "./LoadoutsPage2";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
@@ -38,6 +39,8 @@ const EquipmentLayout = () => {
               <StorageTable />
             ) : selectedCategory === "loadouts" ? (
               <LoadoutsPage />
+            ) : selectedCategory === "loadouts2" ? (
+              <LoadoutsPage2 />
             ) : selectedCategory === "waffenkammer" ? (
               <ArmoryTable />
             ) : selectedCategory === "fraktionskasse" ? (
