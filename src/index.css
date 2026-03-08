@@ -1530,26 +1530,26 @@
 .treasury_stat_box {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 1.1rem;
+  gap: 1rem;
+  padding: 1.4rem 1.3rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .treasury_stat_icon {
-  padding: 0.55rem;
+  padding: 0.7rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.04);
 }
 
 .treasury_stat_icon svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 .treasury_stat_label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1560,7 +1560,7 @@
 }
 
 .treasury_stat_value {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
