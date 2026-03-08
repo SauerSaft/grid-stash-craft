@@ -111,17 +111,17 @@ const FactionTreasury = () => {
 
         {/* Deposit / Withdraw Section */}
         <div className="treasury_actions_card" style={{ marginTop: "0.75rem" }}>
-          <div className="treasury_action_tabs">
+          <div className="ginshi_underline_tabs">
             <button
               onClick={() => setActiveTab("deposit")}
-              className={`treasury_action_tab ${activeTab === "deposit" ? "treasury_action_tab_deposit_active" : ""}`}
+              className={`ginshi_underline_tab ${activeTab === "deposit" ? "ginshi_underline_tab_success" : ""}`}
             >
               <ArrowDownToLine />
               Einzahlen
             </button>
             <button
               onClick={() => setActiveTab("withdraw")}
-              className={`treasury_action_tab ${activeTab === "withdraw" ? "treasury_action_tab_withdraw_active" : ""}`}
+              className={`ginshi_underline_tab ${activeTab === "withdraw" ? "ginshi_underline_tab_destructive" : ""}`}
             >
               <ArrowUpFromLine />
               Auszahlen
@@ -130,30 +130,30 @@ const FactionTreasury = () => {
 
           <div className="treasury_actions_body">
             <div className="treasury_input_row">
-              <div className="treasury_input_wrapper">
-                <span className="treasury_input_prefix">$</span>
+              <div className="ginshi_input_wrapper">
+                <span className="ginshi_input_prefix">$</span>
                 <input
                   type="number"
                   value={inputAmount}
                   onChange={(e) => setInputAmount(e.target.value)}
                   placeholder="Betrag eingeben..."
-                  className="treasury_input_field"
+                  className="ginshi_input_field"
                 />
               </div>
               <button
                 onClick={handleAction}
-                className={activeTab === "deposit" ? "treasury_btn_deposit" : "treasury_btn_withdraw"}
+                className={activeTab === "deposit" ? "ginshi_btn_success" : "ginshi_btn_destructive"}
               >
                 {activeTab === "deposit" ? "Einzahlen" : "Auszahlen"}
               </button>
             </div>
 
-            <div className="treasury_quick_amounts">
+            <div className="ginshi_chip_row">
               {quickAmounts.map((amt) => (
                 <button
                   key={amt}
                   onClick={() => setInputAmount(String(amt))}
-                  className="treasury_quick_btn"
+                  className="ginshi_chip"
                 >
                   {formatCurrency(amt)}
                 </button>
@@ -163,25 +163,25 @@ const FactionTreasury = () => {
         </div>
 
         {/* Transaction History */}
-        <div className="treasury_history" style={{ marginTop: "0.75rem" }}>
-          <div className="treasury_history_header">
+        <div className="ginshi_list_card" style={{ marginTop: "0.75rem" }}>
+          <div className="ginshi_list_header">
             <Clock />
             <span>Letzte Transaktionen</span>
           </div>
-          <div className="treasury_tx_list">
+          <div className="ginshi_list_body">
             {mockTransactions.map((tx) => (
-              <div key={tx.id} className="treasury_tx_row">
-                <div className={`treasury_tx_icon ${tx.type === "deposit" ? "treasury_tx_icon_deposit" : "treasury_tx_icon_withdraw"}`}>
+              <div key={tx.id} className="ginshi_list_row">
+                <div className={`ginshi_list_icon ${tx.type === "deposit" ? "ginshi_list_icon_success" : "ginshi_list_icon_destructive"}`}>
                   {tx.type === "deposit"
                     ? <ArrowDownToLine className="ginshi_icon_success" />
                     : <ArrowUpFromLine className="ginshi_icon_destructive" />
                   }
                 </div>
-                <div className="treasury_tx_info">
-                  <span className="treasury_tx_name">{tx.by}</span>
-                  <span className="treasury_tx_date">{tx.date}</span>
+                <div className="ginshi_list_info">
+                  <span className="ginshi_list_info_name">{tx.by}</span>
+                  <span className="ginshi_list_info_sub">{tx.date}</span>
                 </div>
-                <span className={`treasury_tx_amount ${tx.type === "deposit" ? "ginshi_icon_success" : "ginshi_icon_destructive"}`}>
+                <span className={`ginshi_list_value ${tx.type === "deposit" ? "ginshi_icon_success" : "ginshi_icon_destructive"}`}>
                   {tx.type === "deposit" ? "+" : "-"}{formatCurrency(tx.amount)}
                 </span>
               </div>

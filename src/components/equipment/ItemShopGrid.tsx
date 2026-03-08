@@ -58,37 +58,37 @@ const ItemShopGrid = () => {
                 <tr key={item.id} className="ginshi_tr">
                   {/* Name */}
                   <td className="ginshi_td">
-                    <div className="itemshop_item_name">
-                      <div className="itemshop_item_dot" />
-                      <span className="itemshop_item_name_text">{item.name}</span>
+                    <div className="ginshi_item_name">
+                      <div className="ginshi_item_dot" />
+                      <span className="ginshi_item_name_text">{item.name}</span>
                     </div>
                   </td>
 
                   {/* Amount */}
                   <td className="ginshi_td ginshi_td_center itemshop_col_amount">
                     <div>
-                      <span className="itemshop_amount_badge">{item.amount}x</span>
+                      <span className="ginshi_stock_badge_mid ginshi_stock_badge">{item.amount}x</span>
                     </div>
                   </td>
 
                   {/* Unit Price */}
                   <td className="ginshi_td ginshi_td_center itemshop_col_unit_price">
                     <div>
-                      <span className="itemshop_price_text">{formatPrice(item.price)}</span>
+                      <span className="ginshi_text_num">{formatPrice(item.price)}</span>
                     </div>
                   </td>
 
                   {/* Total */}
                   <td className="ginshi_td ginshi_td_center itemshop_col_total">
                     <div>
-                      <span className="itemshop_total_text">{formatPrice(item.price * item.amount)}</span>
+                      <span className="ginshi_text_num_bold">{formatPrice(item.price * item.amount)}</span>
                     </div>
                   </td>
 
                   {/* Buy Button */}
                   <td className="ginshi_td">
                     <div className="ginshi_table_actions">
-                      <button className="itemshop_btn_buy">
+                      <button className="ginshi_btn_info">
                         <ShoppingCart size={14} />
                         Kaufen
                       </button>

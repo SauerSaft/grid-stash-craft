@@ -95,10 +95,10 @@ const StorageTable = () => {
 
               {/* Amount Stepper */}
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <div className="storage_stepper">
+                <div className="ginshi_stepper">
                   <button
                     onClick={() => setAmount(item.id, getAmount(item.id) - 1, item.stock)}
-                    className="storage_stepper_btn storage_stepper_btn_left"
+                    className="ginshi_stepper_btn ginshi_stepper_btn_left"
                   >
                     <Minus />
                   </button>
@@ -108,11 +108,11 @@ const StorageTable = () => {
                     max={item.stock}
                     value={getAmount(item.id)}
                     onChange={(e) => setAmount(item.id, parseInt(e.target.value) || 1, item.stock)}
-                    className="storage_stepper_input"
+                    className="ginshi_stepper_input"
                   />
                   <button
                     onClick={() => setAmount(item.id, getAmount(item.id) + 1, item.stock)}
-                    className="storage_stepper_btn storage_stepper_btn_right"
+                    className="ginshi_stepper_btn ginshi_stepper_btn_right"
                   >
                     <Plus />
                   </button>

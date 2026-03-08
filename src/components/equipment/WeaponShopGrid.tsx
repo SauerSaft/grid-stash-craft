@@ -82,20 +82,20 @@ const WeaponShopGrid = () => {
 
                 <div className="weaponshop_card_actions">
                   {!weapon.owned ? (
-                    <button className="weaponshop_btn_buy">
+                    <button className="ginshi_btn_info ginshi_btn_sm" style={{ flex: 1 }}>
                       <ShoppingCart />
                       Kaufen
                     </button>
                   ) : (
                     <>
-                      <button disabled className="weaponshop_btn_equipped">
+                      <button disabled className="ginshi_btn_disabled ginshi_btn_sm" style={{ flex: 1, display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>
                         <Check />
                         Ausgerüstet
                       </button>
                       {weapon.modifiable && (
                         <button
                           onClick={() => setModifyWeapon(weapon)}
-                          className="weaponshop_btn_modify"
+                          className="ginshi_btn_primary ginshi_btn_icon_sm"
                         >
                           <Wrench />
                         </button>
