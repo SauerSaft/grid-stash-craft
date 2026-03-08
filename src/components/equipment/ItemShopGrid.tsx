@@ -70,13 +70,6 @@ const ItemShopGrid = () => {
                     </div>
                   </td>
 
-                  {/* Unit Price */}
-                  <td className="ginshi_td ginshi_td_center itemshop_col_unit_price">
-                    <div>
-                      <span className="ginshi_text_num">{formatPrice(item.price)}</span>
-                    </div>
-                  </td>
-
                   {/* Total */}
                   <td className="ginshi_td ginshi_td_center itemshop_col_total">
                     <div>
