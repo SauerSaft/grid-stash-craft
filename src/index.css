@@ -2843,8 +2843,8 @@
 
 .loadout2_editor_select option:hover,
 .loadout2_editor_select option:checked {
-  background: hsl(var(--primary) / 0.15);
-  color: hsl(var(--primary));
+  background: hsl(240 6% 14%);
+  color: hsl(var(--foreground));
 }
 
 .loadout2_editor_input:disabled,
