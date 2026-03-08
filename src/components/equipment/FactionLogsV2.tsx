@@ -194,30 +194,30 @@ const FactionLogsV2 = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="logs_pagination">
-            <span className="logs_pagination_info">
+          <div className="ginshi_pagination">
+            <span className="ginshi_pagination_info">
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
             </span>
-            <div className="logs_pagination_btns">
-              <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="logs_page_btn">
+            <div className="ginshi_pagination_btns">
+              <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="ginshi_page_btn">
                 <ChevronsLeft />
               </button>
-              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="ginshi_page_btn">
                 <ChevronLeft />
               </button>
               {getPageRange().map((p) => (
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`logs_page_num ${p === currentPage ? "logs_page_num_active" : ""}`}
+                  className={`ginshi_page_num ${p === currentPage ? "ginshi_page_num_active" : ""}`}
                 >
                   {p}
                 </button>
               ))}
-              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="ginshi_page_btn">
                 <ChevronRight />
               </button>
-              <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} className="logs_page_btn">
+              <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} className="ginshi_page_btn">
                 <ChevronsRight />
               </button>
             </div>
