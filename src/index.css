@@ -1484,14 +1484,14 @@
 }
 
 .treasury_stat_icon {
-  padding: 0.4rem;
+  padding: 0.55rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.04);
 }
 
 .treasury_stat_icon svg {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
 }
 
 .treasury_stat_label {
