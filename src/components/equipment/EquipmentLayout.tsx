@@ -7,7 +7,6 @@ import ArmoryTable from "./ArmoryTable";
 import WeaponShopGrid from "./WeaponShopGrid";
 import FactionTreasury from "./FactionTreasury";
 import FactionMembers from "./FactionMembers";
-import FactionLogs from "./FactionLogs";
 import FactionLogsV2 from "./FactionLogsV2";
 import ItemShopGrid from "./ItemShopGrid";
 import bgImage from "@/assets/bg.png";
