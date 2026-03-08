@@ -138,54 +138,53 @@ const FactionLogsV2 = () => {
 
   return (
     <div className="ginshi_section">
-      <div className="logs_card">
-        {/* Header */}
-        <div className="logs_header">
-          <div className="ginshi_section_header_icon">
-            <ScrollText size={16} />
-          </div>
-          <div className="ginshi_section_header_content">
-            <span className="ginshi_section_header_title">Logs</span>
-            <span className="ginshi_section_header_subtitle">Alle Aktivitäten der Fraktion im Überblick</span>
-          </div>
-          <div className="logs_header_count">
-            <span className="logs_header_count_label">Gesamt</span>
-            <span className="logs_header_count_value">{allLogs.length}</span>
+      {/* Page Header */}
+      <div className="ginshi_section_header">
+        <div className="ginshi_section_header_icon">
+          <ScrollText size={16} />
+        </div>
+        <div className="ginshi_section_header_content">
+          <span className="ginshi_section_header_title">Logs</span>
+          <span className="ginshi_section_header_subtitle">Alle Aktivitäten der Fraktion im Überblick</span>
+        </div>
+        <div className="ginshi_section_header_badges">
+          <div className="ginshi_badge">
+            <ScrollText size={10} className="ginshi_badge_icon" />
+            <span className="ginshi_badge_value">{allLogs.length} Einträge</span>
           </div>
         </div>
+      </div>
 
-        <div className="logs_separator" />
+      {/* Tab Bar */}
+      <div className="ginshi_tab_bar">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`ginshi_tab ${isActive ? "ginshi_tab_active" : ""}`}
+            >
+              <tab.icon />
+              {tab.label}
+              <span className={`logs_tab_count ${isActive ? "logs_tab_count_active" : "logs_tab_count_inactive"}`}>
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
-        {/* Tab Bar */}
-        <div className="logs_tab_bar">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`logs_tab ${isActive ? "logs_tab_active" : ""}`}
-              >
-                <tab.icon />
-                {tab.label}
-                <span className={`logs_tab_count ${isActive ? "logs_tab_count_active" : "logs_tab_count_inactive"}`}>
-                  {tab.count}
-                </span>
-              </button>
-            );
-          })}
+      {/* Table */}
+      <div className="ginshi_grid_table">
+        <div className="ginshi_grid_thead logs_cols">
+          <span className="ginshi_grid_th">ID</span>
+          <span className="ginshi_grid_th">Name</span>
+          <span className="ginshi_grid_th">Details</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Zeit</span>
         </div>
 
-        {/* Table Header */}
-        <div className="logs_thead logs_cols">
-          <span className="logs_th">ID</span>
-          <span className="logs_th">Name</span>
-          <span className="logs_th">Details</span>
-          <span className="logs_th" style={{ textAlign: "right" }}>Zeit</span>
-        </div>
-
-        {/* Rows */}
-        <div className="logs_tbody">
+        <div className="ginshi_grid_tbody">
           {paginatedLogs.map(renderRow)}
         </div>
 
