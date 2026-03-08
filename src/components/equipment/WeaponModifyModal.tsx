@@ -48,28 +48,28 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="ginshi_modify_modal max-w-[520px] p-0 gap-0 bg-black/95 border border-primary/[0.12] rounded-sm overflow-hidden backdrop-blur-xl">
+      <DialogContent className="ginshi_modify_modal max-w-[700px] p-0 gap-0 bg-black/95 border border-primary/[0.12] rounded-sm overflow-hidden backdrop-blur-xl">
         <DialogTitle className="sr-only">Waffenmodifikation: {weaponName}</DialogTitle>
 
         {/* Header */}
-        <div className="ginshi_modify_header flex items-center gap-3 px-4 py-3 border-b border-white/[0.06]">
-          <div className="w-[3px] h-4 rounded-full bg-primary" style={{ boxShadow: "0 0 8px hsl(48 100% 50% / 0.4)" }} />
+        <div className="ginshi_modify_header flex items-center gap-3 px-5 py-4 border-b border-white/[0.06]">
+          <div className="w-[3px] h-5 rounded-full bg-primary" style={{ boxShadow: "0 0 8px hsl(48 100% 50% / 0.4)" }} />
           <div className="flex items-center gap-2 flex-1">
-            <Crosshair size={13} className="text-primary" />
-            <span className="text-sm font-bold tracking-tight text-foreground">
+            <Crosshair size={15} className="text-primary" />
+            <span className="text-[15px] font-bold tracking-tight text-foreground">
               Waffenmodifikation: <span className="text-primary">{weaponName}</span>
             </span>
           </div>
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_modify_close w-6 h-6 flex items-center justify-center rounded-sm bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-destructive/30 transition-colors"
+            className="ginshi_modify_close w-7 h-7 flex items-center justify-center rounded-sm bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-destructive/30 transition-colors"
           >
-            <X size={11} className="text-muted-foreground" />
+            <X size={13} className="text-muted-foreground" />
           </button>
         </div>
 
         {/* Weapon Display */}
-        <div className="ginshi_modify_weapon_display relative mx-4 mt-4 h-[140px] rounded-sm bg-black/60 border border-white/[0.06] overflow-hidden flex items-center justify-center">
+        <div className="ginshi_modify_weapon_display relative mx-5 mt-5 h-[190px] rounded-sm bg-black/60 border border-white/[0.06] overflow-hidden flex items-center justify-center">
           {/* Corner accents */}
           <div className="absolute top-0 left-0 w-6 h-[1px] bg-gradient-to-r from-primary/30 to-transparent" />
           <div className="absolute top-0 left-0 w-[1px] h-5 bg-gradient-to-b from-primary/30 to-transparent" />
@@ -81,53 +81,53 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
           <img
             src={weaponImage}
             alt={weaponName}
-            className="max-h-[110px] max-w-[85%] object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+            className="max-h-[150px] max-w-[85%] object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
             draggable={false}
           />
         </div>
 
         {/* Attachments Section */}
-        <div className="ginshi_modify_attachments flex flex-col gap-2.5 p-4">
+        <div className="ginshi_modify_attachments flex flex-col gap-3 p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Verfügbare Aufsätze</span>
-            <span className="text-[10px] font-bold tabular-nums text-primary/70 bg-primary/[0.08] border border-primary/[0.12] rounded-sm px-2 py-0.5">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-muted-foreground">Verfügbare Aufsätze</span>
+            <span className="text-[11px] font-bold tabular-nums text-primary/70 bg-primary/[0.08] border border-primary/[0.12] rounded-sm px-2.5 py-1">
               {equippedCount}/{attachments.length}
             </span>
           </div>
 
-          <div className="ginshi_modify_grid grid grid-cols-2 gap-2">
+          <div className="ginshi_modify_grid grid grid-cols-2 gap-3">
             {attachments.map((att) => (
               <button
                 key={att.id}
                 onClick={() => toggleAttachment(att.id)}
-                className={`ginshi_attachment_box group relative flex items-center gap-2.5 p-2 rounded-sm border transition-colors ${
+                className={`ginshi_attachment_box group relative flex items-center gap-3 p-3 rounded-sm border transition-colors ${
                   att.equipped
                     ? "bg-primary/[0.08] border-primary/25"
                     : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1]"
                 }`}
               >
                 {/* Attachment image */}
-                <div className="ginshi_attachment_img relative w-10 h-10 rounded-sm bg-black/50 border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <div className="ginshi_attachment_img relative w-12 h-12 rounded-sm bg-black/50 border border-white/[0.04] flex items-center justify-center flex-shrink-0 overflow-hidden">
                   <img
                     src={att.image}
                     alt={att.name}
-                    className="w-8 h-8 object-contain brightness-90"
+                    className="w-10 h-10 object-contain brightness-90"
                     draggable={false}
                   />
                   {att.equipped && (
                     <div className="absolute inset-0 bg-primary/[0.06] flex items-center justify-center">
-                      <Check size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 4px hsl(48 100% 50% / 0.5))" }} />
+                      <Check size={16} className="text-primary" style={{ filter: "drop-shadow(0 0 4px hsl(48 100% 50% / 0.5))" }} />
                     </div>
                   )}
                 </div>
 
                 {/* Info */}
                 <div className="ginshi_attachment_info flex flex-col items-start gap-0.5 min-w-0">
-                  <span className="text-[11px] font-bold text-foreground truncate w-full text-left leading-tight">
+                  <span className="text-[13px] font-bold text-foreground truncate w-full text-left leading-tight">
                     {att.name}
                   </span>
                   {att.price != null && (
-                    <span className="text-[10px] font-semibold text-primary/80 tabular-nums">
+                    <span className="text-[11px] font-semibold text-primary/80 tabular-nums">
                       {formatPrice(att.price)}
                     </span>
                   )}
@@ -138,16 +138,16 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
         </div>
 
         {/* Actions */}
-        <div className="ginshi_modify_actions flex gap-2 px-4 pb-4">
+        <div className="ginshi_modify_actions flex gap-3 px-5 pb-5">
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_btn_confirm flex-1 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors"
+            className="ginshi_btn_confirm flex-1 py-2.5 rounded-sm text-[12px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors"
           >
             Übernehmen
           </button>
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_btn_cancel flex-1 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:border-white/[0.1] transition-colors"
+            className="ginshi_btn_cancel flex-1 py-2.5 rounded-sm text-[12px] font-bold uppercase tracking-wider bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:border-white/[0.1] transition-colors"
           >
             Abbrechen
           </button>
