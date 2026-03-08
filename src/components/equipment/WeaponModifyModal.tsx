@@ -100,7 +100,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
               <button
                 key={att.id}
                 onClick={() => toggleAttachment(att.id)}
-                className={`ginshi_attachment_box group relative flex items-center gap-2.5 p-2 rounded-sm border transition-colors ${
+                className={`ginshi_attachment_box group relative flex items-center gap-3 p-3 rounded-sm border transition-colors ${
                   att.equipped
                     ? "bg-primary/[0.08] border-primary/25"
                     : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1]"
