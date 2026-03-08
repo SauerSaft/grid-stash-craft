@@ -655,3 +655,97 @@
 .ginshi_icon_success {
   color: hsl(var(--success));
 }
+
+/* ========== ITEM SHOP ========== */
+
+.itemshop_col_amount { width: 100px; }
+.itemshop_col_unit_price { width: 130px; }
+.itemshop_col_total { width: 130px; }
+.itemshop_col_action { width: 140px; }
+
+.itemshop_item_name {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.itemshop_item_dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  background: hsl(var(--primary) / 0.4);
+  transition: all 0.15s;
+}
+
+.ginshi_tr:hover .itemshop_item_dot {
+  background: hsl(var(--primary));
+  box-shadow: 0 0 6px hsl(48 100% 50% / 0.5);
+}
+
+.itemshop_item_name_text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemshop_amount_badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.125rem;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.2);
+}
+
+.itemshop_price_text {
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--muted-foreground));
+}
+
+.itemshop_total_text {
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--foreground));
+}
+
+.itemshop_btn_buy {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--info) / 0.12);
+  border: 1px solid hsl(var(--info) / 0.25);
+  color: hsl(var(--info));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.itemshop_btn_buy:hover {
+  background: hsl(var(--info) / 0.22);
+  border-color: hsl(var(--info) / 0.45);
+  box-shadow: 0 0 10px hsl(199 89% 48% / 0.2);
+}
+
+.itemshop_btn_buy svg {
+  width: 14px;
+  height: 14px;
+}
