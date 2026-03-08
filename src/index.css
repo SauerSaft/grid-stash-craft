@@ -590,7 +590,7 @@
 }
 
 .ginshi_member_name_text {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: hsl(var(--foreground));
   overflow: hidden;
