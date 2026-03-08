@@ -715,10 +715,10 @@
 
 /* ========== ITEM SHOP ========== */
 
-.itemshop_col_amount { width: 100px; }
-.itemshop_col_unit_price { width: 130px; }
-.itemshop_col_total { width: 130px; }
-.itemshop_col_action { width: 140px; }
+.itemshop_col_amount { width: 14%; text-align: center; }
+.itemshop_col_unit_price { width: 18%; text-align: center; }
+.itemshop_col_total { width: 18%; text-align: center; }
+.itemshop_col_action { width: 16%; text-align: right; }
 
 .itemshop_item_name {
   display: flex;
