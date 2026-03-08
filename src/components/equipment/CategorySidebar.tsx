@@ -9,6 +9,7 @@ const categories: Category[] = [
   { id: "item-shop", label: "Item Shop", icon: "weapon" },
   { id: "waffenkammer", label: "Waffenkammer", icon: "weapon" },
   { id: "fraklager", label: "Fraklager", icon: "weapon" },
+  { id: "loadouts", label: "Loadouts", icon: "weapon" },
   { id: "fraktionskasse", label: "Fraktionskasse", icon: "weapon" },
   { id: "mitglieder", label: "Mitglieder", icon: "person" },
   { id: "logs", label: "Logs", icon: "weapon" },
