@@ -69,7 +69,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
         </div>
 
         {/* Weapon Display */}
-        <div className="ginshi_modify_weapon_display relative mx-4 mt-4 h-[140px] rounded-sm bg-black/60 border border-white/[0.06] overflow-hidden flex items-center justify-center">
+        <div className="ginshi_modify_weapon_display relative mx-5 mt-5 h-[190px] rounded-sm bg-black/60 border border-white/[0.06] overflow-hidden flex items-center justify-center">
           {/* Corner accents */}
           <div className="absolute top-0 left-0 w-6 h-[1px] bg-gradient-to-r from-primary/30 to-transparent" />
           <div className="absolute top-0 left-0 w-[1px] h-5 bg-gradient-to-b from-primary/30 to-transparent" />
