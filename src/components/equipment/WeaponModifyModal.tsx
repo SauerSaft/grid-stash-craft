@@ -6,6 +6,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import bgPattern from "@/assets/bg.png";
+import gridOverlay from "@/assets/grid.png";
+
 import scopeImg from "@/assets/attachments/scope.png";
 import flashlightImg from "@/assets/attachments/flashlight.png";
 import suppressorImg from "@/assets/attachments/suppressor.png";
@@ -49,6 +52,10 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="ginshi_modal">
+        {/* Background overlays */}
+        <img src={bgPattern} className="ginshi_modal_bg" draggable={false} alt="" />
+        <img src={gridOverlay} className="ginshi_modal_grid" draggable={false} alt="" />
+
         <DialogTitle className="sr-only">Waffenmodifikation: {weaponName}</DialogTitle>
 
         {/* Header */}
