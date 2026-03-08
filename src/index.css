@@ -635,7 +635,7 @@
 .ginshi_rank_dot_low { background: hsl(var(--muted-foreground) / 0.4); }
 
 .ginshi_rank_text {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
