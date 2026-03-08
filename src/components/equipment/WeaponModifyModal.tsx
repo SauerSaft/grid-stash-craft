@@ -62,9 +62,9 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
           </div>
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_modify_close w-6 h-6 flex items-center justify-center rounded-sm bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-destructive/30 transition-colors"
+            className="ginshi_modify_close w-7 h-7 flex items-center justify-center rounded-sm bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-destructive/30 transition-colors"
           >
-            <X size={11} className="text-muted-foreground" />
+            <X size={13} className="text-muted-foreground" />
           </button>
         </div>
 
