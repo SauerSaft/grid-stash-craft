@@ -138,16 +138,16 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
         </div>
 
         {/* Actions */}
-        <div className="ginshi_modify_actions flex gap-2 px-4 pb-4">
+        <div className="ginshi_modify_actions flex gap-3 px-5 pb-5">
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_btn_confirm flex-1 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors"
+            className="ginshi_btn_confirm flex-1 py-2.5 rounded-sm text-[12px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/30 text-primary hover:bg-primary/25 hover:border-primary/50 transition-colors"
           >
             Übernehmen
           </button>
           <button
             onClick={() => onOpenChange(false)}
-            className="ginshi_btn_cancel flex-1 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:border-white/[0.1] transition-colors"
+            className="ginshi_btn_cancel flex-1 py-2.5 rounded-sm text-[12px] font-bold uppercase tracking-wider bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:border-white/[0.1] transition-colors"
           >
             Abbrechen
           </button>
