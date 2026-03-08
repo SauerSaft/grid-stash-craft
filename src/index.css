@@ -383,8 +383,8 @@
 .ginshi_badge {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -392,10 +392,12 @@
 
 .ginshi_badge_icon {
   color: hsl(var(--muted-foreground));
+  width: 14px;
+  height: 14px;
 }
 
 .ginshi_badge_value {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--foreground));
@@ -404,8 +406,8 @@
 .ginshi_badge_online {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 0.125rem;
   background: hsl(var(--success) / 0.06);
   border: 1px solid hsl(var(--success) / 0.15);
@@ -416,7 +418,7 @@
 }
 
 .ginshi_badge_online_text {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--success));
