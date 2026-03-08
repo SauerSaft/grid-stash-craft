@@ -3,12 +3,7 @@ import { ScrollText, ShoppingCart, Shield, Package, Landmark, ArrowDownToLine, A
 
 type LogTab = "waffenshop" | "waffenkammer" | "fraklager" | "frakkasse";
 
-interface BaseLog {
-  id: number;
-  name: string;
-  date: string;
-}
-
+interface BaseLog { id: number; name: string; date: string; }
 interface ShopLog extends BaseLog { weapon: string; }
 interface ArmoryLog extends BaseLog { weapon: string; direction: "in" | "out"; }
 interface StorageLog extends BaseLog { item: string; amount: number; direction: "in" | "out"; }
@@ -57,22 +52,20 @@ const FactionLogsV2 = () => {
   };
 
   const renderRow = (log: any) => {
-    const rowBase = "ginshi_log_row grid grid-cols-[50px_1fr_1fr_100px] items-center px-3 py-[7px] border-b border-white/[0.03] hover:bg-white/[0.03] transition-colors";
-
     if (activeTab === "waffenshop") {
       return (
-        <div key={log.id} className={rowBase}>
-          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
-          <div className="flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
+        <div key={log.id} className="logs_row logs_cols">
+          <span className="logs_row_id">#{log.id}</span>
+          <div className="logs_row_name">
+            <div className="logs_row_dot" />
+            <span className="logs_row_name_text">{log.name}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <ShoppingCart size={10} className="text-primary/60" />
-            <span className="text-[11px] font-medium text-primary/80">{log.weapon}</span>
-            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm bg-primary/10 border border-primary/20 text-primary">Gekauft</span>
+          <div className="logs_row_detail">
+            <ShoppingCart className="ginshi_icon_primary" style={{ opacity: 0.6 }} />
+            <span className="logs_row_detail_text" style={{ color: "hsl(var(--primary) / 0.8)" }}>{log.weapon}</span>
+            <span className="logs_row_badge logs_row_badge_primary">Gekauft</span>
           </div>
-          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
+          <span className="logs_row_date">{log.date}</span>
         </div>
       );
     }
@@ -80,20 +73,20 @@ const FactionLogsV2 = () => {
     if (activeTab === "waffenkammer") {
       const isOut = (log as ArmoryLog).direction === "out";
       return (
-        <div key={log.id} className={rowBase}>
-          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
-          <div className="flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
+        <div key={log.id} className="logs_row logs_cols">
+          <span className="logs_row_id">#{log.id}</span>
+          <div className="logs_row_name">
+            <div className="logs_row_dot" />
+            <span className="logs_row_name_text">{log.name}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            {isOut ? <ArrowUpFromLine size={10} className="text-destructive/80" /> : <ArrowDownToLine size={10} className="text-success/80" />}
-            <span className="text-[11px] font-medium text-foreground/80">{(log as ArmoryLog).weapon}</span>
-            <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
+          <div className="logs_row_detail">
+            {isOut ? <ArrowUpFromLine className="ginshi_icon_destructive" style={{ opacity: 0.8 }} /> : <ArrowDownToLine className="ginshi_icon_success" style={{ opacity: 0.8 }} />}
+            <span className="logs_row_detail_text" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{(log as ArmoryLog).weapon}</span>
+            <span className={`logs_row_badge ${isOut ? "logs_row_badge_destructive" : "logs_row_badge_success"}`}>
               {isOut ? "Entnommen" : "Eingelagert"}
             </span>
           </div>
-          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
+          <span className="logs_row_date">{log.date}</span>
         </div>
       );
     }
@@ -102,20 +95,20 @@ const FactionLogsV2 = () => {
       const sLog = log as StorageLog;
       const sOut = sLog.direction === "out";
       return (
-        <div key={log.id} className={rowBase}>
-          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
-          <div className="flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
+        <div key={log.id} className="logs_row logs_cols">
+          <span className="logs_row_id">#{log.id}</span>
+          <div className="logs_row_name">
+            <div className="logs_row_dot" />
+            <span className="logs_row_name_text">{log.name}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            {sOut ? <ArrowUpFromLine size={10} className="text-destructive/80" /> : <ArrowDownToLine size={10} className="text-success/80" />}
-            <span className="text-[11px] font-medium text-foreground/80">{sLog.item}</span>
-            <span className={`text-[9px] font-bold tabular-nums px-1.5 py-0.5 rounded-sm ${sOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
+          <div className="logs_row_detail">
+            {sOut ? <ArrowUpFromLine className="ginshi_icon_destructive" style={{ opacity: 0.8 }} /> : <ArrowDownToLine className="ginshi_icon_success" style={{ opacity: 0.8 }} />}
+            <span className="logs_row_detail_text" style={{ color: "hsl(var(--foreground) / 0.8)" }}>{sLog.item}</span>
+            <span className={`logs_row_badge ${sOut ? "logs_row_badge_destructive" : "logs_row_badge_success"}`}>
               {sOut ? `-${sLog.amount}` : `+${sLog.amount}`}
             </span>
           </div>
-          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
+          <span className="logs_row_date">{log.date}</span>
         </div>
       );
     }
@@ -123,68 +116,59 @@ const FactionLogsV2 = () => {
     const tLog = log as TreasuryLog;
     const isDep = tLog.type === "deposit";
     return (
-      <div key={log.id} className={rowBase}>
-        <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
-        <div className="flex items-center gap-2">
-          <div className="w-1 h-1 rounded-full bg-primary/40" />
-          <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
+      <div key={log.id} className="logs_row logs_cols">
+        <span className="logs_row_id">#{log.id}</span>
+        <div className="logs_row_name">
+          <div className="logs_row_dot" />
+          <span className="logs_row_name_text">{log.name}</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          {isDep ? <ArrowDownToLine size={10} className="text-success/80" /> : <ArrowUpFromLine size={10} className="text-destructive/80" />}
-          <span className={`text-[11px] font-extrabold tabular-nums ${isDep ? "text-success" : "text-destructive"}`}>
+        <div className="logs_row_detail">
+          {isDep ? <ArrowDownToLine className="ginshi_icon_success" style={{ opacity: 0.8 }} /> : <ArrowUpFromLine className="ginshi_icon_destructive" style={{ opacity: 0.8 }} />}
+          <span className={`logs_row_detail_text ${isDep ? "ginshi_icon_success" : "ginshi_icon_destructive"}`} style={{ fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>
             {isDep ? "+" : "-"}${tLog.amount.toLocaleString("de-DE")}
           </span>
-          <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isDep ? "bg-success/10 border border-success/20 text-success" : "bg-destructive/10 border border-destructive/20 text-destructive"}`}>
+          <span className={`logs_row_badge ${isDep ? "logs_row_badge_success" : "logs_row_badge_destructive"}`}>
             {isDep ? "Einzahlung" : "Auszahlung"}
           </span>
         </div>
-        <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
+        <span className="logs_row_date">{log.date}</span>
       </div>
     );
   };
 
   return (
-    <div className="ginshi_logs_v2 flex flex-col flex-1 overflow-hidden">
-      {/* Single unified card */}
-      <div className="ginshi_logs_v2_card flex flex-col flex-1 overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02]">
-
-        {/* ─── Section Header ─── */}
-        <div className="ginshi_logs_v2_header flex items-center gap-3 px-4 py-3">
-          <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-            <ScrollText size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
+    <div className="ginshi_section">
+      <div className="logs_card">
+        {/* Header */}
+        <div className="logs_header">
+          <div className="ginshi_section_header_icon">
+            <ScrollText size={16} />
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-tight text-foreground">Logs</span>
-            <span className="text-[10.5px] font-medium text-muted-foreground">Alle Aktivitäten der Fraktion im Überblick</span>
+          <div className="ginshi_section_header_content">
+            <span className="ginshi_section_header_title">Logs</span>
+            <span className="ginshi_section_header_subtitle">Alle Aktivitäten der Fraktion im Überblick</span>
           </div>
-          <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-white/[0.03] border border-white/[0.06]">
-            <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Gesamt</span>
-            <span className="text-xs font-extrabold tabular-nums text-primary">{allLogs.length}</span>
+          <div className="logs_header_count">
+            <span className="logs_header_count_label">Gesamt</span>
+            <span className="logs_header_count_value">{allLogs.length}</span>
           </div>
         </div>
 
-        {/* ─── Separator ─── */}
-        <div className="ginshi_logs_v2_separator border-b border-white/[0.06]" />
+        <div className="logs_separator" />
 
-        {/* ─── Tab Bar ─── */}
-        <div className="ginshi_logs_v2_tabs flex items-center gap-1 px-4 py-2.5">
+        {/* Tab Bar */}
+        <div className="logs_tab_bar">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`ginshi_logs_v2_tab flex items-center gap-1.5 px-3.5 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider transition-all ${
-                  isActive
-                    ? "bg-primary/15 border border-primary/40 text-primary shadow-[0_0_10px_hsl(48_100%_50%_/_0.1)]"
-                    : "bg-white/[0.02] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.05] hover:text-foreground"
-                }`}
+                className={`logs_tab ${isActive ? "logs_tab_active" : ""}`}
               >
-                <tab.icon size={11} />
+                <tab.icon />
                 {tab.label}
-                <span className={`text-[8px] font-extrabold tabular-nums ml-0.5 px-1.5 py-0 rounded-sm ${
-                  isActive ? "bg-primary/20 text-primary" : "bg-white/[0.04] text-muted-foreground/50"
-                }`}>
+                <span className={`logs_tab_count ${isActive ? "logs_tab_count_active" : "logs_tab_count_inactive"}`}>
                   {tab.count}
                 </span>
               </button>
@@ -192,66 +176,46 @@ const FactionLogsV2 = () => {
           })}
         </div>
 
-        {/* ─── Table Header ─── */}
-        <div className="ginshi_logs_v2_thead grid grid-cols-[50px_1fr_1fr_100px] px-3 py-2 border-t border-b border-white/[0.08] bg-black/50">
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">ID</span>
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Name</span>
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Details</span>
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground text-right">Zeit</span>
+        {/* Table Header */}
+        <div className="logs_thead logs_cols">
+          <span className="logs_th">ID</span>
+          <span className="logs_th">Name</span>
+          <span className="logs_th">Details</span>
+          <span className="logs_th" style={{ textAlign: "right" }}>Zeit</span>
         </div>
 
-        {/* ─── Rows ─── */}
-        <div className="ginshi_logs_v2_tbody flex-1 overflow-y-auto">
+        {/* Rows */}
+        <div className="logs_tbody">
           {paginatedLogs.map(renderRow)}
         </div>
 
-        {/* ─── Pagination Footer ─── */}
+        {/* Pagination */}
         {totalPages > 1 && (
-          <div className="ginshi_logs_v2_pagination flex items-center justify-between px-4 py-2.5 border-t border-white/[0.06]">
-            <span className="text-[10px] tabular-nums text-muted-foreground/50">
+          <div className="logs_pagination">
+            <span className="logs_pagination_info">
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
             </span>
-            <div className="flex items-center gap-0.5">
-              <button
-                onClick={() => setCurrentPage(1)}
-                disabled={currentPage === 1}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
-              >
-                <ChevronsLeft size={12} />
+            <div className="logs_pagination_btns">
+              <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="logs_page_btn">
+                <ChevronsLeft />
               </button>
-              <button
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className="p-1.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
-              >
-                <ChevronLeft size={12} />
+              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="logs_page_btn">
+                <ChevronLeft />
               </button>
               {getPageRange().map((p) => (
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`min-w-[26px] h-[26px] rounded-sm text-[10px] font-bold tabular-nums transition-all ${
-                    p === currentPage
-                      ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_8px_hsl(48_100%_50%_/_0.15)]"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
-                  }`}
+                  className={`logs_page_num ${p === currentPage ? "logs_page_num_active" : ""}`}
                 >
                   {p}
                 </button>
               ))}
-              <button
-                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage === totalPages}
-                className="p-1.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
-              >
-                <ChevronRight size={12} />
+              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="logs_page_btn">
+                <ChevronRight />
               </button>
-              <button
-                onClick={() => setCurrentPage(totalPages)}
-                disabled={currentPage === totalPages}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
-              >
-                <ChevronsRight size={12} />
+              <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} className="logs_page_btn">
+                <ChevronsRight />
               </button>
             </div>
           </div>
