@@ -1907,7 +1907,7 @@
 
 /* ---- 3.4 Armory ---- */
 
-.armory_cols { grid-template-columns: 140px 1fr 22% 22%; }
+.armory_cols { grid-template-columns: 140px 1fr 18% 22%; }
 
 .armory_showcase {
   position: relative;
@@ -2130,7 +2130,7 @@
 
 /* ---- 3.7 Logs ---- */
 
-.logs_cols { grid-template-columns: 55px 1fr 1fr 110px; }
+.logs_cols { grid-template-columns: 55px 1fr 1.6fr 110px; }
 
 .logs_row_id {
   font-size: 13px;
