@@ -200,7 +200,8 @@ const LoadoutsPage2 = () => {
         if (a.id !== id) return a;
         if (field === "source") {
           const newSource = value as ActionSource;
-          return { ...a, source: newSource, item: availableItems[newSource][0] };
+          const isWeapon = newSource === "waffenkammer" || newSource === "waffen-shop";
+          return { ...a, source: newSource, item: availableItems[newSource][0], amount: isWeapon ? 1 : a.amount };
         }
         return { ...a, [field]: value };
       })
