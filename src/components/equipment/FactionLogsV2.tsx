@@ -223,7 +223,7 @@ const FactionLogsV2 = () => {
 
         {/* ─── Pagination Footer (inside the card) ─── */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-black/30">
+          <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/[0.04]">
             <span className="text-[9px] tabular-nums text-muted-foreground/40">
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
             </span>
