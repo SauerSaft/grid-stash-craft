@@ -48,7 +48,6 @@ const ItemShopGrid = () => {
               <tr className="ginshi_tr_head">
                 <th className="ginshi_th">Name</th>
                 <th className="ginshi_th ginshi_th_center itemshop_col_amount">Menge</th>
-                <th className="ginshi_th ginshi_th_center itemshop_col_unit_price">Stückpreis</th>
                 <th className="ginshi_th ginshi_th_center itemshop_col_total">Gesamt</th>
                 <th className="ginshi_th ginshi_th_right itemshop_col_action">Aktion</th>
               </tr>
@@ -68,13 +67,6 @@ const ItemShopGrid = () => {
                   <td className="ginshi_td ginshi_td_center itemshop_col_amount">
                     <div>
                       <span className="ginshi_stock_badge_mid ginshi_stock_badge">{item.amount}x</span>
-                    </div>
-                  </td>
-
-                  {/* Unit Price */}
-                  <td className="ginshi_td ginshi_td_center itemshop_col_unit_price">
-                    <div>
-                      <span className="ginshi_text_num">{formatPrice(item.price)}</span>
                     </div>
                   </td>
 
