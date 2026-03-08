@@ -68,7 +68,7 @@ const ArmoryTable = () => {
         <div className="ginshi_grid_thead armory_cols">
           <span className="ginshi_grid_th">Waffe</span>
           <span className="ginshi_grid_th">Name</span>
-          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Bestand</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Menge</span>
           <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktion</span>
         </div>
 

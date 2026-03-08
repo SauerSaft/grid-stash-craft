@@ -1907,7 +1907,7 @@
 
 /* ---- 3.4 Armory ---- */
 
-.armory_cols { grid-template-columns: 140px 1fr 18% 22%; }
+.armory_cols { grid-template-columns: 140px 1fr 12% 22%; }
 
 .armory_showcase {
   position: relative;
