@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Check, Crosshair } from "lucide-react";
+import { X, Check } from "lucide-react";
 import {
   Dialog,
   DialogContent,
