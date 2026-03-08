@@ -33,143 +33,121 @@ const FactionTreasury = () => {
 
   const quickAmounts = [1000, 5000, 10000, 50000];
 
+  const stats = [
+    { icon: TrendingUp, label: "Einnahmen (Monat)", value: "$117.000", colorClass: "ginshi_icon_success" },
+    { icon: TrendingDown, label: "Ausgaben (Monat)", value: "$23.000", colorClass: "ginshi_icon_destructive" },
+    { icon: Wallet, label: "Bargeld verfügbar", value: "$84.500", colorClass: "ginshi_icon_primary" },
+  ];
+
   return (
-    <div className="ginshi_treasury_container flex flex-col flex-1 gap-3 overflow-hidden">
+    <div className="ginshi_section">
       {/* Page Header */}
-      <div className="ginshi_treasury_header flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-sm border border-white/[0.06]">
-        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-          <Landmark size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
+      <div className="ginshi_section_header">
+        <div className="ginshi_section_header_icon">
+          <Landmark size={16} />
         </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-bold tracking-tight text-foreground">Fraktionskasse</span>
-          <span className="text-xs font-medium text-muted-foreground">Verwalte das Vermögen deiner Fraktion</span>
+        <div className="ginshi_section_header_content">
+          <span className="ginshi_section_header_title">Fraktionskasse</span>
+          <span className="ginshi_section_header_subtitle">Verwalte das Vermögen deiner Fraktion</span>
         </div>
       </div>
 
-      <div className="ginshi_treasury_content flex-1 overflow-y-auto flex flex-col gap-3">
+      <div className="ginshi_grid_tbody">
         {/* Balance Card */}
-        <div className="ginshi_treasury_balance relative rounded-sm border border-primary/[0.15] overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.08] via-black/60 to-black/80 pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(48_100%_50%/0.06)_0%,transparent_60%)] pointer-events-none" />
+        <div className="treasury_balance_card">
+          <div className="treasury_balance_bg" />
+          <div className="treasury_balance_radial" />
+          <div className="treasury_balance_corner_tl" />
+          <div className="treasury_balance_corner_br" />
 
-          {/* Corner accents */}
-          <div className="absolute top-0 left-0 w-8 h-[1px] bg-gradient-to-r from-primary/40 to-transparent" />
-          <div className="absolute top-0 left-0 w-[1px] h-6 bg-gradient-to-b from-primary/40 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-8 h-[1px] bg-gradient-to-l from-primary/20 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-[1px] h-6 bg-gradient-to-t from-primary/20 to-transparent" />
-
-          {/* Decorative money icons - layered */}
-          <div className="absolute -bottom-2 -right-2 pointer-events-none select-none" style={{ transform: "rotate(-12deg)" }}>
-            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" className="opacity-[0.06]">
+          {/* Decorative money icons */}
+          <div className="treasury_balance_deco" style={{ bottom: "-0.5rem", right: "-0.5rem", transform: "rotate(-12deg)" }}>
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.06 }}>
               <rect x="2" y="6" width="20" height="12" rx="2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
               <circle cx="12" cy="12" r="3" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
               <path d="M2 9h2M20 9h2M2 15h2M20 15h2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
             </svg>
           </div>
-          <div className="absolute -bottom-4 right-10 pointer-events-none select-none" style={{ transform: "rotate(-20deg)" }}>
-            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" className="opacity-[0.04]">
+          <div className="treasury_balance_deco" style={{ bottom: "-1rem", right: "2.5rem", transform: "rotate(-20deg)" }}>
+            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.04 }}>
               <rect x="2" y="6" width="20" height="12" rx="2" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
               <circle cx="12" cy="12" r="3" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
             </svg>
           </div>
-          <div className="absolute bottom-3 right-24 pointer-events-none select-none" style={{ transform: "rotate(5deg)" }}>
-            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" className="opacity-[0.05]">
+          <div className="treasury_balance_deco" style={{ bottom: "0.75rem", right: "6rem", transform: "rotate(5deg)" }}>
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.05 }}>
               <circle cx="12" cy="12" r="8" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
               <path d="M12 8v8M9 10h6M9 14h6" stroke="hsl(48, 100%, 50%)" strokeWidth="0.8" />
             </svg>
           </div>
 
-          <div className="relative z-10 p-5 flex flex-col gap-1">
-            <span className="ginshi_treasury_label text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              Kontostand
-            </span>
-            <span className="ginshi_treasury_amount text-3xl font-extrabold text-primary tabular-nums tracking-tight" style={{ textShadow: "0 0 20px hsl(48 100% 50% / 0.3)" }}>
-              {formatCurrency(balance)}
-            </span>
-            <div className="w-16 h-[2px] rounded-full bg-gradient-to-r from-primary/50 to-transparent mt-1" />
+          <div className="treasury_balance_content">
+            <span className="treasury_balance_label">Kontostand</span>
+            <span className="treasury_balance_amount">{formatCurrency(balance)}</span>
+            <div className="treasury_balance_line" />
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="ginshi_treasury_stats grid grid-cols-3 gap-2">
-          {[
-            { icon: TrendingUp, label: "Einnahmen (Monat)", value: "$117.000", color: "text-success" },
-            { icon: TrendingDown, label: "Ausgaben (Monat)", value: "$23.000", color: "text-destructive" },
-            { icon: Wallet, label: "Bargeld verfügbar", value: "$84.500", color: "text-primary" },
-          ].map((stat) => (
-            <div key={stat.label} className="ginshi_stat_box flex items-center gap-2.5 p-3 rounded-sm bg-white/[0.02] border border-white/[0.06]">
-              <div className="p-1.5 rounded-sm bg-white/[0.04]">
-                <stat.icon size={13} className={stat.color} />
+        <div className="treasury_stats_grid" style={{ marginTop: "0.75rem" }}>
+          {stats.map((stat) => (
+            <div key={stat.label} className="treasury_stat_box">
+              <div className="treasury_stat_icon">
+                <stat.icon className={stat.colorClass} />
               </div>
-              <div className="flex flex-col gap-0.5 min-w-0">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground truncate">{stat.label}</span>
-                <span className={`text-sm font-extrabold tabular-nums ${stat.color}`}>{stat.value}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem", minWidth: 0 }}>
+                <span className="treasury_stat_label">{stat.label}</span>
+                <span className={`treasury_stat_value ${stat.colorClass}`}>{stat.value}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Deposit / Withdraw Section */}
-        <div className="ginshi_treasury_actions rounded-sm border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-          {/* Tabs */}
-          <div className="ginshi_treasury_tabs flex border-b border-white/[0.06]">
+        <div className="treasury_actions_card" style={{ marginTop: "0.75rem" }}>
+          <div className="treasury_action_tabs">
             <button
               onClick={() => setActiveTab("deposit")}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                activeTab === "deposit"
-                  ? "bg-success/[0.08] text-success border-b-2 border-success/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02]"
-              }`}
+              className={`treasury_action_tab ${activeTab === "deposit" ? "treasury_action_tab_deposit_active" : ""}`}
             >
-              <ArrowDownToLine size={11} />
+              <ArrowDownToLine />
               Einzahlen
             </button>
             <button
               onClick={() => setActiveTab("withdraw")}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                activeTab === "withdraw"
-                  ? "bg-destructive/[0.08] text-destructive border-b-2 border-destructive/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02]"
-              }`}
+              className={`treasury_action_tab ${activeTab === "withdraw" ? "treasury_action_tab_withdraw_active" : ""}`}
             >
-              <ArrowUpFromLine size={11} />
+              <ArrowUpFromLine />
               Auszahlen
             </button>
           </div>
 
-          <div className="p-3 flex flex-col gap-2.5">
-            {/* Input */}
-            <div className="ginshi_treasury_input flex items-center gap-2">
-              <div className="flex-1 flex items-center bg-black/40 border border-white/[0.08] rounded-sm overflow-hidden focus-within:border-primary/30 transition-colors">
-                <span className="pl-3 pr-1 text-xs font-bold text-primary/60">$</span>
+          <div className="treasury_actions_body">
+            <div className="treasury_input_row">
+              <div className="treasury_input_wrapper">
+                <span className="treasury_input_prefix">$</span>
                 <input
                   type="number"
                   value={inputAmount}
                   onChange={(e) => setInputAmount(e.target.value)}
                   placeholder="Betrag eingeben..."
-                  className="flex-1 bg-transparent py-2 pr-3 text-sm font-semibold text-foreground placeholder:text-muted-foreground/50 outline-none tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  className="treasury_input_field"
                 />
               </div>
               <button
                 onClick={handleAction}
-                className={`ginshi_btn_action px-4 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                  activeTab === "deposit"
-                    ? "bg-success/15 border border-success/30 text-success hover:bg-success/25 hover:border-success/50"
-                    : "bg-destructive/15 border border-destructive/30 text-destructive hover:bg-destructive/25 hover:border-destructive/50"
-                }`}
+                className={activeTab === "deposit" ? "treasury_btn_deposit" : "treasury_btn_withdraw"}
               >
                 {activeTab === "deposit" ? "Einzahlen" : "Auszahlen"}
               </button>
             </div>
 
-            {/* Quick amounts */}
-            <div className="ginshi_quick_amounts flex gap-1.5">
+            <div className="treasury_quick_amounts">
               {quickAmounts.map((amt) => (
                 <button
                   key={amt}
                   onClick={() => setInputAmount(String(amt))}
-                  className="flex-1 py-1.5 rounded-sm text-[10px] font-bold tabular-nums text-muted-foreground bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/[0.1] hover:text-foreground transition-colors"
+                  className="treasury_quick_btn"
                 >
                   {formatCurrency(amt)}
                 </button>
@@ -179,29 +157,25 @@ const FactionTreasury = () => {
         </div>
 
         {/* Transaction History */}
-        <div className="ginshi_treasury_history rounded-sm border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-white/[0.06]">
-            <Clock size={11} className="text-muted-foreground" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Letzte Transaktionen</span>
+        <div className="treasury_history" style={{ marginTop: "0.75rem" }}>
+          <div className="treasury_history_header">
+            <Clock />
+            <span>Letzte Transaktionen</span>
           </div>
-          <div className="ginshi_transaction_list flex flex-col max-h-[160px] overflow-y-auto">
+          <div className="treasury_tx_list">
             {mockTransactions.map((tx) => (
-              <div key={tx.id} className="ginshi_transaction_row flex items-center gap-3 px-3 py-2 border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors">
-                <div className={`w-6 h-6 rounded-sm flex items-center justify-center flex-shrink-0 ${
-                  tx.type === "deposit" ? "bg-success/10" : "bg-destructive/10"
-                }`}>
+              <div key={tx.id} className="treasury_tx_row">
+                <div className={`treasury_tx_icon ${tx.type === "deposit" ? "treasury_tx_icon_deposit" : "treasury_tx_icon_withdraw"}`}>
                   {tx.type === "deposit"
-                    ? <ArrowDownToLine size={10} className="text-success" />
-                    : <ArrowUpFromLine size={10} className="text-destructive" />
+                    ? <ArrowDownToLine className="ginshi_icon_success" />
+                    : <ArrowUpFromLine className="ginshi_icon_destructive" />
                   }
                 </div>
-                <div className="flex-1 flex flex-col gap-0.5 min-w-0">
-                  <span className="text-[11px] font-semibold text-foreground truncate">{tx.by}</span>
-                  <span className="text-[10px] text-muted-foreground">{tx.date}</span>
+                <div className="treasury_tx_info">
+                  <span className="treasury_tx_name">{tx.by}</span>
+                  <span className="treasury_tx_date">{tx.date}</span>
                 </div>
-                <span className={`text-xs font-extrabold tabular-nums ${
-                  tx.type === "deposit" ? "text-success" : "text-destructive"
-                }`}>
+                <span className={`treasury_tx_amount ${tx.type === "deposit" ? "ginshi_icon_success" : "ginshi_icon_destructive"}`}>
                   {tx.type === "deposit" ? "+" : "-"}{formatCurrency(tx.amount)}
                 </span>
               </div>

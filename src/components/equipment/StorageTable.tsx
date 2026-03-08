@@ -5,7 +5,6 @@ interface StorageItem {
   id: string;
   name: string;
   stock: number;
-  icon?: string;
 }
 
 const mockItems: StorageItem[] = [
@@ -21,6 +20,9 @@ const mockItems: StorageItem[] = [
 
 type TabMode = "auslagern" | "einlagern";
 
+const getStockClass = (stock: number) =>
+  stock > 50 ? "ginshi_stock_badge_high" : stock > 15 ? "ginshi_stock_badge_mid" : "ginshi_stock_badge_low";
+
 const StorageTable = () => {
   const [activeTab, setActiveTab] = useState<TabMode>("auslagern");
   const [amounts, setAmounts] = useState<Record<string, number>>({});
@@ -31,103 +33,70 @@ const StorageTable = () => {
     setAmounts((prev) => ({ ...prev, [id]: Math.max(1, Math.min(val, max)) }));
   };
 
-  const increment = (id: string, max: number) => {
-    setAmount(id, getAmount(id) + 1, max);
-  };
-
-  const decrement = (id: string, max: number) => {
-    setAmount(id, getAmount(id) - 1, max);
-  };
-
   return (
-    <div className="flex flex-col flex-1 gap-3 overflow-hidden">
+    <div className="ginshi_section">
       {/* Page Header */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-sm border border-white/[0.06]">
-        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-          <Package size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px rgba(255,217,0,0.5))" }} />
+      <div className="ginshi_section_header">
+        <div className="ginshi_section_header_icon">
+          <Package size={16} />
         </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-bold tracking-tight text-foreground">Fraklager</span>
-          <span className="text-xs font-medium text-muted-foreground">Lagere hier Items der Fraktion ein und aus.</span>
+        <div className="ginshi_section_header_content">
+          <span className="ginshi_section_header_title">Fraklager</span>
+          <span className="ginshi_section_header_subtitle">Lagere hier Items der Fraktion ein und aus.</span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1.5">
+      <div className="ginshi_tab_bar">
         <button
           onClick={() => setActiveTab("auslagern")}
-          className={`
-            flex items-center gap-1.5 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all
-            ${activeTab === "auslagern"
-              ? "bg-primary/20 border border-primary/50 text-primary shadow-[0_0_10px_rgba(255,217,0,0.15)]"
-              : "bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
-            }
-          `}
+          className={`ginshi_tab ${activeTab === "auslagern" ? "ginshi_tab_active" : ""}`}
         >
-          <ArrowUpFromLine size={12} />
+          <ArrowUpFromLine />
           Auslagern
         </button>
         <button
           onClick={() => setActiveTab("einlagern")}
-          className={`
-            flex items-center gap-1.5 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all
-            ${activeTab === "einlagern"
-              ? "bg-primary/20 border border-primary/50 text-primary shadow-[0_0_10px_rgba(255,217,0,0.15)]"
-              : "bg-white/[0.03] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
-            }
-          `}
+          className={`ginshi_tab ${activeTab === "einlagern" ? "ginshi_tab_active" : ""}`}
         >
-          <ArrowDownToLine size={12} />
+          <ArrowDownToLine />
           Einlagern
         </button>
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-y-auto rounded-sm border border-white/[0.06] bg-white/[0.02]">
-        {/* Table Header */}
-        <div className="grid grid-cols-[1fr_100px_140px_110px] px-4 py-2.5 border-b border-white/[0.08] bg-black/50 sticky top-0 z-10">
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Name</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Bestand</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Menge</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-right">Aktion</span>
+      <div className="ginshi_grid_table">
+        <div className="ginshi_grid_thead storage_cols">
+          <span className="ginshi_grid_th">Name</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Bestand</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Menge</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktion</span>
         </div>
 
-        {/* Table Rows */}
-        <div className="flex flex-col">
-          {mockItems.map((item, index) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-[1fr_100px_140px_110px] items-center px-4 py-2.5 border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group"
-            >
+        <div className="ginshi_grid_tbody">
+          {mockItems.map((item) => (
+            <div key={item.id} className="ginshi_grid_row storage_cols">
               {/* Name */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-1 h-1 rounded-full bg-primary/40 group-hover:bg-primary group-hover:shadow-[0_0_6px_rgba(255,217,0,0.5)] transition-all" />
-                <span className="text-sm font-semibold text-foreground tracking-tight">{item.name}</span>
+              <div className="ginshi_item_name">
+                <div className="ginshi_item_dot" />
+                <span className="ginshi_item_name_text">{item.name}</span>
               </div>
 
-              {/* Stock Badge */}
-              <div className="flex justify-center">
-                <span className={`
-                  inline-flex items-center justify-center min-w-[40px] px-2.5 py-0.5 rounded-sm text-xs font-bold tabular-nums
-                  ${item.stock > 50
-                    ? "bg-success/10 text-success border border-success/20"
-                    : item.stock > 15
-                      ? "bg-primary/10 text-primary border border-primary/20"
-                      : "bg-destructive/10 text-destructive border border-destructive/20"
-                  }
-                `}>
+              {/* Stock */}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <span className={`ginshi_stock_badge ${getStockClass(item.stock)}`}>
                   {item.stock}
                 </span>
               </div>
 
               {/* Amount Stepper */}
-              <div className="flex justify-center">
-                <div className="flex items-center gap-0 rounded-sm border border-white/[0.08] overflow-hidden bg-black/40">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div className="storage_stepper">
                   <button
-                    onClick={() => decrement(item.id, item.stock)}
-                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/[0.06] transition-colors border-r border-white/[0.06]"
+                    onClick={() => setAmount(item.id, getAmount(item.id) - 1, item.stock)}
+                    className="storage_stepper_btn storage_stepper_btn_left"
                   >
-                    <Minus size={11} />
+                    <Minus />
                   </button>
                   <input
                     type="number"
@@ -135,27 +104,27 @@ const StorageTable = () => {
                     max={item.stock}
                     value={getAmount(item.id)}
                     onChange={(e) => setAmount(item.id, parseInt(e.target.value) || 1, item.stock)}
-                    className="w-12 h-7 text-center text-xs font-bold text-foreground bg-transparent outline-none tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="storage_stepper_input"
                   />
                   <button
-                    onClick={() => increment(item.id, item.stock)}
-                    className="w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/[0.06] transition-colors border-l border-white/[0.06]"
+                    onClick={() => setAmount(item.id, getAmount(item.id) + 1, item.stock)}
+                    className="storage_stepper_btn storage_stepper_btn_right"
                   >
-                    <Plus size={11} />
+                    <Plus />
                   </button>
                 </div>
               </div>
 
-              {/* Action Button */}
-              <div className="flex justify-end">
+              {/* Action */}
+              <div className="ginshi_table_actions">
                 {activeTab === "auslagern" ? (
-                  <button className="flex items-center gap-1 px-3 py-1.5 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-primary/15 border border-primary/35 text-primary hover:bg-primary/25 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(255,217,0,0.2)] transition-all">
-                    <ArrowUpFromLine size={10} />
+                  <button className="ginshi_btn_primary">
+                    <ArrowUpFromLine />
                     Auslagern
                   </button>
                 ) : (
-                  <button className="flex items-center gap-1 px-3 py-1.5 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-success/15 border border-success/35 text-success hover:bg-success/25 hover:border-success/50 hover:shadow-[0_0_10px_rgba(76,217,100,0.2)] transition-all">
-                    <ArrowDownToLine size={10} />
+                  <button className="ginshi_btn_success">
+                    <ArrowDownToLine />
                     Einlagern
                   </button>
                 )}

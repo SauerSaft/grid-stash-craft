@@ -749,3 +749,1349 @@
   width: 14px;
   height: 14px;
 }
+
+/* ========== SHARED: TABS ========== */
+
+.ginshi_tab_bar {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.ginshi_tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: all 0.15s;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: hsl(var(--muted-foreground));
+}
+
+.ginshi_tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: hsl(var(--foreground));
+}
+
+.ginshi_tab svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ginshi_tab_active {
+  background: hsl(var(--primary) / 0.2);
+  border-color: hsl(var(--primary) / 0.5);
+  color: hsl(var(--primary));
+  box-shadow: 0 0 10px hsl(48 100% 50% / 0.15);
+}
+
+.ginshi_tab_active:hover {
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--primary));
+}
+
+/* Stock badge (shared armory / storage) */
+.ginshi_stock_badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.8rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.125rem;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ginshi_stock_badge_high {
+  background: hsl(var(--success) / 0.1);
+  color: hsl(var(--success));
+  border: 1px solid hsl(var(--success) / 0.2);
+}
+
+.ginshi_stock_badge_mid {
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.2);
+}
+
+.ginshi_stock_badge_low {
+  background: hsl(var(--destructive) / 0.1);
+  color: hsl(var(--destructive));
+  border: 1px solid hsl(var(--destructive) / 0.2);
+}
+
+/* Shared action button styles */
+.ginshi_btn_primary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--primary) / 0.15);
+  border: 1px solid hsl(var(--primary) / 0.35);
+  color: hsl(var(--primary));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ginshi_btn_primary:hover {
+  background: hsl(var(--primary) / 0.25);
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 0 10px hsl(48 100% 50% / 0.2);
+}
+
+.ginshi_btn_primary svg {
+  width: 13px;
+  height: 13px;
+}
+
+.ginshi_btn_success {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--success) / 0.15);
+  border: 1px solid hsl(var(--success) / 0.35);
+  color: hsl(var(--success));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ginshi_btn_success:hover {
+  background: hsl(var(--success) / 0.25);
+  border-color: hsl(var(--success) / 0.5);
+  box-shadow: 0 0 10px rgba(76, 217, 100, 0.2);
+}
+
+.ginshi_btn_success svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Grid-based table (for logs, armory, storage with custom columns) */
+.ginshi_grid_table {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.ginshi_grid_thead {
+  display: grid;
+  padding: 0.6rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.ginshi_grid_th {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--muted-foreground));
+}
+
+.ginshi_grid_tbody {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.ginshi_grid_row {
+  display: grid;
+  align-items: center;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background-color 0.15s;
+}
+
+.ginshi_grid_row:last-child {
+  border-bottom: 0;
+}
+
+.ginshi_grid_row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Item dot indicator (shared) */
+.ginshi_item_dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  background: hsl(var(--primary) / 0.4);
+  transition: all 0.15s;
+}
+
+.ginshi_grid_row:hover .ginshi_item_dot {
+  background: hsl(var(--primary));
+  box-shadow: 0 0 6px hsl(48 100% 50% / 0.5);
+}
+
+.ginshi_item_name {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.ginshi_item_name_text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ginshi_item_category {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground) / 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ========== WEAPON SHOP ========== */
+
+.weaponshop_grid {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.weaponshop_grid_inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.7rem;
+}
+
+.weaponshop_card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.125rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--primary) / 0.12);
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.15s;
+}
+
+.weaponshop_card:hover {
+  border-color: hsl(var(--primary) / 0.3);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.weaponshop_card_image {
+  position: relative;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.weaponshop_card_image_gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.04), transparent);
+  pointer-events: none;
+}
+
+.weaponshop_card_corner_tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.weaponshop_card_corner_tl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.1rem;
+  height: 1px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.3), transparent);
+}
+
+.weaponshop_card_corner_tl::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 0.85rem;
+  background: linear-gradient(to bottom, hsl(var(--primary) / 0.3), transparent);
+}
+
+.weaponshop_card_corner_br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1.1rem;
+  height: 1px;
+  background: linear-gradient(to left, hsl(var(--primary) / 0.2), transparent);
+}
+
+.weaponshop_card_img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.55rem;
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.weaponshop_card_owned {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+  background: hsl(var(--success) / 0.2);
+  border: 1px solid hsl(var(--success) / 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaponshop_card_owned svg {
+  width: 10px;
+  height: 10px;
+  color: hsl(var(--success));
+}
+
+.weaponshop_card_divider_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.15), transparent);
+}
+
+.weaponshop_card_content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  padding-top: 0.55rem;
+}
+
+.weaponshop_card_name {
+  font-size: 13px;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.weaponshop_card_price_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weaponshop_card_price_label {
+  font-size: 11px;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.weaponshop_card_price_value {
+  font-size: 13px;
+  font-weight: 800;
+  color: hsl(var(--primary));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.weaponshop_card_line {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.weaponshop_card_actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.weaponshop_btn_buy {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem;
+  border-radius: 0.125rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--info) / 0.15);
+  border: 1px solid hsl(var(--info) / 0.3);
+  color: hsl(var(--info));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.weaponshop_btn_buy:hover {
+  background: hsl(var(--info) / 0.25);
+  border-color: hsl(var(--info) / 0.5);
+}
+
+.weaponshop_btn_buy svg {
+  width: 11px;
+  height: 11px;
+}
+
+.weaponshop_btn_equipped {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem;
+  border-radius: 0.125rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--success) / 0.1);
+  border: 1px solid hsl(var(--success) / 0.2);
+  color: hsl(var(--success) / 0.5);
+  cursor: not-allowed;
+}
+
+.weaponshop_btn_equipped svg {
+  width: 11px;
+  height: 11px;
+}
+
+.weaponshop_btn_modify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.125rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--primary) / 0.15);
+  border: 1px solid hsl(var(--primary) / 0.3);
+  color: hsl(var(--primary));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.weaponshop_btn_modify:hover {
+  background: hsl(var(--primary) / 0.25);
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+.weaponshop_btn_modify svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* ========== ARMORY ========== */
+
+.armory_cols { grid-template-columns: 120px 1fr 110px 130px; }
+
+.armory_showcase {
+  position: relative;
+  width: 110px;
+  height: 50px;
+  border-radius: 0.125rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--primary) / 0.1);
+  background: linear-gradient(135deg, rgba(255, 217, 0, 0.06) 0%, rgba(255, 217, 0, 0.01) 35%, transparent 60%), rgba(0, 0, 0, 0.6);
+  transition: border-color 0.15s;
+}
+
+.ginshi_grid_row:hover .armory_showcase {
+  border-color: hsl(var(--primary) / 0.25);
+}
+
+.armory_showcase_corner_tl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.3rem;
+  height: 1px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.4), transparent);
+}
+
+.armory_showcase_corner_tl::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 0.85rem;
+  background: linear-gradient(to bottom, hsl(var(--primary) / 0.4), transparent);
+}
+
+.armory_showcase_corner_br {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0.08), transparent);
+}
+
+.armory_showcase_img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.4rem;
+  filter: brightness(0.9) contrast(1.1);
+  transition: transform 0.15s;
+}
+
+.ginshi_grid_row:hover .armory_showcase_img {
+  transform: scale(1.03);
+}
+
+.armory_weapon_info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== STORAGE ========== */
+
+.storage_cols { grid-template-columns: 1fr 110px 160px 130px; }
+
+.storage_stepper {
+  display: flex;
+  align-items: center;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.storage_stepper_btn {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+  border: none;
+}
+
+.storage_stepper_btn:hover {
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.storage_stepper_btn_left {
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.storage_stepper_btn_right {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.storage_stepper_btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.storage_stepper_input {
+  width: 3.2rem;
+  height: 2rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--foreground));
+  background: transparent;
+  outline: none;
+  border: none;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.storage_stepper_input::-webkit-outer-spin-button,
+.storage_stepper_input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ========== TREASURY ========== */
+
+.treasury_balance_card {
+  position: relative;
+  border-radius: 0.125rem;
+  border: 1px solid hsl(var(--primary) / 0.15);
+  overflow: hidden;
+}
+
+.treasury_balance_bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.08), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+  pointer-events: none;
+}
+
+.treasury_balance_radial {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at bottom right, hsl(48 100% 50% / 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.treasury_balance_corner_tl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.4), transparent);
+}
+
+.treasury_balance_corner_tl::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1.5rem;
+  background: linear-gradient(to bottom, hsl(var(--primary) / 0.4), transparent);
+}
+
+.treasury_balance_corner_br::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(to left, hsl(var(--primary) / 0.2), transparent);
+}
+
+.treasury_balance_corner_br::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  height: 1.5rem;
+  background: linear-gradient(to top, hsl(var(--primary) / 0.2), transparent);
+}
+
+.treasury_balance_content {
+  position: relative;
+  z-index: 10;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.treasury_balance_label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: hsl(var(--muted-foreground));
+}
+
+.treasury_balance_amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: hsl(var(--primary));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 20px hsl(48 100% 50% / 0.3);
+}
+
+.treasury_balance_line {
+  width: 4rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, hsl(var(--primary) / 0.5), transparent);
+  margin-top: 0.3rem;
+}
+
+.treasury_balance_deco {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.treasury_stats_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+}
+
+.treasury_stat_box {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem;
+  border-radius: 0.125rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.treasury_stat_icon {
+  padding: 0.4rem;
+  border-radius: 0.125rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.treasury_stat_icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.treasury_stat_label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--muted-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.treasury_stat_value {
+  font-size: 15px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.treasury_actions_card {
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.treasury_action_tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.treasury_action_tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: hsl(var(--muted-foreground));
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.treasury_action_tab:hover {
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.treasury_action_tab svg {
+  width: 13px;
+  height: 13px;
+}
+
+.treasury_action_tab_deposit_active {
+  background: hsl(var(--success) / 0.08);
+  color: hsl(var(--success));
+  border-bottom-color: hsl(var(--success) / 0.5);
+}
+
+.treasury_action_tab_deposit_active:hover {
+  background: hsl(var(--success) / 0.1);
+  color: hsl(var(--success));
+}
+
+.treasury_action_tab_withdraw_active {
+  background: hsl(var(--destructive) / 0.08);
+  color: hsl(var(--destructive));
+  border-bottom-color: hsl(var(--destructive) / 0.5);
+}
+
+.treasury_action_tab_withdraw_active:hover {
+  background: hsl(var(--destructive) / 0.1);
+  color: hsl(var(--destructive));
+}
+
+.treasury_actions_body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.treasury_input_row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.treasury_input_wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.125rem;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.treasury_input_wrapper:focus-within {
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+.treasury_input_prefix {
+  padding-left: 0.85rem;
+  padding-right: 0.25rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: hsl(var(--primary) / 0.6);
+}
+
+.treasury_input_field {
+  flex: 1;
+  background: transparent;
+  padding: 0.55rem 0.85rem 0.55rem 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  outline: none;
+  font-variant-numeric: tabular-nums;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  border: none;
+}
+
+.treasury_input_field::-webkit-inner-spin-button,
+.treasury_input_field::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.treasury_input_field::placeholder {
+  color: hsl(var(--muted-foreground) / 0.5);
+}
+
+.treasury_btn_deposit {
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--success) / 0.15);
+  border: 1px solid hsl(var(--success) / 0.3);
+  color: hsl(var(--success));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.treasury_btn_deposit:hover {
+  background: hsl(var(--success) / 0.25);
+  border-color: hsl(var(--success) / 0.5);
+}
+
+.treasury_btn_withdraw {
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: hsl(var(--destructive) / 0.15);
+  border: 1px solid hsl(var(--destructive) / 0.3);
+  color: hsl(var(--destructive));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.treasury_btn_withdraw:hover {
+  background: hsl(var(--destructive) / 0.25);
+  border-color: hsl(var(--destructive) / 0.5);
+}
+
+.treasury_quick_amounts {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.treasury_quick_btn {
+  flex: 1;
+  padding: 0.45rem;
+  border-radius: 0.125rem;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--muted-foreground));
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.treasury_quick_btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: hsl(var(--foreground));
+}
+
+.treasury_history {
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.treasury_history_header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.treasury_history_header svg {
+  width: 13px;
+  height: 13px;
+  color: hsl(var(--muted-foreground));
+}
+
+.treasury_history_header span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--muted-foreground));
+}
+
+.treasury_tx_list {
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.treasury_tx_row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background-color 0.15s;
+}
+
+.treasury_tx_row:last-child {
+  border-bottom: 0;
+}
+
+.treasury_tx_row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.treasury_tx_icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.treasury_tx_icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.treasury_tx_icon_deposit {
+  background: hsl(var(--success) / 0.1);
+}
+
+.treasury_tx_icon_withdraw {
+  background: hsl(var(--destructive) / 0.1);
+}
+
+.treasury_tx_info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.treasury_tx_name {
+  font-size: 13px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.treasury_tx_date {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+}
+
+.treasury_tx_amount {
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== LOGS ========== */
+
+.logs_card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.logs_header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.1rem;
+}
+
+.logs_header_count {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.125rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logs_header_count_label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--muted-foreground));
+}
+
+.logs_header_count_value {
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--primary));
+}
+
+.logs_separator {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logs_tab_bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 1.1rem;
+}
+
+.logs_tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.125rem;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: hsl(var(--muted-foreground));
+}
+
+.logs_tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: hsl(var(--foreground));
+}
+
+.logs_tab svg {
+  width: 13px;
+  height: 13px;
+}
+
+.logs_tab_active {
+  background: hsl(var(--primary) / 0.15);
+  border-color: hsl(var(--primary) / 0.4);
+  color: hsl(var(--primary));
+  box-shadow: 0 0 10px hsl(48 100% 50% / 0.1);
+}
+
+.logs_tab_active:hover {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+.logs_tab_count {
+  font-size: 10px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin-left: 0.15rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.125rem;
+}
+
+.logs_tab_count_active {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+.logs_tab_count_inactive {
+  background: rgba(255, 255, 255, 0.04);
+  color: hsl(var(--muted-foreground) / 0.5);
+}
+
+.logs_cols { grid-template-columns: 55px 1fr 1fr 110px; }
+
+.logs_thead {
+  display: grid;
+  padding: 0.55rem 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.logs_th {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--muted-foreground));
+}
+
+.logs_tbody {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.logs_row {
+  display: grid;
+  align-items: center;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background-color 0.15s;
+}
+
+.logs_row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.logs_row_id {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--muted-foreground) / 0.6);
+}
+
+.logs_row_name {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.logs_row_dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary) / 0.4);
+  flex-shrink: 0;
+}
+
+.logs_row_name_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.logs_row_detail {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.logs_row_detail svg {
+  width: 12px;
+  height: 12px;
+}
+
+.logs_row_detail_text {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.logs_row_badge {
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.logs_row_badge_primary {
+  background: hsl(var(--primary) / 0.1);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+.logs_row_badge_success {
+  background: hsl(var(--success) / 0.1);
+  border: 1px solid hsl(var(--success) / 0.2);
+  color: hsl(var(--success));
+}
+
+.logs_row_badge_destructive {
+  background: hsl(var(--destructive) / 0.1);
+  border: 1px solid hsl(var(--destructive) / 0.2);
+  color: hsl(var(--destructive));
+}
+
+.logs_row_date {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--muted-foreground) / 0.6);
+  text-align: right;
+}
+
+.logs_pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logs_pagination_info {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--muted-foreground) / 0.5);
+}
+
+.logs_pagination_btns {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.logs_page_btn {
+  padding: 0.35rem;
+  border-radius: 0.125rem;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+  border: none;
+}
+
+.logs_page_btn:hover {
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.logs_page_btn:disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.logs_page_btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.logs_page_num {
+  min-width: 1.85rem;
+  height: 1.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.125rem;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: hsl(var(--muted-foreground));
+  background: transparent;
+  border: none;
+}
+
+.logs_page_num:hover {
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.logs_page_num_active {
+  background: hsl(var(--primary) / 0.2);
+  border: 1px solid hsl(var(--primary) / 0.4);
+  color: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(48 100% 50% / 0.15);
+}
