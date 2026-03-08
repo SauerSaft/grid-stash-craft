@@ -61,6 +61,8 @@ const EquipmentLayout = () => {
                 <FactionMembers />
               ) : selectedCategory === "logs" ? (
                 <FactionLogs />
+              ) : selectedCategory === "logs-v2" ? (
+                <FactionLogsV2 />
               ) : (
                 <div className="flex-1 flex items-center justify-center">
                   <div className="text-center opacity-40">
