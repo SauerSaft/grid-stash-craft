@@ -22,68 +22,82 @@ const formatPrice = (price: number) => `$${price.toLocaleString("de-DE")}`;
 
 const ItemShopGrid = () => {
   return (
-    <div className="ginshi_itemshop_container flex flex-col flex-1 gap-3 overflow-hidden">
+    <div className="ginshi_section">
       {/* Page Header */}
-      <div className="ginshi_itemshop_header flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-sm border border-white/[0.06]">
-        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-          <ShoppingBag size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
+      <div className="ginshi_section_header">
+        <div className="ginshi_section_header_icon">
+          <ShoppingBag size={14} />
         </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-bold tracking-tight text-foreground">Item Shop</span>
-          <span className="text-xs font-medium text-muted-foreground">Kaufe Ausrüstung und Verbrauchsgüter für den Dienst</span>
+        <div className="ginshi_section_header_content">
+          <span className="ginshi_section_header_title">Item Shop</span>
+          <span className="ginshi_section_header_subtitle">Kaufe Ausrüstung und Verbrauchsgüter für den Dienst</span>
+        </div>
+        <div className="ginshi_section_header_badges">
+          <div className="ginshi_badge">
+            <ShoppingBag size={10} className="ginshi_badge_icon" />
+            <span className="ginshi_badge_value">{shopItems.length} Items</span>
+          </div>
         </div>
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-y-auto rounded-sm border border-white/[0.06] bg-white/[0.02]">
-        {/* Table Header */}
-        <div className="grid grid-cols-[1fr_80px_100px_100px_110px] px-4 py-2.5 border-b border-white/[0.08] bg-black/50 sticky top-0 z-10">
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Name</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Menge</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Stückpreis</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-center">Gesamt</span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground text-right">Aktion</span>
-        </div>
+      <div className="ginshi_table_wrapper">
+        <div className="ginshi_table_scroll">
+          <table className="ginshi_table">
+            <thead className="ginshi_thead">
+              <tr className="ginshi_tr_head">
+                <th className="ginshi_th">Name</th>
+                <th className="ginshi_th ginshi_th_center itemshop_col_amount">Menge</th>
+                <th className="ginshi_th ginshi_th_center itemshop_col_unit_price">Stückpreis</th>
+                <th className="ginshi_th ginshi_th_center itemshop_col_total">Gesamt</th>
+                <th className="ginshi_th ginshi_th_right itemshop_col_action">Aktion</th>
+              </tr>
+            </thead>
+            <tbody className="ginshi_tbody">
+              {shopItems.map((item) => (
+                <tr key={item.id} className="ginshi_tr">
+                  {/* Name */}
+                  <td className="ginshi_td">
+                    <div className="itemshop_item_name">
+                      <div className="itemshop_item_dot" />
+                      <span className="itemshop_item_name_text">{item.name}</span>
+                    </div>
+                  </td>
 
-        {/* Rows */}
-        <div className="flex flex-col">
-          {shopItems.map((item) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-[1fr_80px_100px_100px_110px] items-center px-4 py-2.5 border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group"
-            >
-              {/* Name */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-1 h-1 rounded-full bg-primary/40 group-hover:bg-primary group-hover:shadow-[0_0_6px_hsl(48_100%_50%_/_0.5)] transition-all" />
-                <span className="text-sm font-semibold text-foreground tracking-tight">{item.name}</span>
-              </div>
+                  {/* Amount */}
+                  <td className="ginshi_td ginshi_td_center itemshop_col_amount">
+                    <div>
+                      <span className="itemshop_amount_badge">{item.amount}x</span>
+                    </div>
+                  </td>
 
-              {/* Amount Badge */}
-              <div className="flex justify-center">
-                <span className="inline-flex items-center justify-center min-w-[36px] px-2 py-0.5 rounded-sm text-xs font-bold tabular-nums bg-primary/10 text-primary border border-primary/20">
-                  {item.amount}x
-                </span>
-              </div>
+                  {/* Unit Price */}
+                  <td className="ginshi_td ginshi_td_center itemshop_col_unit_price">
+                    <div>
+                      <span className="itemshop_price_text">{formatPrice(item.price)}</span>
+                    </div>
+                  </td>
 
-              {/* Unit Price */}
-              <div className="flex justify-center">
-                <span className="text-xs font-semibold tabular-nums text-muted-foreground">{formatPrice(item.price)}</span>
-              </div>
+                  {/* Total */}
+                  <td className="ginshi_td ginshi_td_center itemshop_col_total">
+                    <div>
+                      <span className="itemshop_total_text">{formatPrice(item.price * item.amount)}</span>
+                    </div>
+                  </td>
 
-              {/* Total */}
-              <div className="flex justify-center">
-                <span className="text-xs font-extrabold tabular-nums text-foreground">{formatPrice(item.price * item.amount)}</span>
-              </div>
-
-              {/* Buy Button */}
-              <div className="flex justify-end">
-                <button className="ginshi_btn_buy flex items-center gap-1 px-3 py-1.5 rounded-sm text-[11px] font-bold uppercase tracking-wider bg-info/15 border border-info/30 text-info hover:bg-info/25 hover:border-info/50 hover:shadow-[0_0_10px_hsl(199_89%_48%_/_0.2)] transition-all">
-                  <ShoppingCart size={10} />
-                  Kaufen
-                </button>
-              </div>
-            </div>
-          ))}
+                  {/* Buy Button */}
+                  <td className="ginshi_td">
+                    <div className="ginshi_table_actions">
+                      <button className="itemshop_btn_buy">
+                        <ShoppingCart size={14} />
+                        Kaufen
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
