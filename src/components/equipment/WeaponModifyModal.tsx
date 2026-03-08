@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGinshiNotification } from "@/components/notifications/GinshiNotificationContext";
+import { useNotification } from "@/components/notifications/GinshiNotificationContext";
 
 import scopeImg from "@/assets/attachments/scope.png";
 import flashlightImg from "@/assets/attachments/flashlight.png";
@@ -38,7 +38,7 @@ const formatPrice = (price: number) => `$${price.toLocaleString("de-DE")}`;
 
 const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: WeaponModifyModalProps) => {
   const [attachments, setAttachments] = useState<Attachment[]>(() => getAttachmentsForWeapon(weaponName));
-  const { notify } = useGinshiNotification();
+  const { notify } = useNotification();
 
   const equippedCount = attachments.filter((a) => a.equipped).length;
 

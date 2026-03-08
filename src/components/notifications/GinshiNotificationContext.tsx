@@ -49,8 +49,8 @@ export const GinshiNotificationProvider = ({ children }: { children: React.React
   );
 };
 
-export const useGinshiNotification = () => {
+export const useNotification = () => {
   const ctx = useContext(GinshiNotificationContext);
-  if (!ctx) throw new Error("useGinshiNotification must be used within GinshiNotificationProvider");
+  if (!ctx) throw new Error("useNotification must be used within GinshiNotificationProvider");
   return ctx;
 };
