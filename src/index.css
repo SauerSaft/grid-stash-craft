@@ -375,7 +375,7 @@
 .ginshi_divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.14), transparent);
 }
 
 /* Section Header */
