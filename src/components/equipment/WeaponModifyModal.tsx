@@ -48,7 +48,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="ginshi_modify_modal max-w-[700px] p-0 gap-0 bg-black/95 border border-primary/[0.12] rounded-sm overflow-hidden backdrop-blur-xl">
+      <DialogContent className="ginshi_modify_modal max-w-[700px] p-0 gap-0 bg-black/95 border border-primary/[0.12] rounded-sm overflow-hidden backdrop-blur-xl [&>button[class*='absolute']]:hidden">
         <DialogTitle className="sr-only">Waffenmodifikation: {weaponName}</DialogTitle>
 
         {/* Header */}
