@@ -87,10 +87,10 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
         </div>
 
         {/* Attachments Section */}
-        <div className="ginshi_modify_attachments flex flex-col gap-2.5 p-4">
+        <div className="ginshi_modify_attachments flex flex-col gap-3 p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Verfügbare Aufsätze</span>
-            <span className="text-[10px] font-bold tabular-nums text-primary/70 bg-primary/[0.08] border border-primary/[0.12] rounded-sm px-2 py-0.5">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-muted-foreground">Verfügbare Aufsätze</span>
+            <span className="text-[11px] font-bold tabular-nums text-primary/70 bg-primary/[0.08] border border-primary/[0.12] rounded-sm px-2.5 py-1">
               {equippedCount}/{attachments.length}
             </span>
           </div>
