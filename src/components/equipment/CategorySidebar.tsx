@@ -13,6 +13,7 @@ const categories: Category[] = [
   { id: "fraktionskasse", label: "Fraktionskasse" },
   { id: "mitglieder", label: "Mitglieder" },
   { id: "logs", label: "Logs" },
+  { id: "logs-v2", label: "Logs V2" },
 ];
 
 interface CategorySidebarProps {
