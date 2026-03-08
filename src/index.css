@@ -1540,7 +1540,6 @@
   border-radius: var(--radius);
   overflow: hidden;
   backdrop-filter: blur(24px);
-  position: relative;
 }
 
 /* -- Modal background overlays (subtle) -- */
