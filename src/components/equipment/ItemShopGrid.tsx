@@ -46,7 +46,7 @@ const ItemShopGrid = () => {
           <table className="ginshi_table">
             <thead className="ginshi_thead">
               <tr className="ginshi_tr_head">
-                <th className="ginshi_th">Name</th>
+                <th className="ginshi_th itemshop_col_name">Name</th>
                 <th className="ginshi_th ginshi_th_center itemshop_col_amount">Menge</th>
                 <th className="ginshi_th ginshi_th_center itemshop_col_total">Preis</th>
                 <th className="ginshi_th ginshi_th_right itemshop_col_action">Aktion</th>
