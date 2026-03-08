@@ -73,7 +73,7 @@ const FactionLogsV2 = () => {
     if (activeTab === "waffenkammer") {
       const isOut = (log as ArmoryLog).direction === "out";
       return (
-        <div key={log.id} className="logs_row logs_cols">
+        <div key={log.id} className="ginshi_grid_row logs_cols">
           <span className="logs_row_id">#{log.id}</span>
           <div className="logs_row_name">
             <div className="logs_row_dot" />
