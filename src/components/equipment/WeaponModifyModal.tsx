@@ -52,6 +52,10 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="ginshi_modal">
+        {/* Background overlays */}
+        <img src={bgPattern} className="ginshi_modal_bg" draggable={false} alt="" />
+        <img src={gridOverlay} className="ginshi_modal_grid" draggable={false} alt="" />
+
         <DialogTitle className="sr-only">Waffenmodifikation: {weaponName}</DialogTitle>
 
         {/* Header */}
