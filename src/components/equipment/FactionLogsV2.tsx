@@ -169,7 +169,7 @@ const FactionLogsV2 = () => {
             >
               <tab.icon />
               {tab.label}
-              <span className={`logs_tab_count ${isActive ? "logs_tab_count_active" : "logs_tab_count_inactive"}`}>
+              <span className={`ginshi_tab_count ${isActive ? "ginshi_tab_count_active" : "ginshi_tab_count_inactive"}`}>
                 {tab.count}
               </span>
             </button>
