@@ -38,7 +38,7 @@ const formatPrice = (price: number) => `$${price.toLocaleString("de-DE")}`;
 
 const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: WeaponModifyModalProps) => {
   const [attachments, setAttachments] = useState<Attachment[]>(() => getAttachmentsForWeapon(weaponName));
-  const { notify } = useGinshiNotification();
+  const { notify } = useNotification();
 
   const equippedCount = attachments.filter((a) => a.equipped).length;
 

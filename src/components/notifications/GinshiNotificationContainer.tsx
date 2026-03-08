@@ -1,8 +1,8 @@
-import { useGinshiNotification } from "./GinshiNotificationContext";
+import { useNotification } from "./GinshiNotificationContext";
 import GinshiNotificationItem from "./GinshiNotificationItem";
 
 const GinshiNotificationContainer = () => {
-  const { notifications, dismiss } = useGinshiNotification();
+  const { notifications, dismiss } = useNotification();
 
   return (
     <div className="ginshi_notif_container">
