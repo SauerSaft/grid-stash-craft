@@ -36,6 +36,8 @@ const EquipmentLayout = () => {
               <ItemShopGrid />
             ) : selectedCategory === "fraklager" ? (
               <StorageTable />
+            ) : selectedCategory === "loadouts" ? (
+              <LoadoutsPage />
             ) : selectedCategory === "waffenkammer" ? (
               <ArmoryTable />
             ) : selectedCategory === "fraktionskasse" ? (
