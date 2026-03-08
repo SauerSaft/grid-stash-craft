@@ -34,24 +34,18 @@ const WeaponIcon = ({ active }: { active: boolean }) => (
 
 const CategorySidebar = ({ selected, onSelect }: CategorySidebarProps) => {
   return (
-    <nav className="flex flex-col gap-2 w-44 flex-shrink-0 py-1">
+    <nav className="ginshi_nav">
       {categories.map((cat) => {
         const isSelected = cat.id === selected;
         return (
           <button
             key={cat.id}
             onClick={() => onSelect(cat.id)}
-            className={`
-              flex items-center gap-2.5 px-3 py-2.5 rounded-sm text-left transition-colors
-              ${isSelected
-                ? "bg-primary/10 border border-primary/35 text-foreground"
-                : "bg-transparent border border-transparent text-muted-foreground hover:bg-surface-hover hover:border-border"
-              }
-            `}
+            className={`ginshi_nav_item ${isSelected ? "ginshi_nav_item_active" : ""}`}
           >
-            <div className={`w-0.5 h-3 rounded-full transition-all ${isSelected ? "bg-primary shadow-[0_0_8px_rgba(255,217,0,0.6)]" : "bg-foreground/20"}`} />
+            <div className={`ginshi_nav_indicator ${isSelected ? "ginshi_nav_indicator_active" : ""}`} />
             <WeaponIcon active={isSelected} />
-            <span className="text-sm font-semibold tracking-tight">{cat.label}</span>
+            <span className="ginshi_nav_label">{cat.label}</span>
           </button>
         );
       })}
