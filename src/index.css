@@ -266,8 +266,61 @@
   padding: 1rem;
   overflow: hidden;
 }
+/* Sidebar Navigation */
+.ginshi_nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 11.5rem;
+  flex-shrink: 0;
+  padding: 0.25rem 0;
+}
 
-/* Section */
+.ginshi_nav_item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.125rem;
+  text-align: left;
+  transition: background-color 0.15s, border-color 0.15s;
+  background: transparent;
+  border: 1px solid transparent;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+}
+
+.ginshi_nav_item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.ginshi_nav_item_active {
+  background: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary) / 0.35);
+  color: hsl(var(--foreground));
+}
+
+.ginshi_nav_indicator {
+  width: 2px;
+  height: 0.85rem;
+  border-radius: 9999px;
+  transition: all 0.15s;
+  background: hsl(var(--foreground) / 0.2);
+}
+
+.ginshi_nav_indicator_active {
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px rgba(255, 217, 0, 0.6);
+}
+
+.ginshi_nav_label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+
 .ginshi_section {
   display: flex;
   flex-direction: column;
