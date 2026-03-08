@@ -494,6 +494,7 @@ const LoadoutsPage2 = () => {
             <div className="loadout2_editor_actions_list">
               {editorActions.map((action, idx) => {
                 const srcConfig = sourceConfig[action.source];
+                const isWeaponSource = action.source === "waffenkammer" || action.source === "waffen-shop";
                 return (
                   <div key={action.id} className={`loadout2_editor_action_row ${srcConfig.colorClass}`}>
                     <span className="loadout2_editor_action_num">{idx + 1}</span>
@@ -527,7 +528,8 @@ const LoadoutsPage2 = () => {
                       className="loadout2_editor_input loadout2_editor_input_amount"
                       min={1}
                       max={99}
-                      value={action.amount}
+                      value={isWeaponSource ? 1 : action.amount}
+                      disabled={isWeaponSource}
                       onChange={(e) => updateAction(action.id, "amount", Math.max(1, parseInt(e.target.value) || 1))}
                     />
 
