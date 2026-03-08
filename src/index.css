@@ -630,6 +630,11 @@
   justify-content: center;
 }
 
+/* Member columns */
+.members_col_rank { width: 22%; }
+.members_col_status { width: 16%; text-align: center; }
+.members_col_actions { width: 20%; text-align: right; }
+
 /* Member-specific */
 .ginshi_member_name {
   display: flex;
@@ -715,10 +720,10 @@
 
 /* ========== ITEM SHOP ========== */
 
-.itemshop_col_amount { width: 100px; }
-.itemshop_col_unit_price { width: 130px; }
-.itemshop_col_total { width: 130px; }
-.itemshop_col_action { width: 140px; }
+.itemshop_col_amount { width: 14%; text-align: center; }
+.itemshop_col_unit_price { width: 18%; text-align: center; }
+.itemshop_col_total { width: 18%; text-align: center; }
+.itemshop_col_action { width: 16%; text-align: right; }
 
 .itemshop_item_name {
   display: flex;
@@ -1281,7 +1286,7 @@
 
 /* ========== ARMORY ========== */
 
-.armory_cols { grid-template-columns: 120px 1fr 110px 130px; }
+.armory_cols { grid-template-columns: 140px 1fr 18% 18%; }
 
 .armory_showcase {
   position: relative;
@@ -1349,7 +1354,7 @@
 
 /* ========== STORAGE ========== */
 
-.storage_cols { grid-template-columns: 1fr 110px 160px 130px; }
+.storage_cols { grid-template-columns: 1fr 16% 20% 18%; }
 
 .storage_stepper {
   display: flex;
