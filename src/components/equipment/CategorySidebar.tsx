@@ -12,7 +12,6 @@ const categories: Category[] = [
   { id: "fraktionskasse", label: "Fraktionskasse", icon: "weapon" },
   { id: "mitglieder", label: "Mitglieder", icon: "person" },
   { id: "logs", label: "Logs", icon: "weapon" },
-  { id: "logs-v2", label: "Logs V2", icon: "weapon" },
 ];
 
 interface CategorySidebarProps {

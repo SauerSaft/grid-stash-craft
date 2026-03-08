@@ -42,8 +42,6 @@ const EquipmentLayout = () => {
             ) : selectedCategory === "mitglieder" ? (
               <FactionMembers />
             ) : selectedCategory === "logs" ? (
-              <FactionLogs />
-            ) : selectedCategory === "logs-v2" ? (
               <FactionLogsV2 />
             ) : (
               <div className="ginshi_section" style={{ alignItems: "center", justifyContent: "center" }}>
