@@ -368,7 +368,7 @@
 }
 
 .ginshi_section_header_subtitle {
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: hsl(var(--muted-foreground));
 }
