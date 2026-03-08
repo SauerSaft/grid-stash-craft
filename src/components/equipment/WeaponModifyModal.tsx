@@ -95,7 +95,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
             </span>
           </div>
 
-          <div className="ginshi_modify_grid grid grid-cols-2 gap-2">
+          <div className="ginshi_modify_grid grid grid-cols-2 gap-3">
             {attachments.map((att) => (
               <button
                 key={att.id}
