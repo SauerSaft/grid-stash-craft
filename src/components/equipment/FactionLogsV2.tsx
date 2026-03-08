@@ -137,7 +137,7 @@ const FactionLogsV2 = () => {
   };
 
   return (
-    <div className="ginshi_section">
+    <div className="ginshi_section ginshi_section_tabbed">
       {/* Page Header */}
       <div className="ginshi_section_header">
         <div className="ginshi_section_header_icon">
@@ -154,6 +154,8 @@ const FactionLogsV2 = () => {
           </div>
         </div>
       </div>
+
+      <div className="ginshi_divider" />
 
       {/* Tab Bar */}
       <div className="ginshi_tab_bar">
@@ -174,6 +176,8 @@ const FactionLogsV2 = () => {
           );
         })}
       </div>
+
+      <div className="ginshi_divider" />
 
       {/* Table */}
       <div className="ginshi_grid_table">
