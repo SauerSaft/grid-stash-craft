@@ -1349,7 +1349,7 @@
 
 /* ========== STORAGE ========== */
 
-.storage_cols { grid-template-columns: 1fr 110px 160px 130px; }
+.storage_cols { grid-template-columns: 1fr 16% 20% 18%; }
 
 .storage_stepper {
   display: flex;

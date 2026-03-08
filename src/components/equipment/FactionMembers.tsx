@@ -71,9 +71,9 @@ const FactionMembers = () => {
             <thead className="ginshi_thead">
               <tr className="ginshi_tr_head">
                 <th className="ginshi_th">Name</th>
-                <th className="ginshi_th" style={{ width: 140 }}>Rang</th>
-                <th className="ginshi_th ginshi_th_center" style={{ width: 80 }}>Status</th>
-                <th className="ginshi_th ginshi_th_right" style={{ width: 130 }}>Aktionen</th>
+                <th className="ginshi_th members_col_rank">Rang</th>
+                <th className="ginshi_th ginshi_th_center members_col_status">Status</th>
+                <th className="ginshi_th ginshi_th_right members_col_actions">Aktionen</th>
               </tr>
             </thead>
             <tbody className="ginshi_tbody">
