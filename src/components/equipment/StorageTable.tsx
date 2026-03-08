@@ -34,7 +34,7 @@ const StorageTable = () => {
   };
 
   return (
-    <div className="ginshi_section">
+    <div className="ginshi_section ginshi_section_tabbed">
       {/* Page Header */}
       <div className="ginshi_section_header">
         <div className="ginshi_section_header_icon">
@@ -45,6 +45,8 @@ const StorageTable = () => {
           <span className="ginshi_section_header_subtitle">Lagere hier Items der Fraktion ein und aus.</span>
         </div>
       </div>
+
+      <div className="ginshi_divider" />
 
       {/* Tabs */}
       <div className="ginshi_tab_bar">
@@ -63,6 +65,8 @@ const StorageTable = () => {
           Einlagern
         </button>
       </div>
+
+      <div className="ginshi_divider" />
 
       {/* Table */}
       <div className="ginshi_grid_table">

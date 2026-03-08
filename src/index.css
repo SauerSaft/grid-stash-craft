@@ -329,6 +329,55 @@
   overflow: hidden;
 }
 
+/* Section with tabs - wrapped border around all elements */
+.ginshi_section_tabbed {
+  gap: 0;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ginshi_section_tabbed .ginshi_section_header {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0 0.25rem;
+  padding-bottom: 0.7rem;
+}
+
+.ginshi_section_tabbed .ginshi_divider {
+  margin: 0.5rem 0;
+  opacity: 0.5;
+}
+
+.ginshi_section_tabbed .ginshi_tab_bar {
+  padding: 0.3rem 0.25rem;
+}
+
+.ginshi_section_tabbed .ginshi_grid_table {
+  margin-top: 0.4rem;
+  border: none;
+  background: transparent;
+}
+
+.ginshi_section_tabbed .ginshi_grid_thead {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.125rem 0.125rem 0 0;
+}
+
+.ginshi_section_tabbed .ginshi_grid_row {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+/* Divider */
+.ginshi_divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
 /* Section Header */
 .ginshi_section_header {
   display: flex;
