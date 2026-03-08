@@ -88,10 +88,7 @@ const ArmoryTable = () => {
               {/* Name */}
               <div className="ginshi_item_name" style={{ paddingLeft: "0.5rem" }}>
                 <div className="ginshi_item_dot" />
-                <div className="armory_weapon_info">
-                  <span className="ginshi_item_name_text">{weapon.name}</span>
-                  <span className="ginshi_item_category">{weapon.category}</span>
-                </div>
+                <span className="ginshi_item_name_text">{weapon.name}</span>
               </div>
 
               {/* Stock */}
