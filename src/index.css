@@ -397,7 +397,7 @@
 }
 
 .ginshi_badge_value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--foreground));
