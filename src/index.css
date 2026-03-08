@@ -1990,3 +1990,121 @@
   color: hsl(var(--muted-foreground) / 0.6);
   text-align: right;
 }
+
+/* ---- 3.8 Weapon Modification Modal ---- */
+
+.weaponmod_preview {
+  position: relative;
+  height: 190px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaponmod_preview_img {
+  max-height: 150px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6));
+}
+
+.weaponmod_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.weaponmod_slot {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.weaponmod_slot:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+}
+
+.weaponmod_slot_active {
+  background: hsl(var(--primary) / 0.08);
+  border-color: hsl(var(--primary) / 0.25);
+}
+
+.weaponmod_slot_active:hover {
+  background: hsl(var(--primary) / 0.12);
+  border-color: hsl(var(--primary) / 0.35);
+}
+
+.weaponmod_slot_thumb {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.weaponmod_slot_thumb img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: brightness(0.9);
+}
+
+.weaponmod_slot_check {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--primary) / 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaponmod_slot_check svg {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--primary));
+  filter: drop-shadow(0 0 4px hsl(var(--gold-glow) / 0.5));
+}
+
+.weaponmod_slot_info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.weaponmod_slot_name {
+  font-size: 13px;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.weaponmod_slot_price {
+  font-size: 11px;
+  font-weight: 600;
+  color: hsl(var(--primary) / 0.8);
+  font-variant-numeric: tabular-nums;
+}
