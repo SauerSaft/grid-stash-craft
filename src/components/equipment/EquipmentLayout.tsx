@@ -7,7 +7,6 @@ import ArmoryTable from "./ArmoryTable";
 import WeaponShopGrid from "./WeaponShopGrid";
 import FactionTreasury from "./FactionTreasury";
 import FactionMembers from "./FactionMembers";
-import FactionLogs from "./FactionLogs";
 import FactionLogsV2 from "./FactionLogsV2";
 import ItemShopGrid from "./ItemShopGrid";
 import bgImage from "@/assets/bg.png";
@@ -43,8 +42,6 @@ const EquipmentLayout = () => {
             ) : selectedCategory === "mitglieder" ? (
               <FactionMembers />
             ) : selectedCategory === "logs" ? (
-              <FactionLogs />
-            ) : selectedCategory === "logs-v2" ? (
               <FactionLogsV2 />
             ) : (
               <div className="ginshi_section" style={{ alignItems: "center", justifyContent: "center" }}>
