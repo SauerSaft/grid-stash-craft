@@ -72,8 +72,8 @@ const StorageTable = () => {
       <div className="ginshi_grid_table">
         <div className="ginshi_grid_thead storage_cols">
           <span className="ginshi_grid_th">Name</span>
-          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Bestand</span>
           <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Menge</span>
+          <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Gesamt</span>
           <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktion</span>
         </div>
 
