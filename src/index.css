@@ -2833,6 +2833,26 @@
   border-color: hsl(var(--primary) / 0.4);
 }
 
+.loadout2_editor_select option {
+  background: hsl(240 7% 8%);
+  color: hsl(var(--foreground));
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  padding: 0.4rem;
+}
+
+.loadout2_editor_select option:hover,
+.loadout2_editor_select option:checked {
+  background: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+}
+
+.loadout2_editor_input:disabled,
+.loadout2_editor_input_amount:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .loadout2_editor_select_source {
   width: 8.5rem;
   flex-shrink: 0;
