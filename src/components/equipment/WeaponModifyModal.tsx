@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useGinshiNotification } from "@/components/notifications/GinshiNotificationContext";
 
 import scopeImg from "@/assets/attachments/scope.png";
 import flashlightImg from "@/assets/attachments/flashlight.png";
@@ -37,13 +38,31 @@ const formatPrice = (price: number) => `$${price.toLocaleString("de-DE")}`;
 
 const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: WeaponModifyModalProps) => {
   const [attachments, setAttachments] = useState<Attachment[]>(() => getAttachmentsForWeapon(weaponName));
+  const { notify } = useGinshiNotification();
 
   const equippedCount = attachments.filter((a) => a.equipped).length;
 
   const toggleAttachment = (id: string) => {
-    setAttachments((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, equipped: !a.equipped } : a))
-    );
+    setAttachments((prev) => {
+      const updated = prev.map((a) => (a.id === id ? { ...a, equipped: !a.equipped } : a));
+      const att = updated.find((a) => a.id === id)!;
+
+      if (att.equipped) {
+        notify({
+          type: "success",
+          title: `${att.name} ausgerüstet`,
+          message: `Aufsatz wurde auf ${weaponName} montiert.`,
+        });
+      } else {
+        notify({
+          type: "warning",
+          title: `${att.name} entfernt`,
+          message: `Aufsatz wurde von ${weaponName} demontiert.`,
+        });
+      }
+
+      return updated;
+    });
   };
 
   return (
