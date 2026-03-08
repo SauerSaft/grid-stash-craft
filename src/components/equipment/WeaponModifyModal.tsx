@@ -6,6 +6,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import bgPattern from "@/assets/bg.png";
+import gridOverlay from "@/assets/grid.png";
+
 import scopeImg from "@/assets/attachments/scope.png";
 import flashlightImg from "@/assets/attachments/flashlight.png";
 import suppressorImg from "@/assets/attachments/suppressor.png";
