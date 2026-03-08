@@ -123,11 +123,11 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
 
                 {/* Info */}
                 <div className="ginshi_attachment_info flex flex-col items-start gap-0.5 min-w-0">
-                  <span className="text-[11px] font-bold text-foreground truncate w-full text-left leading-tight">
+                  <span className="text-[13px] font-bold text-foreground truncate w-full text-left leading-tight">
                     {att.name}
                   </span>
                   {att.price != null && (
-                    <span className="text-[10px] font-semibold text-primary/80 tabular-nums">
+                    <span className="text-[11px] font-semibold text-primary/80 tabular-nums">
                       {formatPrice(att.price)}
                     </span>
                   )}
