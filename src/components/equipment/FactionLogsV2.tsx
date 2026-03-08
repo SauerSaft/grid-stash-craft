@@ -57,22 +57,22 @@ const FactionLogsV2 = () => {
   };
 
   const renderRow = (log: any) => {
-    const rowBase = "grid grid-cols-[44px_1fr_1fr_90px] items-center px-3 py-[7px] border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors";
+    const rowBase = "ginshi_log_row grid grid-cols-[50px_1fr_1fr_100px] items-center px-3 py-[7px] border-b border-white/[0.03] hover:bg-white/[0.03] transition-colors";
 
     if (activeTab === "waffenshop") {
       return (
         <div key={log.id} className={rowBase}>
-          <span className="text-[10px] font-bold tabular-nums text-muted-foreground/50">#{log.id}</span>
+          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[11.5px] font-semibold text-foreground">{log.name}</span>
+            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <ShoppingCart size={9} className="text-primary/60" />
-            <span className="text-[10.5px] font-medium text-primary/80">{log.weapon}</span>
-            <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm bg-primary/10 border border-primary/20 text-primary">Gekauft</span>
+            <ShoppingCart size={10} className="text-primary/60" />
+            <span className="text-[11px] font-medium text-primary/80">{log.weapon}</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm bg-primary/10 border border-primary/20 text-primary">Gekauft</span>
           </div>
-          <span className="text-[9.5px] tabular-nums text-muted-foreground/50 text-right">{log.date}</span>
+          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
         </div>
       );
     }
@@ -81,19 +81,19 @@ const FactionLogsV2 = () => {
       const isOut = (log as ArmoryLog).direction === "out";
       return (
         <div key={log.id} className={rowBase}>
-          <span className="text-[10px] font-bold tabular-nums text-muted-foreground/50">#{log.id}</span>
+          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[11.5px] font-semibold text-foreground">{log.name}</span>
+            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            {isOut ? <ArrowUpFromLine size={9} className="text-destructive/80" /> : <ArrowDownToLine size={9} className="text-success/80" />}
-            <span className="text-[10.5px] font-medium text-foreground/80">{(log as ArmoryLog).weapon}</span>
-            <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
+            {isOut ? <ArrowUpFromLine size={10} className="text-destructive/80" /> : <ArrowDownToLine size={10} className="text-success/80" />}
+            <span className="text-[11px] font-medium text-foreground/80">{(log as ArmoryLog).weapon}</span>
+            <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
               {isOut ? "Entnommen" : "Eingelagert"}
             </span>
           </div>
-          <span className="text-[9.5px] tabular-nums text-muted-foreground/50 text-right">{log.date}</span>
+          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
         </div>
       );
     }
@@ -103,153 +103,137 @@ const FactionLogsV2 = () => {
       const sOut = sLog.direction === "out";
       return (
         <div key={log.id} className={rowBase}>
-          <span className="text-[10px] font-bold tabular-nums text-muted-foreground/50">#{log.id}</span>
+          <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <span className="text-[11.5px] font-semibold text-foreground">{log.name}</span>
+            <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            {sOut ? <ArrowUpFromLine size={9} className="text-destructive/80" /> : <ArrowDownToLine size={9} className="text-success/80" />}
-            <span className="text-[10.5px] font-medium text-foreground/80">{sLog.item}</span>
-            <span className={`text-[8px] font-bold tabular-nums px-1.5 py-0.5 rounded-sm ${sOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
+            {sOut ? <ArrowUpFromLine size={10} className="text-destructive/80" /> : <ArrowDownToLine size={10} className="text-success/80" />}
+            <span className="text-[11px] font-medium text-foreground/80">{sLog.item}</span>
+            <span className={`text-[9px] font-bold tabular-nums px-1.5 py-0.5 rounded-sm ${sOut ? "bg-destructive/10 border border-destructive/20 text-destructive" : "bg-success/10 border border-success/20 text-success"}`}>
               {sOut ? `-${sLog.amount}` : `+${sLog.amount}`}
             </span>
           </div>
-          <span className="text-[9.5px] tabular-nums text-muted-foreground/50 text-right">{log.date}</span>
+          <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
         </div>
       );
     }
 
-    // frakkasse
     const tLog = log as TreasuryLog;
     const isDep = tLog.type === "deposit";
     return (
       <div key={log.id} className={rowBase}>
-        <span className="text-[10px] font-bold tabular-nums text-muted-foreground/50">#{log.id}</span>
+        <span className="text-[11px] font-bold tabular-nums text-muted-foreground/60">#{log.id}</span>
         <div className="flex items-center gap-2">
           <div className="w-1 h-1 rounded-full bg-primary/40" />
-          <span className="text-[11.5px] font-semibold text-foreground">{log.name}</span>
+          <span className="text-[12px] font-semibold text-foreground">{log.name}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          {isDep ? <ArrowDownToLine size={9} className="text-success/80" /> : <ArrowUpFromLine size={9} className="text-destructive/80" />}
-          <span className={`text-[10.5px] font-extrabold tabular-nums ${isDep ? "text-success" : "text-destructive"}`}>
+          {isDep ? <ArrowDownToLine size={10} className="text-success/80" /> : <ArrowUpFromLine size={10} className="text-destructive/80" />}
+          <span className={`text-[11px] font-extrabold tabular-nums ${isDep ? "text-success" : "text-destructive"}`}>
             {isDep ? "+" : "-"}${tLog.amount.toLocaleString("de-DE")}
           </span>
-          <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isDep ? "bg-success/10 border border-success/20 text-success" : "bg-destructive/10 border border-destructive/20 text-destructive"}`}>
+          <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${isDep ? "bg-success/10 border border-success/20 text-success" : "bg-destructive/10 border border-destructive/20 text-destructive"}`}>
             {isDep ? "Einzahlung" : "Auszahlung"}
           </span>
         </div>
-        <span className="text-[9.5px] tabular-nums text-muted-foreground/50 text-right">{log.date}</span>
+        <span className="text-[10px] tabular-nums text-muted-foreground/60 text-right">{log.date}</span>
       </div>
     );
   };
 
-  const activeTabData = tabs.find((t) => t.id === activeTab)!;
-
   return (
     <div className="ginshi_logs_v2 flex flex-col flex-1 overflow-hidden">
       {/* Single unified card */}
-      <div className="flex flex-col flex-1 overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02]">
+      <div className="ginshi_logs_v2_card flex flex-col flex-1 overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02]">
 
         {/* ─── Section Header ─── */}
-        <div className="px-4 pt-3.5 pb-0">
-          <div className="flex items-center gap-3">
-            <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-              <ScrollText size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-foreground">Logs</span>
-              <span className="text-[10.5px] font-medium text-muted-foreground">Alle Aktivitäten der Fraktion im Überblick</span>
-            </div>
-            <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-white/[0.03] border border-white/[0.06]">
-              <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Gesamt</span>
-              <span className="text-xs font-extrabold tabular-nums text-primary">{allLogs.length}</span>
-            </div>
+        <div className="ginshi_logs_v2_header flex items-center gap-3 px-4 py-3">
+          <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
+            <ScrollText size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-bold tracking-tight text-foreground">Logs</span>
+            <span className="text-[10.5px] font-medium text-muted-foreground">Alle Aktivitäten der Fraktion im Überblick</span>
+          </div>
+          <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-white/[0.03] border border-white/[0.06]">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Gesamt</span>
+            <span className="text-xs font-extrabold tabular-nums text-primary">{allLogs.length}</span>
           </div>
         </div>
 
-        {/* ─── Divider + Tab Bar (inside the card) ─── */}
-        <div className="px-4 pt-3 pb-0">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-        </div>
+        {/* ─── Separator ─── */}
+        <div className="ginshi_logs_v2_separator border-b border-white/[0.06]" />
 
-        <div className="flex items-center gap-1 px-4 pt-2.5 pb-2.5">
+        {/* ─── Tab Bar ─── */}
+        <div className="ginshi_logs_v2_tabs flex items-center gap-1 px-4 py-2.5">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`group relative flex items-center gap-1.5 px-3 py-[6px] rounded-sm text-[10px] font-bold uppercase tracking-wider transition-all ${
+                className={`ginshi_logs_v2_tab flex items-center gap-1.5 px-3.5 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider transition-all ${
                   isActive
-                    ? "bg-primary/15 border border-primary/30 text-primary"
-                    : "bg-transparent border border-transparent text-muted-foreground hover:text-foreground hover:bg-white/[0.04]"
+                    ? "bg-primary/15 border border-primary/40 text-primary shadow-[0_0_10px_hsl(48_100%_50%_/_0.1)]"
+                    : "bg-white/[0.02] border border-white/[0.06] text-muted-foreground hover:bg-white/[0.05] hover:text-foreground"
                 }`}
               >
-                <tab.icon size={10} className={isActive ? "text-primary" : "text-muted-foreground/60 group-hover:text-foreground/60"} />
+                <tab.icon size={11} />
                 {tab.label}
-                <span className={`text-[8px] font-extrabold tabular-nums ml-0.5 px-1 py-0 rounded-sm ${
-                  isActive
-                    ? "bg-primary/20 text-primary"
-                    : "bg-white/[0.04] text-muted-foreground/50"
+                <span className={`text-[8px] font-extrabold tabular-nums ml-0.5 px-1.5 py-0 rounded-sm ${
+                  isActive ? "bg-primary/20 text-primary" : "bg-white/[0.04] text-muted-foreground/50"
                 }`}>
                   {tab.count}
                 </span>
-                {/* Active indicator line */}
-                {isActive && (
-                  <div className="absolute -bottom-[10.5px] left-2 right-2 h-[2px] rounded-full bg-primary/60" style={{ filter: "drop-shadow(0 0 4px hsl(48 100% 50% / 0.4))" }} />
-                )}
               </button>
             );
           })}
         </div>
 
-        {/* ─── Inset area: subtle column labels + rows ─── */}
-        <div className="mx-3 mt-1 mb-0 flex flex-col flex-1 overflow-hidden rounded-sm border border-white/[0.04] bg-black/25">
-          {/* Column labels as a soft inner header */}
-          <div className="grid grid-cols-[44px_1fr_1fr_90px] px-3 py-1.5 bg-white/[0.015]">
-            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">ID</span>
-            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">Name</span>
-            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30">Details</span>
-            <span className="text-[8px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/30 text-right">Zeit</span>
-          </div>
-          <div className="h-px w-full bg-white/[0.04]" />
-
-          {/* ─── Rows ─── */}
-          <div className="flex-1 overflow-y-auto">
-            {paginatedLogs.map(renderRow)}
-          </div>
+        {/* ─── Table Header ─── */}
+        <div className="ginshi_logs_v2_thead grid grid-cols-[50px_1fr_1fr_100px] px-3 py-2 border-t border-b border-white/[0.08] bg-black/50">
+          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">ID</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Name</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Details</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground text-right">Zeit</span>
         </div>
 
-        {/* ─── Pagination Footer (inside the card) ─── */}
+        {/* ─── Rows ─── */}
+        <div className="ginshi_logs_v2_tbody flex-1 overflow-y-auto">
+          {paginatedLogs.map(renderRow)}
+        </div>
+
+        {/* ─── Pagination Footer ─── */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/[0.04]">
-            <span className="text-[9px] tabular-nums text-muted-foreground/40">
+          <div className="ginshi_logs_v2_pagination flex items-center justify-between px-4 py-2.5 border-t border-white/[0.06]">
+            <span className="text-[10px] tabular-nums text-muted-foreground/50">
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
             </span>
             <div className="flex items-center gap-0.5">
               <button
                 onClick={() => setCurrentPage(1)}
                 disabled={currentPage === 1}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-15 disabled:pointer-events-none transition-colors"
+                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
               >
-                <ChevronsLeft size={11} />
+                <ChevronsLeft size={12} />
               </button>
               <button
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-15 disabled:pointer-events-none transition-colors"
+                className="p-1.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
               >
-                <ChevronLeft size={11} />
+                <ChevronLeft size={12} />
               </button>
               {getPageRange().map((p) => (
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`min-w-[24px] h-[24px] rounded-sm text-[9px] font-bold tabular-nums transition-all ${
+                  className={`min-w-[26px] h-[26px] rounded-sm text-[10px] font-bold tabular-nums transition-all ${
                     p === currentPage
-                      ? "bg-primary/20 border border-primary/30 text-primary"
-                      : "text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05]"
+                      ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_8px_hsl(48_100%_50%_/_0.15)]"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
                   }`}
                 >
                   {p}
@@ -258,16 +242,16 @@ const FactionLogsV2 = () => {
               <button
                 onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-15 disabled:pointer-events-none transition-colors"
+                className="p-1.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
               >
-                <ChevronRight size={11} />
+                <ChevronRight size={12} />
               </button>
               <button
                 onClick={() => setCurrentPage(totalPages)}
                 disabled={currentPage === totalPages}
-                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-15 disabled:pointer-events-none transition-colors"
+                className="p-1 rounded-sm text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.05] disabled:opacity-20 disabled:pointer-events-none transition-colors"
               >
-                <ChevronsRight size={11} />
+                <ChevronsRight size={12} />
               </button>
             </div>
           </div>
