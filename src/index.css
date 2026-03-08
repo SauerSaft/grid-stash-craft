@@ -1747,8 +1747,8 @@
 
 /* ---- 3.2 Item Shop ---- */
 
-.itemshop_col_amount { width: 18%; text-align: center; }
-.itemshop_col_total { width: 22%; text-align: center; }
+.itemshop_col_amount { width: 14%; text-align: center; }
+.itemshop_col_total { width: 16%; text-align: center; }
 .itemshop_col_action { width: 18%; text-align: right; }
 
 /* ---- 3.3 Weapon Shop ---- */
