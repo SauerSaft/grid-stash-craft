@@ -54,12 +54,10 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
         {/* Header */}
         <div className="ginshi_modify_header flex items-center gap-3 px-5 py-4 border-b border-white/[0.06]">
           <div className="w-[3px] h-5 rounded-full bg-primary" style={{ boxShadow: "0 0 8px hsl(48 100% 50% / 0.4)" }} />
-          <div className="flex items-center gap-2 flex-1">
-            <Crosshair size={15} className="text-primary" />
-            <span className="text-[15px] font-bold tracking-tight text-foreground">
-              Waffenmodifikation: <span className="text-primary">{weaponName}</span>
-            </span>
-          </div>
+          <span className="text-[15px] font-bold tracking-tight text-foreground">
+            Waffenmodifikation: <span className="text-primary">{weaponName}</span>
+          </span>
+          <div className="flex-1" />
           <button
             onClick={() => onOpenChange(false)}
             className="ginshi_modify_close w-7 h-7 flex items-center justify-center rounded-sm bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-destructive/30 transition-colors"
