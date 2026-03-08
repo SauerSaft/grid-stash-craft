@@ -23,12 +23,18 @@ const mockMembers: Member[] = [
   { id: "10", name: "Paul Richter", rank: "Rekrut", rankLevel: 1, online: false, joinDate: "22.11.2025" },
 ];
 
-const getRankColor = (level: number) => {
-  if (level >= 5) return "text-primary";
-  if (level >= 4) return "text-primary/80";
-  if (level >= 3) return "text-info";
-  if (level >= 2) return "text-foreground";
-  return "text-muted-foreground";
+const getRankClass = (level: number) => {
+  if (level >= 5) return "ginshi_rank_5";
+  if (level >= 4) return "ginshi_rank_4";
+  if (level >= 3) return "ginshi_rank_3";
+  if (level >= 2) return "ginshi_rank_2";
+  return "ginshi_rank_1";
+};
+
+const getRankDotClass = (level: number) => {
+  if (level >= 4) return "ginshi_rank_dot ginshi_rank_dot_high";
+  if (level >= 3) return "ginshi_rank_dot ginshi_rank_dot_mid";
+  return "ginshi_rank_dot ginshi_rank_dot_low";
 };
 
 const FactionMembers = () => {
@@ -36,107 +42,91 @@ const FactionMembers = () => {
   const onlineCount = members.filter((m) => m.online).length;
 
   return (
-    <div className="ginshi_section flex flex-col flex-1 gap-3 overflow-hidden">
+    <div className="ginshi_section">
       {/* Page Header */}
-      <div className="ginshi_section_header flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-sm border border-white/[0.06]">
-        <div className="p-1.5 rounded-sm bg-primary/15 border border-primary/20">
-          <Users size={14} className="text-primary" style={{ filter: "drop-shadow(0 0 6px hsl(48 100% 50% / 0.5))" }} />
+      <div className="ginshi_section_header">
+        <div className="ginshi_section_header_icon">
+          <Users size={14} />
         </div>
-        <div className="flex flex-col flex-1">
-          <span className="text-sm font-bold tracking-tight text-foreground">Mitglieder</span>
-          <span className="text-xs font-medium text-muted-foreground">Verwalte die Mitglieder deiner Fraktion</span>
+        <div className="ginshi_section_header_content">
+          <span className="ginshi_section_header_title">Mitglieder</span>
+          <span className="ginshi_section_header_subtitle">Verwalte die Mitglieder deiner Fraktion</span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="ginshi_badge flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-white/[0.03] border border-white/[0.06]">
-            <Users size={10} className="text-muted-foreground" />
-            <span className="text-[10px] font-bold tabular-nums text-foreground">{members.length}</span>
+        <div className="ginshi_section_header_badges">
+          <div className="ginshi_badge">
+            <Users size={10} className="ginshi_badge_icon" />
+            <span className="ginshi_badge_value">{members.length}</span>
           </div>
-          <div className="ginshi_badge_online flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-success/[0.06] border border-success/15">
-            <Circle size={6} fill="hsl(var(--success))" className="text-success" />
-            <span className="text-[10px] font-bold tabular-nums text-success">{onlineCount} Online</span>
+          <div className="ginshi_badge_online">
+            <Circle size={6} fill="hsl(var(--success))" className="ginshi_badge_online_dot" />
+            <span className="ginshi_badge_online_text">{onlineCount} Online</span>
           </div>
         </div>
       </div>
 
       {/* Table */}
-      <div className="ginshi_table_wrapper flex-1 rounded-sm border border-white/[0.06] bg-white/[0.02] overflow-hidden flex flex-col">
-        <div className="ginshi_table_scroll flex-1 overflow-y-auto">
-          <table className="ginshi_table w-full border-collapse">
+      <div className="ginshi_table_wrapper">
+        <div className="ginshi_table_scroll">
+          <table className="ginshi_table">
             <thead className="ginshi_thead">
-              <tr className="ginshi_tr_head border-b border-white/[0.06] bg-white/[0.02]">
-                <th className="ginshi_th text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground text-left px-4 py-2.5">Name</th>
-                <th className="ginshi_th text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground text-left px-4 py-2.5 w-[140px]">Rang</th>
-                <th className="ginshi_th text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground text-center px-4 py-2.5 w-[80px]">Status</th>
-                <th className="ginshi_th text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground text-right px-4 py-2.5 w-[130px]">Aktionen</th>
+              <tr className="ginshi_tr_head">
+                <th className="ginshi_th">Name</th>
+                <th className="ginshi_th" style={{ width: 140 }}>Rang</th>
+                <th className="ginshi_th ginshi_th_center" style={{ width: 80 }}>Status</th>
+                <th className="ginshi_th ginshi_th_right" style={{ width: 130 }}>Aktionen</th>
               </tr>
             </thead>
             <tbody className="ginshi_tbody">
               {members
                 .sort((a, b) => b.rankLevel - a.rankLevel || a.name.localeCompare(b.name))
                 .map((member) => (
-                  <tr
-                    key={member.id}
-                    className="ginshi_tr border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
-                  >
+                  <tr key={member.id} className="ginshi_tr">
                     {/* Name */}
-                    <td className="ginshi_td px-4 py-2">
-                      <div className="ginshi_member_name flex items-center gap-2.5 min-w-0">
-                        <div className="ginshi_member_avatar w-7 h-7 rounded-sm bg-white/[0.04] border border-white/[0.06] flex items-center justify-center flex-shrink-0">
+                    <td className="ginshi_td">
+                      <div className="ginshi_member_name">
+                        <div className="ginshi_member_avatar">
                           {member.rankLevel >= 5 ? (
-                            <Crown size={11} className="text-primary" />
+                            <Crown size={11} className="ginshi_icon_primary" />
                           ) : (
-                            <span className="text-[10px] font-bold text-muted-foreground">
+                            <span className="ginshi_member_avatar_initials">
                               {member.name.split(" ").map((n) => n[0]).join("")}
                             </span>
                           )}
                         </div>
-                        <span className="text-xs font-semibold text-foreground truncate">{member.name}</span>
+                        <span className="ginshi_member_name_text">{member.name}</span>
                       </div>
                     </td>
 
                     {/* Rank */}
-                    <td className="ginshi_td px-4 py-2">
-                      <div className="ginshi_member_rank flex items-center gap-1.5 min-w-0">
-                        <div className={`ginshi_rank_dot w-1 h-1 rounded-full flex-shrink-0 ${member.rankLevel >= 4 ? "bg-primary" : member.rankLevel >= 3 ? "bg-info" : "bg-muted-foreground/40"}`} />
-                        <span className={`text-[11px] font-semibold truncate ${getRankColor(member.rankLevel)}`}>
+                    <td className="ginshi_td">
+                      <div className="ginshi_member_rank">
+                        <div className={getRankDotClass(member.rankLevel)} />
+                        <span className={`ginshi_rank_text ${getRankClass(member.rankLevel)}`}>
                           {member.rank}
                         </span>
                       </div>
                     </td>
 
                     {/* Status */}
-                    <td className="ginshi_td px-4 py-2">
-                      <div className="flex justify-center">
-                        <div className={`ginshi_status_badge flex items-center gap-1 px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider ${
-                          member.online
-                            ? "bg-success/10 border border-success/20 text-success"
-                            : "bg-white/[0.03] border border-white/[0.06] text-muted-foreground"
-                        }`}>
-                          <Circle size={5} fill={member.online ? "hsl(var(--success))" : "transparent"} className={member.online ? "text-success" : "text-muted-foreground/50"} />
+                    <td className="ginshi_td ginshi_td_center">
+                      <div>
+                        <div className={`ginshi_status_badge ${member.online ? "ginshi_status_badge_on" : "ginshi_status_badge_off"}`}>
+                          <Circle size={5} fill={member.online ? "hsl(var(--success))" : "transparent"} className={member.online ? "ginshi_icon_success" : ""} />
                           {member.online ? "On" : "Off"}
                         </div>
                       </div>
                     </td>
 
                     {/* Actions */}
-                    <td className="ginshi_td px-4 py-2">
-                      <div className="ginshi_table_actions flex items-center justify-end gap-1">
-                        <button
-                          title="Befördern"
-                          className="ginshi_action_btn ginshi_action_btn_success w-6 h-6 flex items-center justify-center rounded-sm bg-success/[0.06] border border-success/15 text-success/60 hover:bg-success/15 hover:border-success/30 hover:text-success transition-colors"
-                        >
+                    <td className="ginshi_td">
+                      <div className="ginshi_table_actions">
+                        <button title="Befördern" className="ginshi_action_btn ginshi_action_btn_success">
                           <ChevronUp size={12} />
                         </button>
-                        <button
-                          title="Degradieren"
-                          className="ginshi_action_btn ginshi_action_btn_warning w-6 h-6 flex items-center justify-center rounded-sm bg-primary/[0.06] border border-primary/15 text-primary/60 hover:bg-primary/15 hover:border-primary/30 hover:text-primary transition-colors"
-                        >
+                        <button title="Degradieren" className="ginshi_action_btn ginshi_action_btn_warning">
                           <ChevronDown size={12} />
                         </button>
-                        <button
-                          title="Kündigen"
-                          className="ginshi_action_btn ginshi_action_btn_danger w-6 h-6 flex items-center justify-center rounded-sm bg-destructive/[0.06] border border-destructive/15 text-destructive/60 hover:bg-destructive/15 hover:border-destructive/30 hover:text-destructive transition-colors"
-                        >
+                        <button title="Kündigen" className="ginshi_action_btn ginshi_action_btn_danger">
                           <UserX size={10} />
                         </button>
                       </div>
