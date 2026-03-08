@@ -1354,7 +1354,7 @@
 
 /* ========== STORAGE ========== */
 
-.storage_cols { grid-template-columns: 1fr 16% 20% 18%; }
+.storage_cols { grid-template-columns: 1fr 20% 24% 22%; }
 
 .storage_stepper {
   display: flex;
