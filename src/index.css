@@ -656,6 +656,14 @@
   color: hsl(var(--success));
 }
 
+.ginshi_icon_destructive {
+  color: hsl(var(--destructive));
+}
+
+.ginshi_icon_info {
+  color: hsl(var(--info));
+}
+
 /* ========== ITEM SHOP ========== */
 
 .itemshop_col_amount { width: 100px; }
