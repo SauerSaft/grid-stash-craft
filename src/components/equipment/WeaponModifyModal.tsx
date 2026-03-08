@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGinshiNotification } from "@/components/notifications/GinshiNotificationContext";
+import { useNotification } from "@/components/notifications/GinshiNotificationContext";
 
 import scopeImg from "@/assets/attachments/scope.png";
 import flashlightImg from "@/assets/attachments/flashlight.png";
