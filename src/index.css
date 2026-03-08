@@ -383,8 +383,8 @@
 .ginshi_badge {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 0.125rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -392,10 +392,12 @@
 
 .ginshi_badge_icon {
   color: hsl(var(--muted-foreground));
+  width: 14px;
+  height: 14px;
 }
 
 .ginshi_badge_value {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--foreground));
@@ -404,8 +406,8 @@
 .ginshi_badge_online {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 0.125rem;
   background: hsl(var(--success) / 0.06);
   border: 1px solid hsl(var(--success) / 0.15);
@@ -416,7 +418,7 @@
 }
 
 .ginshi_badge_online_text {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: hsl(var(--success));
@@ -450,13 +452,13 @@
 }
 
 .ginshi_th {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: hsl(var(--muted-foreground));
   text-align: left;
-  padding: 0.7rem 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .ginshi_th_center {
@@ -481,7 +483,7 @@
 }
 
 .ginshi_td {
-  padding: 0.55rem 1rem;
+  padding: 0.6rem 1rem;
 }
 
 /* Table Actions */
@@ -493,14 +495,19 @@
 }
 
 .ginshi_action_btn {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.125rem;
   transition: all 0.15s;
   cursor: pointer;
+}
+
+.ginshi_action_btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .ginshi_action_btn_success {
@@ -538,12 +545,12 @@
 
 /* Status Badge */
 .ginshi_status_badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.2rem 0.55rem;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 0.125rem;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -583,7 +590,7 @@
 }
 
 .ginshi_member_name_text {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: hsl(var(--foreground));
   overflow: hidden;
@@ -628,7 +635,7 @@
 .ginshi_rank_dot_low { background: hsl(var(--muted-foreground) / 0.4); }
 
 .ginshi_rank_text {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
