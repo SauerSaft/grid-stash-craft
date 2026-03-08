@@ -81,7 +81,7 @@ const WeaponModifyModal = ({ open, onOpenChange, weaponName, weaponImage }: Weap
           <img
             src={weaponImage}
             alt={weaponName}
-            className="max-h-[110px] max-w-[85%] object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+            className="max-h-[150px] max-w-[85%] object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
             draggable={false}
           />
         </div>
