@@ -1416,6 +1416,104 @@
   color: hsl(var(--foreground));
 }
 
+/* ---- 2.24c Toggle List (generalized permission/checkbox list) ---- */
+
+.ginshi_toggle_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ginshi_toggle_item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.ginshi_toggle_item:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border);
+}
+
+.ginshi_toggle_item_active {
+  background: hsl(var(--success) / 0.04);
+  border-color: hsl(var(--success) / 0.12);
+}
+
+.ginshi_toggle_item_active:hover {
+  background: hsl(var(--success) / 0.07);
+  border-color: hsl(var(--success) / 0.2);
+}
+
+.ginshi_toggle_switch {
+  width: 2rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: hsl(var(--muted));
+  border: 1px solid var(--glass-border-strong);
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.ginshi_toggle_switch_on {
+  background: hsl(var(--success) / 0.35);
+  border-color: hsl(var(--success) / 0.5);
+}
+
+.ginshi_toggle_knob {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: hsl(var(--muted-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.ginshi_toggle_switch_on .ginshi_toggle_knob {
+  left: calc(100% - 0.8rem - 2px);
+  background: hsl(var(--success));
+  color: hsl(var(--background));
+}
+
+.ginshi_toggle_label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  transition: color 0.15s;
+}
+
+.ginshi_toggle_item_active .ginshi_toggle_label {
+  color: hsl(var(--foreground));
+}
+
+.ginshi_rights_counter {
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'Orbitron', monospace;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.08);
+  border: 1px solid hsl(var(--primary) / 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius);
+  margin-right: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
 /* ---- 2.25 Accent Bar ---- */
 
 .ginshi_accent_bar {
