@@ -13,6 +13,7 @@ const categories: Category[] = [
   { id: "loadouts2", label: "Loadouts V2", icon: "weapon" },
   { id: "fraktionskasse", label: "Fraktionskasse", icon: "weapon" },
   { id: "mitglieder", label: "Mitglieder", icon: "person" },
+  { id: "fraktionen", label: "Fraktionen", icon: "person" },
   { id: "logs", label: "Logs", icon: "weapon" },
 ];
 
