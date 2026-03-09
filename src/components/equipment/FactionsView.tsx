@@ -38,6 +38,7 @@ const FactionsView = () => {
   const [newName, setNewName] = useState("");
   const [newLabel, setNewLabel] = useState("");
   const [newType, setNewType] = useState("");
+  const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
 
   const filtered = factions.filter(
     (f) =>
