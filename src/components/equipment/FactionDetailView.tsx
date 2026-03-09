@@ -725,15 +725,17 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             )}
 
             {shopType === "weapon" && (
-              <label className="ginshi_form_label">Preis</label>
-              <input
-                type="number"
-                className="ginshi_form_input"
-                min={0}
-                value={shopPrice}
-                onChange={(e) => setShopPrice(Number(e.target.value))}
-              />
-            </div>
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Preis</label>
+                <input
+                  type="number"
+                  className="ginshi_form_input"
+                  min={0}
+                  value={shopPrice}
+                  onChange={(e) => setShopPrice(Number(e.target.value))}
+                />
+              </div>
+            )}
           </div>
 
           <div className="ginshi_modal_actions">
