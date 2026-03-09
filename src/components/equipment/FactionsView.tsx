@@ -7,27 +7,42 @@ interface Faction {
   id: string;
   label: string;
   name: string;
-  type: "job" | "gang";
+  type: string;
   ranks: number;
   markers: number;
 }
+
+const FACTION_TYPE_CONFIG: Record<string, { label: string; className: string }> = {
+  job: { label: "Staatsfrak", className: "ginshi_type_badge_state" },
+  gang: { label: "Badfrak", className: "ginshi_type_badge_bad" },
+  ambulance: { label: "Ambulance", className: "ginshi_type_badge_medic" },
+  mechanic: { label: "Mechaniker", className: "ginshi_type_badge_mech" },
+};
+
+const getFactionTypeBadge = (type: string) => {
+  const cfg = FACTION_TYPE_CONFIG[type];
+  return {
+    label: cfg?.label ?? type,
+    className: cfg?.className ?? "",
+  };
+};
 
 const mockFactions: Faction[] = [
   { id: "1", label: "Los Santos Police", name: "police", type: "job", ranks: 5, markers: 3 },
   { id: "2", label: "Ballas Gang", name: "ballas", type: "gang", ranks: 4, markers: 2 },
   { id: "3", label: "Grove Street Families", name: "grove", type: "gang", ranks: 6, markers: 4 },
-  { id: "4", label: "Los Santos Medical", name: "ambulance", type: "job", ranks: 5, markers: 3 },
+  { id: "4", label: "Los Santos Medical", name: "ambulance", type: "ambulance", ranks: 5, markers: 3 },
   { id: "5", label: "Vagos", name: "vagos", type: "gang", ranks: 3, markers: 1 },
-  { id: "6", label: "Mechaniker", name: "mechanic", type: "job", ranks: 4, markers: 2 },
+  { id: "6", label: "Mechaniker", name: "mechanic", type: "mechanic", ranks: 4, markers: 2 },
 ];
 
 const factionTypes = [
   { value: "", label: "-- Wählen --" },
-  { value: "police", label: "Staatsfrak" },
+  { value: "job", label: "Staatsfrak" },
   { value: "gang", label: "Badfrak" },
-  { value: "neutral", label: "Neutral" },
-  { value: "ambulance", label: "Medic" },
+  { value: "ambulance", label: "Ambulance" },
   { value: "mechanic", label: "Mechaniker" },
+  { value: "neutral", label: "Neutral" },
   { value: "tacticalmedic", label: "Tacticalmedic" },
 ];
 
