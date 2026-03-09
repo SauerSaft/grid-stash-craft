@@ -2132,6 +2132,59 @@
 
 .logs_cols { grid-template-columns: 55px 1fr 1.6fr 110px; }
 
+/* Search bar */
+.logs_search_wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0.875rem 0.5rem;
+  padding: 0 0.625rem;
+  height: 28px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.logs_search_wrap:focus-within {
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+.logs_search_icon {
+  color: hsl(var(--muted-foreground) / 0.5);
+  flex-shrink: 0;
+}
+
+.logs_search_input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: hsl(var(--foreground));
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.logs_search_input::placeholder {
+  color: hsl(var(--muted-foreground) / 0.4);
+}
+
+.logs_search_clear {
+  color: hsl(var(--muted-foreground) / 0.4);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.logs_search_clear:hover {
+  color: hsl(var(--foreground) / 0.7);
+}
+
 .logs_row_id {
   font-size: 13px;
   font-weight: 700;
