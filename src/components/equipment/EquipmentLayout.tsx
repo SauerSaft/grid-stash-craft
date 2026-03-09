@@ -48,6 +48,8 @@ const EquipmentLayout = () => {
               <FactionTreasury />
             ) : selectedCategory === "mitglieder" ? (
               <FactionMembers />
+            ) : selectedCategory === "fraktionen" ? (
+              <FactionsView />
             ) : selectedCategory === "logs" ? (
               <FactionLogsV2 />
             ) : (
