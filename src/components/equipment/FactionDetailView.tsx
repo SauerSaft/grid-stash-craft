@@ -34,7 +34,10 @@ interface ShopItem {
   id: number;
   type: "weapon" | "item";
   model: string;
+  label: string;
+  amount: number;
   price: number;
+  rankAccess?: string[];
 }
 
 interface Vehicle {
@@ -76,17 +79,18 @@ const RIGHTS_LIST = [
 // ─── Mock Data ───
 const initialRanks: Rank[] = [
   { id: 1, label: "Azubi", name: "trainee", grade: 0, salary: 100, rights: {} },
-  { id: 2, label: "Officer", name: "officer", grade: 1, salary: 300, rights: { shop: true } },
-  { id: 3, label: "Sergeant", name: "sergeant", grade: 2, salary: 500, rights: { shop: true, hire: true } },
-  { id: 4, label: "Lieutenant", name: "lieutenant", grade: 3, salary: 800, rights: { shop: true, hire: true, promote: true } },
-  { id: 5, label: "Captain", name: "captain", grade: 4, salary: 1200, rights: Object.fromEntries(RIGHTS_LIST.map(r => [r.key, true])) },
+  { id: 2, label: "Rekrut", name: "trainee", grade: 1, salary: 150, rights: {} },
+  { id: 3, label: "Officer", name: "officer", grade: 2, salary: 300, rights: { shop: true } },
+  { id: 4, label: "Sergeant", name: "sergeant", grade: 3, salary: 500, rights: { shop: true, hire: true } },
+  { id: 5, label: "Lieutenant", name: "lieutenant", grade: 4, salary: 800, rights: { shop: true, hire: true, promote: true } },
+  { id: 6, label: "Captain", name: "captain", grade: 5, salary: 1200, rights: Object.fromEntries(RIGHTS_LIST.map(r => [r.key, true])) },
 ];
 
 const mockShopItems: ShopItem[] = [
-  { id: 1, type: "weapon", model: "WEAPON_PISTOL", price: 500 },
-  { id: 2, type: "weapon", model: "WEAPON_CARBINERIFLE", price: 2500 },
-  { id: 3, type: "item", model: "Schutzweste", price: 800 },
-  { id: 4, type: "item", model: "Medikit", price: 200 },
+  { id: 1, type: "weapon", model: "WEAPON_PISTOL", label: "WEAPON_PISTOL", amount: 1, price: 500, rankAccess: ["trainee", "officer"] },
+  { id: 2, type: "weapon", model: "WEAPON_CARBINERIFLE", label: "WEAPON_CARBINERIFLE", amount: 1, price: 2500, rankAccess: ["sergeant"] },
+  { id: 3, type: "item", model: "vest", label: "Schutzweste", amount: 3, price: 800, rankAccess: [] },
+  { id: 4, type: "item", model: "medikit", label: "Medikit", amount: 5, price: 200, rankAccess: ["trainee"] },
 ];
 
 const mockVehicles: Vehicle[] = [
@@ -114,6 +118,7 @@ const tabsList: { id: DetailTab; label: string; icon: typeof Shield }[] = [
 const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [activeTab, setActiveTab] = useState<DetailTab>("ranks");
   const [ranks, setRanks] = useState<Rank[]>(initialRanks);
+  const [shopItems, setShopItems] = useState<ShopItem[]>(mockShopItems);
 
   // ─── Rank Create/Edit Modal ───
   const [rankModalOpen, setRankModalOpen] = useState(false);
@@ -128,10 +133,29 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [rightsRank, setRightsRank] = useState<Rank | null>(null);
   const [rightsState, setRightsState] = useState<Record<string, boolean>>({});
 
-  // ─── Delete Confirm ───
+  // ─── Delete Confirm (generic) ───
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<Rank | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop"; id: number; label: string } | null>(null);
 
+  // ─── Shop Item Create/Edit Modal ───
+  const [shopModalOpen, setShopModalOpen] = useState(false);
+  const [editingShopItem, setEditingShopItem] = useState<ShopItem | null>(null);
+  const [shopType, setShopType] = useState<"weapon" | "item">("weapon");
+  const [shopModel, setShopModel] = useState("");
+  const [shopItemName, setShopItemName] = useState("");
+  const [shopItemLabel, setShopItemLabel] = useState("");
+  const [shopAmount, setShopAmount] = useState(1);
+  const [shopPrice, setShopPrice] = useState(0);
+
+  // ─── Rank Access Modal (for shop items) ───
+  const [rankAccessModalOpen, setRankAccessModalOpen] = useState(false);
+  const [rankAccessTarget, setRankAccessTarget] = useState<ShopItem | null>(null);
+  const [rankAccessState, setRankAccessState] = useState<Record<string, boolean>>({});
+
+  // ── Unique rank names ──
+  const uniqueRankNames = [...new Set(ranks.map(r => r.name))];
+
+  // ─── Rank handlers ───
   const openCreateRank = () => {
     setEditingRank(null);
     setRankLabel("");
@@ -173,24 +197,86 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setRightsModalOpen(false);
   };
 
-  const handleDeleteRank = (rank: Rank) => {
-    setDeleteTarget(rank);
-    setDeleteConfirmOpen(true);
-  };
-
-  const confirmDelete = () => {
-    if (deleteTarget) {
-      setRanks(prev => prev.filter(r => r.id !== deleteTarget.id));
-    }
-    setDeleteConfirmOpen(false);
-    setDeleteTarget(null);
-  };
-
   const handleNameInput = (val: string) => {
     setRankName(val.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, ""));
   };
 
   const activeRightsCount = Object.values(rightsState).filter(Boolean).length;
+
+  // ─── Shop handlers ───
+  const openCreateShopItem = () => {
+    setEditingShopItem(null);
+    setShopType("weapon");
+    setShopModel("");
+    setShopItemName("");
+    setShopItemLabel("");
+    setShopAmount(1);
+    setShopPrice(0);
+    setShopModalOpen(true);
+  };
+
+  const openEditShopItem = (item: ShopItem) => {
+    setEditingShopItem(item);
+    setShopType(item.type);
+    setShopModel(item.model);
+    setShopItemName(item.type === "item" ? item.model : "");
+    setShopItemLabel(item.label);
+    setShopAmount(item.amount);
+    setShopPrice(item.price);
+    setShopModalOpen(true);
+  };
+
+  const handleSaveShopItem = () => {
+    const isWeapon = shopType === "weapon";
+    const model = isWeapon ? shopModel : shopItemName;
+    const label = isWeapon ? shopModel : shopItemLabel;
+    const amount = isWeapon ? 1 : shopAmount;
+    if (!model.trim()) return;
+
+    if (editingShopItem) {
+      setShopItems(prev => prev.map(i => i.id === editingShopItem.id ? { ...i, type: shopType, model, label, amount, price: shopPrice } : i));
+    } else {
+      const newId = shopItems.length > 0 ? Math.max(...shopItems.map(i => i.id)) + 1 : 1;
+      setShopItems(prev => [...prev, { id: newId, type: shopType, model, label, amount, price: shopPrice, rankAccess: [] }]);
+    }
+    setShopModalOpen(false);
+  };
+
+  const openRankAccessModal = (item: ShopItem) => {
+    setRankAccessTarget(item);
+    const state: Record<string, boolean> = {};
+    uniqueRankNames.forEach(name => {
+      state[name] = item.rankAccess?.includes(name) ?? false;
+    });
+    setRankAccessState(state);
+    setRankAccessModalOpen(true);
+  };
+
+  const handleSaveRankAccess = () => {
+    if (!rankAccessTarget) return;
+    const access = Object.entries(rankAccessState).filter(([, v]) => v).map(([k]) => k);
+    setShopItems(prev => prev.map(i => i.id === rankAccessTarget.id ? { ...i, rankAccess: access } : i));
+    setRankAccessModalOpen(false);
+  };
+
+  // ─── Generic delete ───
+  const handleDeleteRequest = (type: "rank" | "shop", id: number, label: string) => {
+    setDeleteTarget({ type, id, label });
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    if (deleteTarget.type === "rank") {
+      setRanks(prev => prev.filter(r => r.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "shop") {
+      setShopItems(prev => prev.filter(i => i.id !== deleteTarget.id));
+    }
+    setDeleteConfirmOpen(false);
+    setDeleteTarget(null);
+  };
+
+  const activeRankAccessCount = Object.values(rankAccessState).filter(Boolean).length;
 
   return (
     <div className="ginshi_section ginshi_section_tabbed">
@@ -224,7 +310,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </button>
         )}
         {activeTab === "shop" && (
-          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }}>
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateShopItem}>
             <Plus size={13} />
             Item hinzufügen
           </button>
@@ -292,7 +378,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   <button title="Rechte" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRightsModal(rank)}>
                     <Users size={12} />
                   </button>
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRank(rank)}>
+                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("rank", rank.id, rank.label)}>
                     <Trash2 size={10} />
                   </button>
                 </div>
@@ -308,11 +394,13 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           <div className="ginshi_grid_thead faction_shop_cols">
             <span className="ginshi_grid_th">Typ</span>
             <span className="ginshi_grid_th">Model</span>
+            <span className="ginshi_grid_th">Anzeigename</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Anzahl</span>
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Preis</span>
             <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
           </div>
           <div className="ginshi_grid_tbody">
-            {mockShopItems.map((item) => (
+            {shopItems.map((item) => (
               <div key={item.id} className="ginshi_grid_row faction_shop_cols">
                 <div>
                   <div className={`ginshi_status_badge ${item.type === "weapon" ? "ginshi_status_badge_on" : "ginshi_status_badge_off"}`} style={{ display: "inline-flex" }}>
@@ -320,9 +408,19 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   </div>
                 </div>
                 <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "hsl(var(--foreground))" }}>{item.model}</span>
+                <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{item.label}</span>
+                <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--foreground))" }}>{item.amount}x</span>
                 <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>${item.price}</span>
                 <div className="ginshi_table_actions">
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger"><Trash2 size={10} /></button>
+                  <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditShopItem(item)}>
+                    <Pencil size={12} />
+                  </button>
+                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal(item)}>
+                    <Users size={12} />
+                  </button>
+                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("shop", item.id, item.label)}>
+                    <Trash2 size={10} />
+                  </button>
                 </div>
               </div>
             ))}
@@ -533,10 +631,166 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
         </DialogContent>
       </Dialog>
 
+      {/* ═══ Shop Item Create/Edit Modal ═══ */}
+      <Dialog open={shopModalOpen} onOpenChange={setShopModalOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 420 }}>
+          <DialogTitle className="sr-only">
+            {editingShopItem ? "Item bearbeiten" : "Item hinzufügen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingShopItem ? (
+                <>Item bearbeiten: <span>{editingShopItem.label}</span></>
+              ) : (
+                "Item hinzufügen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setShopModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Typ</label>
+              <select
+                className="ginshi_form_input"
+                value={shopType}
+                onChange={(e) => setShopType(e.target.value as "weapon" | "item")}
+              >
+                <option value="weapon">Waffe</option>
+                <option value="item">Item</option>
+              </select>
+            </div>
+
+            {shopType === "weapon" ? (
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Waffen Model</label>
+                <input
+                  type="text"
+                  className="ginshi_form_input"
+                  placeholder="WEAPON_PISTOL"
+                  value={shopModel}
+                  onChange={(e) => setShopModel(e.target.value)}
+                />
+              </div>
+            ) : (
+              <>
+                <div className="ginshi_form_group">
+                  <label className="ginshi_form_label">Item Name</label>
+                  <input
+                    type="text"
+                    className="ginshi_form_input"
+                    placeholder="phone"
+                    value={shopItemName}
+                    onChange={(e) => setShopItemName(e.target.value)}
+                  />
+                </div>
+                <div className="ginshi_form_group">
+                  <label className="ginshi_form_label">Label</label>
+                  <input
+                    type="text"
+                    className="ginshi_form_input"
+                    placeholder="Handy"
+                    value={shopItemLabel}
+                    onChange={(e) => setShopItemLabel(e.target.value)}
+                  />
+                </div>
+                <div className="ginshi_form_group">
+                  <label className="ginshi_form_label">Anzahl</label>
+                  <input
+                    type="number"
+                    className="ginshi_form_input"
+                    min={1}
+                    value={shopAmount}
+                    onChange={(e) => setShopAmount(Number(e.target.value))}
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Preis</label>
+              <input
+                type="number"
+                className="ginshi_form_input"
+                min={0}
+                value={shopPrice}
+                onChange={(e) => setShopPrice(Number(e.target.value))}
+              />
+            </div>
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveShopItem} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              {editingShopItem ? "Speichern" : "Hinzufügen"}
+            </button>
+            <button onClick={() => setShopModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ═══ Rank Access Modal ═══ */}
+      <Dialog open={rankAccessModalOpen} onOpenChange={setRankAccessModalOpen}>
+        <DialogContent className="ginshi_modal ginshi_modal_md">
+          <DialogTitle className="sr-only">
+            Rang Zugriff: {rankAccessTarget?.label}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              Rang Zugriff: <span>{rankAccessTarget?.label}</span>
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <div className="ginshi_rights_counter">
+              {activeRankAccessCount}/{uniqueRankNames.length}
+            </div>
+            <button onClick={() => setRankAccessModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ padding: "0.75rem 1.25rem 1rem" }}>
+            <div className="ginshi_checkbox_list">
+              {uniqueRankNames.map((name) => {
+                const active = !!rankAccessState[name];
+                return (
+                  <button
+                    key={name}
+                    className={`ginshi_checkbox_item ${active ? "ginshi_checkbox_item_active" : ""}`}
+                    onClick={() => setRankAccessState(prev => ({ ...prev, [name]: !prev[name] }))}
+                  >
+                    <div className="ginshi_checkbox_box">
+                      {active && <Check size={10} strokeWidth={3} />}
+                    </div>
+                    <span>{name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveRankAccess} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              Speichern
+            </button>
+            <button onClick={() => setRankAccessModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* ═══ Delete Confirm Dialog ═══ */}
       <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
         <DialogContent className="ginshi_modal ginshi_modal_sm">
-          <DialogTitle className="sr-only">Rang löschen</DialogTitle>
+          <DialogTitle className="sr-only">Löschen bestätigen</DialogTitle>
 
           <div className="ginshi_confirm_body ginshi_confirm_danger">
             <div className="ginshi_confirm_icon_wrap">
