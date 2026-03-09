@@ -1306,9 +1306,9 @@
   backdrop-filter: blur(24px);
 }
 
-.ginshi_modal.ginshi_modal_sm { max-width: 480px; }
-.ginshi_modal.ginshi_modal_md { max-width: 600px; }
-.ginshi_modal.ginshi_modal_lg { max-width: 800px; }
+.ginshi_modal.ginshi_modal_sm { max-width: 520px; }
+.ginshi_modal.ginshi_modal_md { max-width: 660px; }
+.ginshi_modal.ginshi_modal_lg { max-width: 880px; }
 
 /* ---- 2.24a Confirm Dialog (danger/warning) ---- */
 
