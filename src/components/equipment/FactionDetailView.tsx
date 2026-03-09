@@ -120,6 +120,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [activeTab, setActiveTab] = useState<DetailTab>("ranks");
   const [ranks, setRanks] = useState<Rank[]>(initialRanks);
   const [shopItems, setShopItems] = useState<ShopItem[]>(mockShopItems);
+  const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
 
   // ─── Rank Create/Edit Modal ───
   const [rankModalOpen, setRankModalOpen] = useState(false);
