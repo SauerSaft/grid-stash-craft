@@ -1025,6 +1025,122 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
         </DialogContent>
       </Dialog>
 
+      {/* ═══ Marker Create/Edit Modal ═══ */}
+      <Dialog open={markerModalOpen} onOpenChange={setMarkerModalOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 460 }}>
+          <DialogTitle className="sr-only">
+            {editingMarker ? "Marker bearbeiten" : "Marker hinzufügen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingMarker ? (
+                <>Marker bearbeiten: <span>{editingMarker.name}</span></>
+              ) : (
+                "Neuen Marker hinzufügen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setMarkerModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            {/* Typ */}
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Typ</label>
+              <select
+                className="ginshi_form_input ginshi_form_select"
+                value={mrkType}
+                onChange={(e) => setMrkType(e.target.value)}
+                disabled={!!editingMarker}
+                style={editingMarker ? { opacity: 0.5, cursor: "not-allowed" } : {}}
+              >
+                {MARKER_TYPES.map(t => (
+                  <option key={t.value} value={t.value}>{t.label}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Name */}
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Name</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. Hauptlager"
+                value={mrkName}
+                onChange={(e) => setMrkName(e.target.value)}
+              />
+            </div>
+
+            {/* Coordinates */}
+            <div className="ginshi_form_group">
+              <div className="ginshi_coords_header">
+                <label className="ginshi_form_label" style={{ margin: 0 }}>Koordinaten</label>
+                <button
+                  type="button"
+                  className="ginshi_locate_btn"
+                  title="Aktuelle Position übernehmen"
+                  onClick={() => { /* NUI: get current coords */ }}
+                >
+                  <Crosshair size={12} />
+                  GPS Position
+                </button>
+              </div>
+              <div className={`ginshi_coords_grid ${showWField ? "ginshi_coords_grid_4" : "ginshi_coords_grid_3"}`} style={{ marginTop: "0.5rem" }}>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">X</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkX} onChange={(e) => setMrkX(Number(e.target.value))} />
+                </div>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">Y</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkY} onChange={(e) => setMrkY(Number(e.target.value))} />
+                </div>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">Z</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkZ} onChange={(e) => setMrkZ(Number(e.target.value))} />
+                </div>
+                {showWField && (
+                  <div className="ginshi_coord_field">
+                    <span className="ginshi_coord_label">W</span>
+                    <input type="number" className="ginshi_form_input" step="0.01" value={mrkW ?? 0} onChange={(e) => setMrkW(Number(e.target.value))} />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Linked Garage (only for garage_spawn) */}
+            {mrkType === "garage_spawn" && (
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Verbundener Garagen Shop</label>
+                <select
+                  className="ginshi_form_input ginshi_form_select"
+                  value={mrkLinkedGarage ?? ""}
+                  onChange={(e) => setMrkLinkedGarage(e.target.value ? Number(e.target.value) : undefined)}
+                >
+                  <option value="">-- Auswählen --</option>
+                  {garageLocations.map(g => (
+                    <option key={g.id} value={g.id}>{g.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveMarker} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              {editingMarker ? "Speichern" : "Hinzufügen"}
+            </button>
+            <button onClick={() => setMarkerModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* ═══ Delete Confirm Dialog ═══ */}
       <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
         <DialogContent className="ginshi_modal ginshi_modal_sm">
