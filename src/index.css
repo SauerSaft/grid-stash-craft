@@ -1306,7 +1306,7 @@
   backdrop-filter: blur(24px);
 }
 
-.ginshi_modal.ginshi_modal_sm { max-width: 420px; }
+.ginshi_modal.ginshi_modal_sm { max-width: 480px; }
 .ginshi_modal.ginshi_modal_md { max-width: 600px; }
 .ginshi_modal.ginshi_modal_lg { max-width: 800px; }
 
