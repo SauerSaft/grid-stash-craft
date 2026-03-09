@@ -195,46 +195,20 @@ const FactionLogsV2 = () => {
       <div className="ginshi_divider" />
 
       {/* Search Bar */}
-      <div style={{ padding: "8px 14px" }}>
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          background: "hsl(var(--surface))",
-          border: "1px solid hsl(var(--border))",
-          borderRadius: "var(--radius)",
-          padding: "0 10px",
-          height: "32px",
-          transition: "border-color 0.15s",
-        }}
-          onFocus={(e) => (e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.5)")}
-          onBlur={(e) => (e.currentTarget.style.borderColor = "hsl(var(--border))")}
-        >
-          <Search size={13} style={{ color: "hsl(var(--muted-foreground))", flexShrink: 0 }} />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-            placeholder="Suchen nach Name, Waffe, Item…"
-            style={{
-              flex: 1,
-              background: "transparent",
-              border: "none",
-              outline: "none",
-              color: "hsl(var(--foreground))",
-              fontSize: "12px",
-              fontFamily: "inherit",
-            }}
-          />
-          {searchQuery && (
-            <button
-              onClick={() => { setSearchQuery(""); setCurrentPage(1); }}
-              style={{ color: "hsl(var(--muted-foreground))", lineHeight: 0, cursor: "pointer", background: "none", border: "none", padding: 0, flexShrink: 0 }}
-            >
-              <X size={13} />
-            </button>
-          )}
-        </div>
+      <div className="logs_search_wrap">
+        <Search size={13} className="logs_search_icon" />
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+          placeholder="Suchen nach Name, Waffe, Item…"
+          className="logs_search_input"
+        />
+        {searchQuery && (
+          <button onClick={() => { setSearchQuery(""); setCurrentPage(1); }} className="logs_search_clear">
+            <X size={13} />
+          </button>
+        )}
       </div>
 
       {/* Table */}
