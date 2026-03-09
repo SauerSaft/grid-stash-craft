@@ -1937,10 +1937,6 @@
 
 /* ---- 3.1 Members ---- */
 
-.members_col_rank { width: 28%; }
-.members_col_status { width: 20%; text-align: center; }
-.members_col_actions { width: 22%; text-align: right; }
-
 .ginshi_member_name {
   display: flex;
   align-items: center;
