@@ -803,6 +803,86 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
         </DialogContent>
       </Dialog>
 
+      {/* ═══ Vehicle Create/Edit Modal ═══ */}
+      <Dialog open={vehicleModalOpen} onOpenChange={setVehicleModalOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 420 }}>
+          <DialogTitle className="sr-only">
+            {editingVehicle ? "Fahrzeug bearbeiten" : "Fahrzeug hinzufügen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingVehicle ? (
+                <>Fahrzeug bearbeiten: <span>{editingVehicle.label}</span></>
+              ) : (
+                "Fahrzeug hinzufügen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setVehicleModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Model</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. police"
+                value={vehModel}
+                onChange={(e) => setVehModel(e.target.value)}
+              />
+            </div>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Label</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. Police Car"
+                value={vehLabel}
+                onChange={(e) => setVehLabel(e.target.value)}
+              />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Typ</label>
+                <select
+                  className="ginshi_form_input ginshi_form_select"
+                  value={vehType}
+                  onChange={(e) => setVehType(e.target.value as "car" | "air" | "boat")}
+                >
+                  <option value="car">Auto</option>
+                  <option value="air">Hubschrauber</option>
+                  <option value="boat">Boot</option>
+                </select>
+              </div>
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Preis</label>
+                <input
+                  type="number"
+                  className="ginshi_form_input"
+                  min={0}
+                  value={vehPrice}
+                  onChange={(e) => setVehPrice(Number(e.target.value))}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveVehicle} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              {editingVehicle ? "Speichern" : "Hinzufügen"}
+            </button>
+            <button onClick={() => setVehicleModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* ═══ Rank Access Modal ═══ */}
       <Dialog open={rankAccessModalOpen} onOpenChange={setRankAccessModalOpen}>
         <DialogContent className="ginshi_modal ginshi_modal_sm">
