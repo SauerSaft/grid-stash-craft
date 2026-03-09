@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Users, Plus, Search, X, Eye } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface Faction {
   id: string;
@@ -19,15 +20,37 @@ const mockFactions: Faction[] = [
   { id: "6", label: "Mechaniker", name: "mechanic", type: "job", ranks: 4, markers: 2 },
 ];
 
+const factionTypes = [
+  { value: "", label: "-- Wählen --" },
+  { value: "police", label: "Staatsfrak" },
+  { value: "gang", label: "Badfrak" },
+  { value: "neutral", label: "Neutral" },
+  { value: "ambulance", label: "Medic" },
+  { value: "mechanic", label: "Mechaniker" },
+  { value: "tacticalmedic", label: "Tacticalmedic" },
+];
+
 const FactionsView = () => {
   const [factions] = useState(mockFactions);
   const [searchQuery, setSearchQuery] = useState("");
+  const [createOpen, setCreateOpen] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newLabel, setNewLabel] = useState("");
+  const [newType, setNewType] = useState("");
 
   const filtered = factions.filter(
     (f) =>
       f.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
       f.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleCreate = () => {
+    // placeholder
+    setCreateOpen(false);
+    setNewName("");
+    setNewLabel("");
+    setNewType("");
+  };
 
   return (
     <div className="ginshi_section">
@@ -45,7 +68,7 @@ const FactionsView = () => {
             <Users size={10} className="ginshi_badge_icon" />
             <span className="ginshi_badge_value">{factions.length}</span>
           </div>
-          <button className="ginshi_btn_primary">
+          <button className="ginshi_btn_primary" onClick={() => setCreateOpen(true)}>
             <Plus size={13} />
             <span>Fraktion Erstellen</span>
           </button>
@@ -138,6 +161,66 @@ const FactionsView = () => {
           </table>
         </div>
       </div>
+
+      {/* Create Modal */}
+      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 420 }}>
+          <DialogTitle className="sr-only">Fraktion erstellen</DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">Fraktion erstellen</span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setCreateOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Job Name</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. police"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+            </div>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Job Label</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. Los Santos Police Department"
+                value={newLabel}
+                onChange={(e) => setNewLabel(e.target.value)}
+              />
+            </div>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Typ</label>
+              <select
+                className="ginshi_form_select"
+                value={newType}
+                onChange={(e) => setNewType(e.target.value)}
+              >
+                {factionTypes.map((t) => (
+                  <option key={t.value} value={t.value}>{t.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleCreate} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              Erstellen
+            </button>
+            <button onClick={() => setCreateOpen(false)} className="ginshi_btn_destructive" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
