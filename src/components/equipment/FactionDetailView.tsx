@@ -46,6 +46,7 @@ interface Vehicle {
   label: string;
   type: "car" | "air" | "boat";
   price: number;
+  rankAccess?: string[];
 }
 
 interface Marker {
