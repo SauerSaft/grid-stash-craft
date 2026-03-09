@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ScrollText, ShoppingCart, Shield, Package, Landmark, ArrowDownToLine, ArrowUpFromLine, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ScrollText, ShoppingCart, Shield, Package, Landmark, ArrowDownToLine, ArrowUpFromLine, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search, X } from "lucide-react";
 
 type LogTab = "waffenshop" | "waffenkammer" | "fraklager" | "frakkasse";
 
@@ -33,13 +33,26 @@ const ITEMS_PER_PAGE = 15;
 const FactionLogsV2 = () => {
   const [activeTab, setActiveTab] = useState<LogTab>("waffenshop");
   const [pages, setPages] = useState<Record<LogTab, number>>({ waffenshop: 1, waffenkammer: 1, fraklager: 1, frakkasse: 1 });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const currentPage = pages[activeTab];
   const setCurrentPage = (p: number) => setPages((prev) => ({ ...prev, [activeTab]: p }));
 
   const allLogs = activeTab === "waffenshop" ? shopLogs : activeTab === "waffenkammer" ? armoryLogs : activeTab === "fraklager" ? storageLogs : treasuryLogs;
-  const totalPages = Math.ceil(allLogs.length / ITEMS_PER_PAGE);
-  const paginatedLogs = allLogs.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  const filteredLogs = useMemo(() => {
+    if (!searchQuery.trim()) return allLogs;
+    const q = searchQuery.toLowerCase();
+    return allLogs.filter((log: any) =>
+      log.name.toLowerCase().includes(q) ||
+      log.date.includes(q) ||
+      ("weapon" in log && log.weapon.toLowerCase().includes(q)) ||
+      ("item" in log && log.item.toLowerCase().includes(q))
+    );
+  }, [allLogs, searchQuery]);
+
+  const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE);
+  const paginatedLogs = filteredLogs.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const getPageRange = () => {
     const maxVisible = 5;
@@ -150,7 +163,9 @@ const FactionLogsV2 = () => {
         <div className="ginshi_section_header_badges">
           <div className="ginshi_badge">
             <ScrollText size={10} className="ginshi_badge_icon" />
-            <span className="ginshi_badge_value">{allLogs.length} Einträge</span>
+            <span className="ginshi_badge_value">
+              {searchQuery.trim() ? `${filteredLogs.length} / ${allLogs.length}` : allLogs.length} Einträge
+            </span>
           </div>
         </div>
       </div>
@@ -164,7 +179,7 @@ const FactionLogsV2 = () => {
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => { setActiveTab(tab.id); setSearchQuery(""); setCurrentPage(1); }}
               className={`ginshi_tab ${isActive ? "ginshi_tab_active" : ""}`}
             >
               <tab.icon />
@@ -178,6 +193,49 @@ const FactionLogsV2 = () => {
       </div>
 
       <div className="ginshi_divider" />
+
+      {/* Search Bar */}
+      <div style={{ padding: "8px 14px" }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          background: "hsl(var(--surface))",
+          border: "1px solid hsl(var(--border))",
+          borderRadius: "var(--radius)",
+          padding: "0 10px",
+          height: "32px",
+          transition: "border-color 0.15s",
+        }}
+          onFocus={(e) => (e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.5)")}
+          onBlur={(e) => (e.currentTarget.style.borderColor = "hsl(var(--border))")}
+        >
+          <Search size={13} style={{ color: "hsl(var(--muted-foreground))", flexShrink: 0 }} />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+            placeholder="Suchen nach Name, Waffe, Item…"
+            style={{
+              flex: 1,
+              background: "transparent",
+              border: "none",
+              outline: "none",
+              color: "hsl(var(--foreground))",
+              fontSize: "12px",
+              fontFamily: "inherit",
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => { setSearchQuery(""); setCurrentPage(1); }}
+              style={{ color: "hsl(var(--muted-foreground))", lineHeight: 0, cursor: "pointer", background: "none", border: "none", padding: 0, flexShrink: 0 }}
+            >
+              <X size={13} />
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* Table */}
       <div className="ginshi_grid_table">
@@ -196,7 +254,7 @@ const FactionLogsV2 = () => {
         {totalPages > 1 && (
           <div className="ginshi_pagination">
             <span className="ginshi_pagination_info">
-              {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
+              {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredLogs.length)} von {filteredLogs.length}
             </span>
             <div className="ginshi_pagination_btns">
               <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="ginshi_page_btn">
