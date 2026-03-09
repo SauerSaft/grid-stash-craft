@@ -597,24 +597,38 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>X</span>
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Y</span>
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Z</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>W</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Distanz</span>
             <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
           </div>
           <div className="ginshi_grid_tbody">
-            {mockMarkers.map((marker) => (
-              <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
-                <div>
-                  <div className="ginshi_status_badge ginshi_status_badge_on" style={{ display: "inline-flex" }}>{marker.type}</div>
+            {markers.map((marker) => {
+              const dist = Math.sqrt(marker.x ** 2 + marker.y ** 2 + marker.z ** 2).toFixed(1);
+              return (
+                <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
+                  <div>
+                    <span className="ginshi_marker_type">{getMarkerTypeLabel(marker.type)}</span>
+                  </div>
+                  <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.y}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.z}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.w != null ? marker.w : "–"}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--accent-foreground))" }}>{dist}m</span>
+                  <div className="ginshi_table_actions">
+                    <button title="Teleportieren" className="ginshi_action_btn ginshi_action_btn_tp" onClick={() => { /* NUI callback for teleport */ }}>
+                      <Navigation size={12} />
+                    </button>
+                    <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditMarker(marker)}>
+                      <Pencil size={12} />
+                    </button>
+                    <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("marker", marker.id, marker.name)}>
+                      <Trash2 size={10} />
+                    </button>
+                  </div>
                 </div>
-                <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.y}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.z}</span>
-                <div className="ginshi_table_actions">
-                  <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning"><Pencil size={12} /></button>
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger"><Trash2 size={10} /></button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
