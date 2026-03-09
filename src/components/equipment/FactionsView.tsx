@@ -155,7 +155,7 @@ const FactionsView = () => {
                   </td>
                   <td className="ginshi_td">
                     <div className="ginshi_table_actions">
-                      <button title="Details" className="ginshi_action_btn ginshi_action_btn_warning">
+                      <button title="Details" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => setSelectedFaction(faction)}>
                         <Eye size={12} />
                       </button>
                     </div>
