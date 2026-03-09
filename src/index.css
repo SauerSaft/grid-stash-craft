@@ -3231,7 +3231,68 @@
 }
 
 .faction_shop_cols {
-  grid-template-columns: 5rem 1fr 6rem 6rem;
+  grid-template-columns: 5rem 1fr 1fr 4rem 5rem 7rem;
+}
+
+/* ---- Checkbox List (reusable for rank access, permissions etc.) ---- */
+
+.ginshi_checkbox_list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.ginshi_checkbox_item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+}
+
+.ginshi_checkbox_item:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border);
+}
+
+.ginshi_checkbox_item_active {
+  background: hsl(var(--success) / 0.04);
+  border-color: hsl(var(--success) / 0.12);
+  color: hsl(var(--foreground));
+}
+
+.ginshi_checkbox_item_active:hover {
+  background: hsl(var(--success) / 0.07);
+  border-color: hsl(var(--success) / 0.2);
+}
+
+.ginshi_checkbox_box {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--glass-border-strong);
+  background: var(--glass-input-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  color: transparent;
+}
+
+.ginshi_checkbox_item_active .ginshi_checkbox_box {
+  background: hsl(var(--success) / 0.3);
+  border-color: hsl(var(--success) / 0.6);
+  color: hsl(var(--success));
 }
 
 .faction_vehicle_cols {
