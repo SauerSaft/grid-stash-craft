@@ -645,11 +645,52 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
       {/* ─── Settings Tab ─── */}
       {activeTab === "settings" && (
-        <div className="ginshi_grid_table" style={{ alignItems: "center", justifyContent: "center", padding: "3rem" }}>
-          <Settings size={36} style={{ opacity: 0.3, color: "hsl(var(--muted-foreground))" }} />
-          <p style={{ opacity: 0.4, fontSize: "0.875rem", fontWeight: 600, color: "hsl(var(--muted-foreground))", marginTop: "0.5rem" }}>
-            Weitere Einstellungen folgen
-          </p>
+        <div className="ginshi_settings_content">
+          <div className="ginshi_settings_section">
+            <h3 className="ginshi_settings_section_title">
+              <Palette size={14} />
+              Fraktionsfarben
+            </h3>
+            <div className="ginshi_color_cards">
+              {/* Blip Color */}
+              <button
+                className="ginshi_color_card"
+                onClick={() => { setColorPickerTarget("blip"); setColorSearch(""); setColorPickerOpen(true); }}
+              >
+                <div
+                  className="ginshi_color_preview"
+                  style={blipColor ? { backgroundColor: blipColor.hex } : {}}
+                >
+                  {!blipColor && <span className="ginshi_color_empty">–</span>}
+                </div>
+                <div className="ginshi_color_card_info">
+                  <span className="ginshi_color_card_label">Blip Farbe</span>
+                  <span className="ginshi_color_card_value">
+                    {blipColor ? `ID: ${blipColor.id} — ${blipColor.name}` : "Nicht gesetzt"}
+                  </span>
+                </div>
+              </button>
+
+              {/* Vehicle Color */}
+              <button
+                className="ginshi_color_card"
+                onClick={() => { setColorPickerTarget("vehicle"); setColorSearch(""); setColorPickerOpen(true); }}
+              >
+                <div
+                  className="ginshi_color_preview"
+                  style={vehicleColor ? { backgroundColor: vehicleColor.hex } : {}}
+                >
+                  {!vehicleColor && <span className="ginshi_color_empty">–</span>}
+                </div>
+                <div className="ginshi_color_card_info">
+                  <span className="ginshi_color_card_label">Fahrzeug Farbe</span>
+                  <span className="ginshi_color_card_value">
+                    {vehicleColor ? `ID: ${vehicleColor.id} — ${vehicleColor.name}` : "Nicht gesetzt"}
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
