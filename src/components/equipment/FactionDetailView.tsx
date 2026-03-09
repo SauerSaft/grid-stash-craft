@@ -172,8 +172,17 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setRightsModalOpen(false);
   };
 
-  const handleDeleteRank = (id: number) => {
-    setRanks(prev => prev.filter(r => r.id !== id));
+  const handleDeleteRank = (rank: Rank) => {
+    setDeleteTarget(rank);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (deleteTarget) {
+      setRanks(prev => prev.filter(r => r.id !== deleteTarget.id));
+    }
+    setDeleteConfirmOpen(false);
+    setDeleteTarget(null);
   };
 
   const handleNameInput = (val: string) => {
