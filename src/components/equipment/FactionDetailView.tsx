@@ -146,6 +146,13 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
   const [markers, setMarkers] = useState<Marker[]>(mockMarkers);
 
+  // ─── Color Settings ───
+  const [blipColor, setBlipColor] = useState<FivemColor | null>(null);
+  const [vehicleColor, setVehicleColor] = useState<FivemColor | null>(null);
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [colorPickerTarget, setColorPickerTarget] = useState<"blip" | "vehicle">("blip");
+  const [colorSearch, setColorSearch] = useState("");
+
   // ─── Rank Create/Edit Modal ───
   const [rankModalOpen, setRankModalOpen] = useState(false);
   const [editingRank, setEditingRank] = useState<Rank | null>(null);
