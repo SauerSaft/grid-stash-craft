@@ -576,9 +576,9 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                 <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "hsl(var(--foreground))" }}>{veh.model}</span>
                 <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{veh.label}</span>
                 <div style={{ textAlign: "center" }}>
-                  <div className="ginshi_status_badge ginshi_status_badge_off" style={{ display: "inline-flex" }}>
+                  <span className="ginshi_type_badge">
                     {veh.type === "car" ? "Auto" : veh.type === "air" ? "Heli" : "Boot"}
-                  </div>
+                  </span>
                 </div>
                 <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>${veh.price}</span>
                 <div className="ginshi_table_actions">
