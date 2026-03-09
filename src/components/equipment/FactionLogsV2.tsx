@@ -163,7 +163,9 @@ const FactionLogsV2 = () => {
         <div className="ginshi_section_header_badges">
           <div className="ginshi_badge">
             <ScrollText size={10} className="ginshi_badge_icon" />
-            <span className="ginshi_badge_value">{allLogs.length} Einträge</span>
+            <span className="ginshi_badge_value">
+              {searchQuery.trim() ? `${filteredLogs.length} / ${allLogs.length}` : allLogs.length} Einträge
+            </span>
           </div>
         </div>
       </div>
