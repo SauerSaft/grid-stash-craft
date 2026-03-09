@@ -12,6 +12,7 @@ import {
   Shield,
   X,
   Check,
+  AlertTriangle,
 } from "lucide-react";
 import {
   Dialog,
