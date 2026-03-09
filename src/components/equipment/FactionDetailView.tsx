@@ -696,23 +696,35 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                     className="ginshi_form_input"
                     placeholder="Handy"
                     value={shopItemLabel}
-                    onChange={(e) => setShopItemLabel(e.target.value)}
-                  />
+                  onChange={(e) => setShopItemLabel(e.target.value)}
+                />
                 </div>
-                <div className="ginshi_form_group">
-                  <label className="ginshi_form_label">Anzahl</label>
-                  <input
-                    type="number"
-                    className="ginshi_form_input"
-                    min={1}
-                    value={shopAmount}
-                    onChange={(e) => setShopAmount(Number(e.target.value))}
-                  />
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div className="ginshi_form_group">
+                    <label className="ginshi_form_label">Anzahl</label>
+                    <input
+                      type="number"
+                      className="ginshi_form_input"
+                      min={1}
+                      value={shopAmount}
+                      onChange={(e) => setShopAmount(Number(e.target.value))}
+                    />
+                  </div>
+                  <div className="ginshi_form_group">
+                    <label className="ginshi_form_label">Preis</label>
+                    <input
+                      type="number"
+                      className="ginshi_form_input"
+                      min={0}
+                      value={shopPrice}
+                      onChange={(e) => setShopPrice(Number(e.target.value))}
+                    />
+                  </div>
                 </div>
               </>
             )}
 
-            <div className="ginshi_form_group">
+            {shopType === "weapon" && (
               <label className="ginshi_form_label">Preis</label>
               <input
                 type="number"
