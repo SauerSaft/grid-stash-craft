@@ -696,32 +696,46 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                     className="ginshi_form_input"
                     placeholder="Handy"
                     value={shopItemLabel}
-                    onChange={(e) => setShopItemLabel(e.target.value)}
-                  />
+                  onChange={(e) => setShopItemLabel(e.target.value)}
+                />
                 </div>
-                <div className="ginshi_form_group">
-                  <label className="ginshi_form_label">Anzahl</label>
-                  <input
-                    type="number"
-                    className="ginshi_form_input"
-                    min={1}
-                    value={shopAmount}
-                    onChange={(e) => setShopAmount(Number(e.target.value))}
-                  />
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div className="ginshi_form_group">
+                    <label className="ginshi_form_label">Anzahl</label>
+                    <input
+                      type="number"
+                      className="ginshi_form_input"
+                      min={1}
+                      value={shopAmount}
+                      onChange={(e) => setShopAmount(Number(e.target.value))}
+                    />
+                  </div>
+                  <div className="ginshi_form_group">
+                    <label className="ginshi_form_label">Preis</label>
+                    <input
+                      type="number"
+                      className="ginshi_form_input"
+                      min={0}
+                      value={shopPrice}
+                      onChange={(e) => setShopPrice(Number(e.target.value))}
+                    />
+                  </div>
                 </div>
               </>
             )}
 
-            <div className="ginshi_form_group">
-              <label className="ginshi_form_label">Preis</label>
-              <input
-                type="number"
-                className="ginshi_form_input"
-                min={0}
-                value={shopPrice}
-                onChange={(e) => setShopPrice(Number(e.target.value))}
-              />
-            </div>
+            {shopType === "weapon" && (
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Preis</label>
+                <input
+                  type="number"
+                  className="ginshi_form_input"
+                  min={0}
+                  value={shopPrice}
+                  onChange={(e) => setShopPrice(Number(e.target.value))}
+                />
+              </div>
+            )}
           </div>
 
           <div className="ginshi_modal_actions">
@@ -737,7 +751,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
       {/* ═══ Rank Access Modal ═══ */}
       <Dialog open={rankAccessModalOpen} onOpenChange={setRankAccessModalOpen}>
-        <DialogContent className="ginshi_modal ginshi_modal_md">
+        <DialogContent className="ginshi_modal ginshi_modal_sm">
           <DialogTitle className="sr-only">
             Rang Zugriff: {rankAccessTarget?.label}
           </DialogTitle>
