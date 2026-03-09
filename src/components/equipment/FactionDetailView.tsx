@@ -149,10 +149,18 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [shopAmount, setShopAmount] = useState(1);
   const [shopPrice, setShopPrice] = useState(0);
 
-  // ─── Rank Access Modal (for shop items) ───
+  // ─── Rank Access Modal (for shop items & vehicles) ───
   const [rankAccessModalOpen, setRankAccessModalOpen] = useState(false);
-  const [rankAccessTarget, setRankAccessTarget] = useState<ShopItem | null>(null);
+  const [rankAccessTarget, setRankAccessTarget] = useState<{ id: number; label: string; rankAccess?: string[]; source: "shop" | "vehicle" } | null>(null);
   const [rankAccessState, setRankAccessState] = useState<Record<string, boolean>>({});
+
+  // ─── Vehicle Create/Edit Modal ───
+  const [vehicleModalOpen, setVehicleModalOpen] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
+  const [vehModel, setVehModel] = useState("");
+  const [vehLabel, setVehLabel] = useState("");
+  const [vehType, setVehType] = useState<"car" | "air" | "boat">("car");
+  const [vehPrice, setVehPrice] = useState(0);
 
   // ── Unique rank names ──
   const uniqueRankNames = [...new Set(ranks.map(r => r.name))];
