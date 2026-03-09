@@ -147,16 +147,14 @@ const FactionsView = () => {
                     </span>
                   </td>
                   <td className="ginshi_td">
-                    <div
-                      className={
-                        faction.type === "job"
-                          ? "ginshi_status_badge ginshi_status_badge_on"
-                          : "ginshi_status_badge ginshi_status_badge_off"
-                      }
-                      style={{ display: "inline-flex" }}
-                    >
-                      {faction.type}
-                    </div>
+                    {(() => {
+                      const badge = getFactionTypeBadge(faction.type);
+                      return (
+                        <span className={`ginshi_marker_type ${badge.className}`}>
+                          {badge.label}
+                        </span>
+                      );
+                    })()}
                   </td>
                   <td className="ginshi_td ginshi_td_center">
                     <span style={{ fontWeight: 700, color: "hsl(var(--foreground))" }}>
