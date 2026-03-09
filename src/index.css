@@ -2087,13 +2087,6 @@
   color: hsl(var(--success));
 }
 
-.faction_vehicle_cols {
-  grid-template-columns: 1fr 1fr 1fr 1fr 9rem;
-}
-
-.faction_marker_cols {
-  grid-template-columns: 1fr 1.2fr 0.7fr 0.7fr 0.7fr 0.5fr 0.8fr 9rem;
-}
 
 /* ─── Coords Grid (Marker Modal) ─── */
 .ginshi_coords_grid {
