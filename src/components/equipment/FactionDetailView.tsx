@@ -46,6 +46,7 @@ interface Vehicle {
   label: string;
   type: "car" | "air" | "boat";
   price: number;
+  rankAccess?: string[];
 }
 
 interface Marker {
@@ -94,9 +95,9 @@ const mockShopItems: ShopItem[] = [
 ];
 
 const mockVehicles: Vehicle[] = [
-  { id: 1, model: "police", label: "Police Car", type: "car", price: 0 },
-  { id: 2, model: "policeb", label: "Police Bike", type: "car", price: 0 },
-  { id: 3, model: "polmav", label: "Police Maverick", type: "air", price: 0 },
+  { id: 1, model: "police", label: "Police Car", type: "car", price: 0, rankAccess: ["officer"] },
+  { id: 2, model: "policeb", label: "Police Bike", type: "car", price: 0, rankAccess: ["sergeant"] },
+  { id: 3, model: "polmav", label: "Police Maverick", type: "air", price: 0, rankAccess: ["lieutenant"] },
 ];
 
 const mockMarkers: Marker[] = [
@@ -119,6 +120,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [activeTab, setActiveTab] = useState<DetailTab>("ranks");
   const [ranks, setRanks] = useState<Rank[]>(initialRanks);
   const [shopItems, setShopItems] = useState<ShopItem[]>(mockShopItems);
+  const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
 
   // ─── Rank Create/Edit Modal ───
   const [rankModalOpen, setRankModalOpen] = useState(false);
@@ -135,7 +137,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
   // ─── Delete Confirm (generic) ───
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop"; id: number; label: string } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop" | "vehicle"; id: number; label: string } | null>(null);
 
   // ─── Shop Item Create/Edit Modal ───
   const [shopModalOpen, setShopModalOpen] = useState(false);
@@ -147,10 +149,18 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [shopAmount, setShopAmount] = useState(1);
   const [shopPrice, setShopPrice] = useState(0);
 
-  // ─── Rank Access Modal (for shop items) ───
+  // ─── Rank Access Modal (for shop items & vehicles) ───
   const [rankAccessModalOpen, setRankAccessModalOpen] = useState(false);
-  const [rankAccessTarget, setRankAccessTarget] = useState<ShopItem | null>(null);
+  const [rankAccessTarget, setRankAccessTarget] = useState<{ id: number; label: string; rankAccess?: string[]; source: "shop" | "vehicle" } | null>(null);
   const [rankAccessState, setRankAccessState] = useState<Record<string, boolean>>({});
+
+  // ─── Vehicle Create/Edit Modal ───
+  const [vehicleModalOpen, setVehicleModalOpen] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
+  const [vehModel, setVehModel] = useState("");
+  const [vehLabel, setVehLabel] = useState("");
+  const [vehType, setVehType] = useState<"car" | "air" | "boat">("car");
+  const [vehPrice, setVehPrice] = useState(0);
 
   // ── Unique rank names ──
   const uniqueRankNames = [...new Set(ranks.map(r => r.name))];
@@ -242,8 +252,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setShopModalOpen(false);
   };
 
-  const openRankAccessModal = (item: ShopItem) => {
-    setRankAccessTarget(item);
+  const openRankAccessModal = (source: "shop" | "vehicle", item: { id: number; label: string; rankAccess?: string[] }) => {
+    setRankAccessTarget({ ...item, source });
     const state: Record<string, boolean> = {};
     uniqueRankNames.forEach(name => {
       state[name] = item.rankAccess?.includes(name) ?? false;
@@ -255,12 +265,46 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const handleSaveRankAccess = () => {
     if (!rankAccessTarget) return;
     const access = Object.entries(rankAccessState).filter(([, v]) => v).map(([k]) => k);
-    setShopItems(prev => prev.map(i => i.id === rankAccessTarget.id ? { ...i, rankAccess: access } : i));
+    if (rankAccessTarget.source === "shop") {
+      setShopItems(prev => prev.map(i => i.id === rankAccessTarget.id ? { ...i, rankAccess: access } : i));
+    } else {
+      setVehicles(prev => prev.map(v => v.id === rankAccessTarget.id ? { ...v, rankAccess: access } : v));
+    }
     setRankAccessModalOpen(false);
   };
 
+  // ─── Vehicle handlers ───
+  const openCreateVehicle = () => {
+    setEditingVehicle(null);
+    setVehModel("");
+    setVehLabel("");
+    setVehType("car");
+    setVehPrice(0);
+    setVehicleModalOpen(true);
+  };
+
+  const openEditVehicle = (veh: Vehicle) => {
+    setEditingVehicle(veh);
+    setVehModel(veh.model);
+    setVehLabel(veh.label);
+    setVehType(veh.type);
+    setVehPrice(veh.price);
+    setVehicleModalOpen(true);
+  };
+
+  const handleSaveVehicle = () => {
+    if (!vehModel.trim() || !vehLabel.trim()) return;
+    if (editingVehicle) {
+      setVehicles(prev => prev.map(v => v.id === editingVehicle.id ? { ...v, model: vehModel, label: vehLabel, type: vehType, price: vehPrice } : v));
+    } else {
+      const newId = vehicles.length > 0 ? Math.max(...vehicles.map(v => v.id)) + 1 : 1;
+      setVehicles(prev => [...prev, { id: newId, model: vehModel, label: vehLabel, type: vehType, price: vehPrice, rankAccess: [] }]);
+    }
+    setVehicleModalOpen(false);
+  };
+
   // ─── Generic delete ───
-  const handleDeleteRequest = (type: "rank" | "shop", id: number, label: string) => {
+  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle", id: number, label: string) => {
     setDeleteTarget({ type, id, label });
     setDeleteConfirmOpen(true);
   };
@@ -271,6 +315,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
       setRanks(prev => prev.filter(r => r.id !== deleteTarget.id));
     } else if (deleteTarget.type === "shop") {
       setShopItems(prev => prev.filter(i => i.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "vehicle") {
+      setVehicles(prev => prev.filter(v => v.id !== deleteTarget.id));
     }
     setDeleteConfirmOpen(false);
     setDeleteTarget(null);
@@ -316,7 +362,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </button>
         )}
         {activeTab === "vehicles" && (
-          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }}>
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateVehicle}>
             <Plus size={13} />
             Fahrzeug hinzufügen
           </button>
@@ -415,7 +461,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditShopItem(item)}>
                     <Pencil size={12} />
                   </button>
-                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal(item)}>
+                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal("shop", item)}>
                     <Users size={12} />
                   </button>
                   <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("shop", item.id, item.label)}>
@@ -439,7 +485,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
           </div>
           <div className="ginshi_grid_tbody">
-            {mockVehicles.map((veh) => (
+            {vehicles.map((veh) => (
               <div key={veh.id} className="ginshi_grid_row faction_vehicle_cols">
                 <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "hsl(var(--foreground))" }}>{veh.model}</span>
                 <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{veh.label}</span>
@@ -450,7 +496,15 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                 </div>
                 <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>${veh.price}</span>
                 <div className="ginshi_table_actions">
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger"><Trash2 size={10} /></button>
+                  <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditVehicle(veh)}>
+                    <Pencil size={12} />
+                  </button>
+                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal("vehicle", veh)}>
+                    <Users size={12} />
+                  </button>
+                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("vehicle", veh.id, veh.label)}>
+                    <Trash2 size={10} />
+                  </button>
                 </div>
               </div>
             ))}
@@ -743,6 +797,86 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
               {editingShopItem ? "Speichern" : "Hinzufügen"}
             </button>
             <button onClick={() => setShopModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ═══ Vehicle Create/Edit Modal ═══ */}
+      <Dialog open={vehicleModalOpen} onOpenChange={setVehicleModalOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 420 }}>
+          <DialogTitle className="sr-only">
+            {editingVehicle ? "Fahrzeug bearbeiten" : "Fahrzeug hinzufügen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingVehicle ? (
+                <>Fahrzeug bearbeiten: <span>{editingVehicle.label}</span></>
+              ) : (
+                "Fahrzeug hinzufügen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setVehicleModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Model</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. police"
+                value={vehModel}
+                onChange={(e) => setVehModel(e.target.value)}
+              />
+            </div>
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Label</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. Police Car"
+                value={vehLabel}
+                onChange={(e) => setVehLabel(e.target.value)}
+              />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Typ</label>
+                <select
+                  className="ginshi_form_input ginshi_form_select"
+                  value={vehType}
+                  onChange={(e) => setVehType(e.target.value as "car" | "air" | "boat")}
+                >
+                  <option value="car">Auto</option>
+                  <option value="air">Hubschrauber</option>
+                  <option value="boat">Boot</option>
+                </select>
+              </div>
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Preis</label>
+                <input
+                  type="number"
+                  className="ginshi_form_input"
+                  min={0}
+                  value={vehPrice}
+                  onChange={(e) => setVehPrice(Number(e.target.value))}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveVehicle} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              {editingVehicle ? "Speichern" : "Hinzufügen"}
+            </button>
+            <button onClick={() => setVehicleModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
               Abbrechen
             </button>
           </div>
