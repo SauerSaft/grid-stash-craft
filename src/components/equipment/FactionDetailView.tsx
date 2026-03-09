@@ -1076,6 +1076,71 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
         </DialogContent>
       </Dialog>
 
+      {/* ═══ Color Picker Modal ═══ */}
+      <Dialog open={colorPickerOpen} onOpenChange={setColorPickerOpen}>
+        <DialogContent className="ginshi_modal ginshi_modal_lg">
+          <DialogTitle className="sr-only">
+            {colorPickerTarget === "blip" ? "Blip Farbe wählen" : "Fahrzeug Farbe wählen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {colorPickerTarget === "blip" ? "Blip Farbe" : "Fahrzeug Farbe"} <span>wählen</span>
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setColorPickerOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ padding: "0.75rem 1.25rem 0.5rem" }}>
+            <div className="ginshi_color_search_wrap">
+              <Search size={13} className="ginshi_color_search_icon" />
+              <input
+                type="text"
+                className="ginshi_form_input ginshi_color_search_input"
+                placeholder="Nach ID oder Name suchen (z.B. Red, 1)"
+                value={colorSearch}
+                onChange={(e) => setColorSearch(e.target.value)}
+              />
+            </div>
+
+            <div className="ginshi_color_picker_grid">
+              {(colorPickerTarget === "blip" ? FIVEM_BLIP_COLORS : FIVEM_VEHICLE_COLORS)
+                .filter(c => {
+                  if (!colorSearch.trim()) return true;
+                  const q = colorSearch.toLowerCase();
+                  return c.name.toLowerCase().includes(q) || String(c.id).includes(q);
+                })
+                .map(c => {
+                  const isSelected = colorPickerTarget === "blip"
+                    ? blipColor?.id === c.id
+                    : vehicleColor?.id === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      className={`ginshi_color_picker_item ${isSelected ? "ginshi_color_picker_item_active" : ""}`}
+                      onClick={() => {
+                        if (colorPickerTarget === "blip") setBlipColor(c);
+                        else setVehicleColor(c);
+                        setColorPickerOpen(false);
+                      }}
+                      title={`ID: ${c.id} — ${c.name}`}
+                    >
+                      <div className="ginshi_color_picker_swatch" style={{ backgroundColor: c.hex }} />
+                      <div className="ginshi_color_picker_info">
+                        <span className="ginshi_color_picker_id">ID: {c.id}</span>
+                        <span className="ginshi_color_picker_name">{c.name}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* ═══ Marker Create/Edit Modal ═══ */}
       <Dialog open={markerModalOpen} onOpenChange={setMarkerModalOpen}>
         <DialogContent className="ginshi_modal" style={{ maxWidth: 460 }}>
