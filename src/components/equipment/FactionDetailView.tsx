@@ -23,6 +23,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { FIVEM_BLIP_COLORS, FIVEM_VEHICLE_COLORS, type FivemColor } from "@/data/fivemColors";
 
 // ─── Types ───
 interface Rank {
