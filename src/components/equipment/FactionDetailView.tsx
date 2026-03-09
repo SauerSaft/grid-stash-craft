@@ -532,6 +532,35 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* ═══ Delete Confirm Dialog ═══ */}
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent className="ginshi_modal ginshi_modal_sm">
+          <DialogTitle className="sr-only">Rang löschen</DialogTitle>
+
+          <div className="ginshi_confirm_body ginshi_confirm_danger">
+            <div className="ginshi_confirm_icon_wrap">
+              <AlertTriangle size={22} strokeWidth={2.5} />
+            </div>
+            <div className="ginshi_confirm_title">
+              „{deleteTarget?.label}" löschen?
+            </div>
+            <p className="ginshi_confirm_desc">
+              Bist du dir sicher? Diese Aktion kann nicht rückgängig gemacht werden.
+            </p>
+          </div>
+
+          <div className="ginshi_confirm_actions">
+            <button onClick={confirmDelete} className="ginshi_btn_danger" style={{ flex: 1 }}>
+              <Trash2 size={12} />
+              Löschen
+            </button>
+            <button onClick={() => setDeleteConfirmOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
