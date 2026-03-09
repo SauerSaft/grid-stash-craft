@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Users, Plus, Search, X, Eye } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import FactionDetailView from "./FactionDetailView";
 
 interface Faction {
   id: string;
@@ -37,6 +38,7 @@ const FactionsView = () => {
   const [newName, setNewName] = useState("");
   const [newLabel, setNewLabel] = useState("");
   const [newType, setNewType] = useState("");
+  const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
 
   const filtered = factions.filter(
     (f) =>
@@ -51,6 +53,16 @@ const FactionsView = () => {
     setNewLabel("");
     setNewType("");
   };
+
+  if (selectedFaction) {
+    return (
+      <FactionDetailView
+        factionLabel={selectedFaction.label}
+        factionName={selectedFaction.name}
+        onBack={() => setSelectedFaction(null)}
+      />
+    );
+  }
 
   return (
     <div className="ginshi_section">
@@ -143,7 +155,7 @@ const FactionsView = () => {
                   </td>
                   <td className="ginshi_td">
                     <div className="ginshi_table_actions">
-                      <button title="Details" className="ginshi_action_btn ginshi_action_btn_warning">
+                      <button title="Details" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => setSelectedFaction(faction)}>
                         <Eye size={12} />
                       </button>
                     </div>
