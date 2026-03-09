@@ -3239,11 +3239,11 @@
 
 /* Grid columns for faction detail tables */
 .faction_ranks_cols {
-  grid-template-columns: 3rem 1fr 1fr 5rem 5rem 9rem;
+  grid-template-columns: 3rem 1.2fr 1fr 1fr 1fr 9rem;
 }
 
 .faction_shop_cols {
-  grid-template-columns: 5rem 1fr 1fr 4rem 5rem 7rem;
+  grid-template-columns: 5rem 1fr 1.2fr 1fr 1fr 7rem;
 }
 
 /* ---- Checkbox List (reusable for rank access, permissions etc.) ---- */
@@ -3308,7 +3308,7 @@
 }
 
 .faction_vehicle_cols {
-  grid-template-columns: 1fr 1fr 5rem 5rem 6rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 9rem;
 }
 
 .faction_marker_cols {
