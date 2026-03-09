@@ -535,7 +535,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             {shopItems.map((item) => (
               <div key={item.id} className="ginshi_grid_row faction_shop_cols">
                 <div>
-                  <span className={`ginshi_marker_type ${item.type === "weapon" ? "ginshi_type_badge_bad" : ""}`}>
+                  <span className={`ginshi_type_badge ${item.type === "weapon" ? "ginshi_type_badge_bad" : ""}`}>
                     {item.type === "weapon" ? "Waffe" : "Item"}
                   </span>
                 </div>
@@ -576,9 +576,9 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                 <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "hsl(var(--foreground))" }}>{veh.model}</span>
                 <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{veh.label}</span>
                 <div style={{ textAlign: "center" }}>
-                  <div className="ginshi_status_badge ginshi_status_badge_off" style={{ display: "inline-flex" }}>
+                  <span className="ginshi_type_badge">
                     {veh.type === "car" ? "Auto" : veh.type === "air" ? "Heli" : "Boot"}
-                  </div>
+                  </span>
                 </div>
                 <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>${veh.price}</span>
                 <div className="ginshi_table_actions">
@@ -617,7 +617,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
               return (
                 <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
                   <div>
-                    <span className="ginshi_marker_type">{getMarkerTypeLabel(marker.type)}</span>
+                    <span className="ginshi_type_badge">{getMarkerTypeLabel(marker.type)}</span>
                   </div>
                   <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
                   <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>

@@ -150,7 +150,7 @@ const FactionsView = () => {
                     {(() => {
                       const badge = getFactionTypeBadge(faction.type);
                       return (
-                        <span className={`ginshi_marker_type ${badge.className}`}>
+                        <span className={`ginshi_type_badge ${badge.className}`}>
                           {badge.label}
                         </span>
                       );
