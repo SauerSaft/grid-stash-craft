@@ -1419,8 +1419,8 @@
 /* ---- 2.24c Toggle List (generalized permission/checkbox list) ---- */
 
 .ginshi_toggle_list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2px;
 }
 
