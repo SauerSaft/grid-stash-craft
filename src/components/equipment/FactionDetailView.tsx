@@ -444,7 +444,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </button>
         )}
         {activeTab === "markers" && (
-          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }}>
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateMarker}>
             <Plus size={13} />
             Marker hinzufügen
           </button>
