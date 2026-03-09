@@ -461,7 +461,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditShopItem(item)}>
                     <Pencil size={12} />
                   </button>
-                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal(item)}>
+                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal("shop", item)}>
                     <Users size={12} />
                   </button>
                   <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("shop", item.id, item.label)}>
