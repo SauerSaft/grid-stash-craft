@@ -324,8 +324,61 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setVehicleModalOpen(false);
   };
 
+  // ─── Marker state ───
+  const [markerModalOpen, setMarkerModalOpen] = useState(false);
+  const [editingMarker, setEditingMarker] = useState<Marker | null>(null);
+  const [mrkType, setMrkType] = useState("bossmenu");
+  const [mrkName, setMrkName] = useState("");
+  const [mrkX, setMrkX] = useState(0);
+  const [mrkY, setMrkY] = useState(0);
+  const [mrkZ, setMrkZ] = useState(0);
+  const [mrkW, setMrkW] = useState<number | undefined>(undefined);
+  const [mrkLinkedGarage, setMrkLinkedGarage] = useState<number | undefined>(undefined);
+
+  // garage_location markers for linking
+  const garageLocations = useMemo(() => markers.filter(m => m.type === "garage_location"), [markers]);
+
+  const openCreateMarker = () => {
+    setEditingMarker(null);
+    setMrkType("bossmenu");
+    setMrkName("");
+    setMrkX(0); setMrkY(0); setMrkZ(0);
+    setMrkW(undefined);
+    setMrkLinkedGarage(undefined);
+    setMarkerModalOpen(true);
+  };
+
+  const openEditMarker = (m: Marker) => {
+    setEditingMarker(m);
+    setMrkType(m.type);
+    setMrkName(m.name);
+    setMrkX(m.x); setMrkY(m.y); setMrkZ(m.z);
+    setMrkW(m.w);
+    setMrkLinkedGarage(m.linkedGarage);
+    setMarkerModalOpen(true);
+  };
+
+  const handleSaveMarker = () => {
+    if (!mrkName.trim()) return;
+    const data: Omit<Marker, "id"> = {
+      type: editingMarker ? editingMarker.type : mrkType,
+      name: mrkName,
+      x: mrkX, y: mrkY, z: mrkZ,
+      ...(mrkType === "garage_spawn" ? { w: mrkW, linkedGarage: mrkLinkedGarage } : {}),
+    };
+    if (editingMarker) {
+      setMarkers(prev => prev.map(m => m.id === editingMarker.id ? { ...m, ...data } : m));
+    } else {
+      const newId = markers.length > 0 ? Math.max(...markers.map(m => m.id)) + 1 : 1;
+      setMarkers(prev => [...prev, { id: newId, ...data }]);
+    }
+    setMarkerModalOpen(false);
+  };
+
+  const showWField = mrkType === "garage_spawn";
+
   // ─── Generic delete ───
-  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle", id: number, label: string) => {
+  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle" | "marker", id: number, label: string) => {
     setDeleteTarget({ type, id, label });
     setDeleteConfirmOpen(true);
   };
@@ -338,6 +391,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
       setShopItems(prev => prev.filter(i => i.id !== deleteTarget.id));
     } else if (deleteTarget.type === "vehicle") {
       setVehicles(prev => prev.filter(v => v.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "marker") {
+      setMarkers(prev => prev.filter(m => m.id !== deleteTarget.id));
     }
     setDeleteConfirmOpen(false);
     setDeleteTarget(null);
