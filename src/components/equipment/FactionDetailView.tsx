@@ -617,7 +617,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
               return (
                 <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
                   <div>
-                    <span className="ginshi_marker_type">{getMarkerTypeLabel(marker.type)}</span>
+                    <span className="ginshi_type_badge">{getMarkerTypeLabel(marker.type)}</span>
                   </div>
                   <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
                   <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>

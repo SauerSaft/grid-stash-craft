@@ -3385,8 +3385,8 @@
   height: 12px;
 }
 
-/* ─── Marker type badge colors ─── */
-.ginshi_marker_type {
+/* ─── Type badge (generalized) ─── */
+.ginshi_type_badge {
   display: inline-flex;
   align-items: center;
   padding: 0.15rem 0.5rem;
