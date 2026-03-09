@@ -15,6 +15,8 @@ import {
   AlertTriangle,
   Crosshair,
   Navigation,
+  Palette,
+  Search,
 } from "lucide-react";
 import {
   Dialog,
