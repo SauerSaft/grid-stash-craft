@@ -1503,20 +1503,26 @@
   padding-right: 2rem;
 }
 
-.ginshi_form_select option {
-  background: hsl(240 7% 8%);
-  color: hsl(var(--foreground));
+.ginshi_form_select option,
+.ginshi_form_input option {
+  background: hsl(240 6% 10%);
+  color: hsl(240 5% 90%);
   font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
   font-weight: 600;
-  padding: 0.4rem 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
 }
 
-.ginshi_form_select option:checked {
-  background: hsl(var(--primary) / 0.15);
+.ginshi_form_select option:checked,
+.ginshi_form_input option:checked {
+  background: hsl(48 100% 50% / 0.18);
+  color: hsl(48 100% 70%);
 }
 
-.ginshi_form_select option:hover {
-  background: hsl(var(--primary) / 0.1);
+.ginshi_form_select option:hover,
+.ginshi_form_input option:hover {
+  background: hsl(48 100% 50% / 0.1);
 }
 
 /* ---- 2.24c Toggle List (generalized permission/checkbox list) ---- */
