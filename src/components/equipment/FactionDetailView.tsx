@@ -467,7 +467,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
       {/* ═══ Rights Modal ═══ */}
       <Dialog open={rightsModalOpen} onOpenChange={setRightsModalOpen}>
-        <DialogContent className="ginshi_modal" style={{ maxWidth: 480 }}>
+        <DialogContent className="ginshi_modal ginshi_modal_md">
           <DialogTitle className="sr-only">
             Rechte: {rightsRank?.label}
           </DialogTitle>
