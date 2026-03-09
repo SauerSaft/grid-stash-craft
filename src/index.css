@@ -1504,8 +1504,19 @@
 }
 
 .ginshi_form_select option {
-  background: hsl(var(--background));
+  background: hsl(240 7% 8%);
   color: hsl(var(--foreground));
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+}
+
+.ginshi_form_select option:checked {
+  background: hsl(var(--primary) / 0.15);
+}
+
+.ginshi_form_select option:hover {
+  background: hsl(var(--primary) / 0.1);
 }
 
 /* ---- 2.24c Toggle List (generalized permission/checkbox list) ---- */
