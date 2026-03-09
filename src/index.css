@@ -3399,6 +3399,31 @@
   border: 1px solid hsl(var(--border));
 }
 
+/* Colored type badge variants */
+.ginshi_type_badge_state {
+  background: hsl(210 70% 50% / 0.15);
+  color: hsl(210 70% 65%);
+  border-color: hsl(210 70% 50% / 0.3);
+}
+
+.ginshi_type_badge_bad {
+  background: hsl(0 70% 50% / 0.15);
+  color: hsl(0 70% 65%);
+  border-color: hsl(0 70% 50% / 0.3);
+}
+
+.ginshi_type_badge_medic {
+  background: hsl(150 60% 40% / 0.15);
+  color: hsl(150 60% 60%);
+  border-color: hsl(150 60% 40% / 0.3);
+}
+
+.ginshi_type_badge_mech {
+  background: hsl(35 70% 50% / 0.15);
+  color: hsl(35 70% 65%);
+  border-color: hsl(35 70% 50% / 0.3);
+}
+
 /* ─── Teleport button (special action) ─── */
 .ginshi_action_btn_tp {
   background: hsl(var(--primary) / 0.12);
