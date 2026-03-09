@@ -54,6 +54,16 @@ const FactionsView = () => {
     setNewType("");
   };
 
+  if (selectedFaction) {
+    return (
+      <FactionDetailView
+        factionLabel={selectedFaction.label}
+        factionName={selectedFaction.name}
+        onBack={() => setSelectedFaction(null)}
+      />
+    );
+  }
+
   return (
     <div className="ginshi_section">
       {/* Header */}
