@@ -252,8 +252,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setShopModalOpen(false);
   };
 
-  const openRankAccessModal = (item: ShopItem) => {
-    setRankAccessTarget(item);
+  const openRankAccessModal = (source: "shop" | "vehicle", item: { id: number; label: string; rankAccess?: string[] }) => {
+    setRankAccessTarget({ ...item, source });
     const state: Record<string, boolean> = {};
     uniqueRankNames.forEach(name => {
       state[name] = item.rankAccess?.includes(name) ?? false;
@@ -265,12 +265,46 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const handleSaveRankAccess = () => {
     if (!rankAccessTarget) return;
     const access = Object.entries(rankAccessState).filter(([, v]) => v).map(([k]) => k);
-    setShopItems(prev => prev.map(i => i.id === rankAccessTarget.id ? { ...i, rankAccess: access } : i));
+    if (rankAccessTarget.source === "shop") {
+      setShopItems(prev => prev.map(i => i.id === rankAccessTarget.id ? { ...i, rankAccess: access } : i));
+    } else {
+      setVehicles(prev => prev.map(v => v.id === rankAccessTarget.id ? { ...v, rankAccess: access } : v));
+    }
     setRankAccessModalOpen(false);
   };
 
+  // ─── Vehicle handlers ───
+  const openCreateVehicle = () => {
+    setEditingVehicle(null);
+    setVehModel("");
+    setVehLabel("");
+    setVehType("car");
+    setVehPrice(0);
+    setVehicleModalOpen(true);
+  };
+
+  const openEditVehicle = (veh: Vehicle) => {
+    setEditingVehicle(veh);
+    setVehModel(veh.model);
+    setVehLabel(veh.label);
+    setVehType(veh.type);
+    setVehPrice(veh.price);
+    setVehicleModalOpen(true);
+  };
+
+  const handleSaveVehicle = () => {
+    if (!vehModel.trim() || !vehLabel.trim()) return;
+    if (editingVehicle) {
+      setVehicles(prev => prev.map(v => v.id === editingVehicle.id ? { ...v, model: vehModel, label: vehLabel, type: vehType, price: vehPrice } : v));
+    } else {
+      const newId = vehicles.length > 0 ? Math.max(...vehicles.map(v => v.id)) + 1 : 1;
+      setVehicles(prev => [...prev, { id: newId, model: vehModel, label: vehLabel, type: vehType, price: vehPrice, rankAccess: [] }]);
+    }
+    setVehicleModalOpen(false);
+  };
+
   // ─── Generic delete ───
-  const handleDeleteRequest = (type: "rank" | "shop", id: number, label: string) => {
+  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle", id: number, label: string) => {
     setDeleteTarget({ type, id, label });
     setDeleteConfirmOpen(true);
   };
@@ -281,6 +315,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
       setRanks(prev => prev.filter(r => r.id !== deleteTarget.id));
     } else if (deleteTarget.type === "shop") {
       setShopItems(prev => prev.filter(i => i.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "vehicle") {
+      setVehicles(prev => prev.filter(v => v.id !== deleteTarget.id));
     }
     setDeleteConfirmOpen(false);
     setDeleteTarget(null);
