@@ -749,7 +749,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
       {/* ═══ Rank Access Modal ═══ */}
       <Dialog open={rankAccessModalOpen} onOpenChange={setRankAccessModalOpen}>
-        <DialogContent className="ginshi_modal ginshi_modal_md">
+        <DialogContent className="ginshi_modal ginshi_modal_sm">
           <DialogTitle className="sr-only">
             Rang Zugriff: {rankAccessTarget?.label}
           </DialogTitle>
