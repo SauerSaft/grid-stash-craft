@@ -1516,8 +1516,8 @@
 
 .ginshi_form_select option:checked,
 .ginshi_form_input option:checked {
-  background: hsl(48 100% 50% / 0.18) !important;
-  color: hsl(48 100% 70%) !important;
+  background: hsl(240 6% 14%) !important;
+  color: hsl(240 5% 90%) !important;
 }
 
 /* ---- 2.24c Toggle List (generalized permission/checkbox list) ---- */
