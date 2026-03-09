@@ -123,6 +123,7 @@ const mockMarkers: Marker[] = [
   { id: 1, type: "bossmenu", name: "Boss Menu", x: 441.78, y: -981.22, z: 30.69 },
   { id: 2, type: "equipment", name: "Equipment", x: 452.12, y: -980.11, z: 30.69 },
   { id: 3, type: "garage_location", name: "Garage", x: 458.33, y: -1017.44, z: 28.07 },
+  { id: 4, type: "garage_spawn", name: "Garage Auspark", x: 460.10, y: -1020.50, z: 28.07, w: 90.0, linkedGarage: 3 },
 ];
 
 type DetailTab = "ranks" | "shop" | "vehicles" | "markers" | "settings";
