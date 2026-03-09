@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ArrowLeft,
   Plus,
@@ -13,6 +13,8 @@ import {
   X,
   Check,
   AlertTriangle,
+  Crosshair,
+  Navigation,
 } from "lucide-react";
 import {
   Dialog,
