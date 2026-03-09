@@ -58,7 +58,24 @@ interface Marker {
   x: number;
   y: number;
   z: number;
+  w?: number;
+  linkedGarage?: number;
 }
+
+const MARKER_TYPES = [
+  { value: "bossmenu", label: "Boss Menu" },
+  { value: "garage_location", label: "Garage - Shop" },
+  { value: "garage_spawn", label: "Garage - Auspark" },
+  { value: "garage_parking", label: "Garage - Einpark" },
+  { value: "equipment", label: "Equipment" },
+  { value: "cloakroom", label: "Umkleideraum" },
+  { value: "jail", label: "Gefängnis" },
+  { value: "pharmacy", label: "Apotheke" },
+  { value: "gangwar", label: "Gangkrieg" },
+] as const;
+
+const getMarkerTypeLabel = (value: string) =>
+  MARKER_TYPES.find(t => t.value === value)?.label ?? value;
 
 interface FactionDetailProps {
   factionLabel: string;
