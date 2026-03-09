@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ArrowLeft,
   Plus,
@@ -13,6 +13,8 @@ import {
   X,
   Check,
   AlertTriangle,
+  Crosshair,
+  Navigation,
 } from "lucide-react";
 import {
   Dialog,
@@ -56,7 +58,24 @@ interface Marker {
   x: number;
   y: number;
   z: number;
+  w?: number;
+  linkedGarage?: number;
 }
+
+const MARKER_TYPES = [
+  { value: "bossmenu", label: "Boss Menu" },
+  { value: "garage_location", label: "Garage - Shop" },
+  { value: "garage_spawn", label: "Garage - Auspark" },
+  { value: "garage_parking", label: "Garage - Einpark" },
+  { value: "equipment", label: "Equipment" },
+  { value: "cloakroom", label: "Umkleideraum" },
+  { value: "jail", label: "Gefängnis" },
+  { value: "pharmacy", label: "Apotheke" },
+  { value: "gangwar", label: "Gangkrieg" },
+] as const;
+
+const getMarkerTypeLabel = (value: string) =>
+  MARKER_TYPES.find(t => t.value === value)?.label ?? value;
 
 interface FactionDetailProps {
   factionLabel: string;
@@ -104,6 +123,7 @@ const mockMarkers: Marker[] = [
   { id: 1, type: "bossmenu", name: "Boss Menu", x: 441.78, y: -981.22, z: 30.69 },
   { id: 2, type: "equipment", name: "Equipment", x: 452.12, y: -980.11, z: 30.69 },
   { id: 3, type: "garage_location", name: "Garage", x: 458.33, y: -1017.44, z: 28.07 },
+  { id: 4, type: "garage_spawn", name: "Garage Auspark", x: 460.10, y: -1020.50, z: 28.07, w: 90.0, linkedGarage: 3 },
 ];
 
 type DetailTab = "ranks" | "shop" | "vehicles" | "markers" | "settings";
@@ -121,6 +141,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [ranks, setRanks] = useState<Rank[]>(initialRanks);
   const [shopItems, setShopItems] = useState<ShopItem[]>(mockShopItems);
   const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
+  const [markers, setMarkers] = useState<Marker[]>(mockMarkers);
 
   // ─── Rank Create/Edit Modal ───
   const [rankModalOpen, setRankModalOpen] = useState(false);
@@ -137,7 +158,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
   // ─── Delete Confirm (generic) ───
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop" | "vehicle"; id: number; label: string } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop" | "vehicle" | "marker"; id: number; label: string } | null>(null);
 
   // ─── Shop Item Create/Edit Modal ───
   const [shopModalOpen, setShopModalOpen] = useState(false);
@@ -303,8 +324,61 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
     setVehicleModalOpen(false);
   };
 
+  // ─── Marker state ───
+  const [markerModalOpen, setMarkerModalOpen] = useState(false);
+  const [editingMarker, setEditingMarker] = useState<Marker | null>(null);
+  const [mrkType, setMrkType] = useState("bossmenu");
+  const [mrkName, setMrkName] = useState("");
+  const [mrkX, setMrkX] = useState(0);
+  const [mrkY, setMrkY] = useState(0);
+  const [mrkZ, setMrkZ] = useState(0);
+  const [mrkW, setMrkW] = useState<number | undefined>(undefined);
+  const [mrkLinkedGarage, setMrkLinkedGarage] = useState<number | undefined>(undefined);
+
+  // garage_location markers for linking
+  const garageLocations = useMemo(() => markers.filter(m => m.type === "garage_location"), [markers]);
+
+  const openCreateMarker = () => {
+    setEditingMarker(null);
+    setMrkType("bossmenu");
+    setMrkName("");
+    setMrkX(0); setMrkY(0); setMrkZ(0);
+    setMrkW(undefined);
+    setMrkLinkedGarage(undefined);
+    setMarkerModalOpen(true);
+  };
+
+  const openEditMarker = (m: Marker) => {
+    setEditingMarker(m);
+    setMrkType(m.type);
+    setMrkName(m.name);
+    setMrkX(m.x); setMrkY(m.y); setMrkZ(m.z);
+    setMrkW(m.w);
+    setMrkLinkedGarage(m.linkedGarage);
+    setMarkerModalOpen(true);
+  };
+
+  const handleSaveMarker = () => {
+    if (!mrkName.trim()) return;
+    const data: Omit<Marker, "id"> = {
+      type: editingMarker ? editingMarker.type : mrkType,
+      name: mrkName,
+      x: mrkX, y: mrkY, z: mrkZ,
+      ...(mrkType === "garage_spawn" ? { w: mrkW, linkedGarage: mrkLinkedGarage } : {}),
+    };
+    if (editingMarker) {
+      setMarkers(prev => prev.map(m => m.id === editingMarker.id ? { ...m, ...data } : m));
+    } else {
+      const newId = markers.length > 0 ? Math.max(...markers.map(m => m.id)) + 1 : 1;
+      setMarkers(prev => [...prev, { id: newId, ...data }]);
+    }
+    setMarkerModalOpen(false);
+  };
+
+  const showWField = mrkType === "garage_spawn";
+
   // ─── Generic delete ───
-  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle", id: number, label: string) => {
+  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle" | "marker", id: number, label: string) => {
     setDeleteTarget({ type, id, label });
     setDeleteConfirmOpen(true);
   };
@@ -317,6 +391,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
       setShopItems(prev => prev.filter(i => i.id !== deleteTarget.id));
     } else if (deleteTarget.type === "vehicle") {
       setVehicles(prev => prev.filter(v => v.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "marker") {
+      setMarkers(prev => prev.filter(m => m.id !== deleteTarget.id));
     }
     setDeleteConfirmOpen(false);
     setDeleteTarget(null);
@@ -368,7 +444,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </button>
         )}
         {activeTab === "markers" && (
-          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }}>
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateMarker}>
             <Plus size={13} />
             Marker hinzufügen
           </button>
@@ -521,24 +597,38 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>X</span>
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Y</span>
             <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Z</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>W</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Distanz</span>
             <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
           </div>
           <div className="ginshi_grid_tbody">
-            {mockMarkers.map((marker) => (
-              <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
-                <div>
-                  <div className="ginshi_status_badge ginshi_status_badge_on" style={{ display: "inline-flex" }}>{marker.type}</div>
+            {markers.map((marker) => {
+              const dist = Math.sqrt(marker.x ** 2 + marker.y ** 2 + marker.z ** 2).toFixed(1);
+              return (
+                <div key={marker.id} className="ginshi_grid_row faction_marker_cols">
+                  <div>
+                    <span className="ginshi_marker_type">{getMarkerTypeLabel(marker.type)}</span>
+                  </div>
+                  <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.y}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.z}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.w != null ? marker.w : "–"}</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--accent-foreground))" }}>{dist}m</span>
+                  <div className="ginshi_table_actions">
+                    <button title="Teleportieren" className="ginshi_action_btn ginshi_action_btn_tp" onClick={() => { /* NUI callback for teleport */ }}>
+                      <Navigation size={12} />
+                    </button>
+                    <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditMarker(marker)}>
+                      <Pencil size={12} />
+                    </button>
+                    <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("marker", marker.id, marker.name)}>
+                      <Trash2 size={10} />
+                    </button>
+                  </div>
                 </div>
-                <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{marker.name}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.x}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.y}</span>
-                <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.z}</span>
-                <div className="ginshi_table_actions">
-                  <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning"><Pencil size={12} /></button>
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger"><Trash2 size={10} /></button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -929,6 +1019,122 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
               Speichern
             </button>
             <button onClick={() => setRankAccessModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
+              Abbrechen
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ═══ Marker Create/Edit Modal ═══ */}
+      <Dialog open={markerModalOpen} onOpenChange={setMarkerModalOpen}>
+        <DialogContent className="ginshi_modal" style={{ maxWidth: 460 }}>
+          <DialogTitle className="sr-only">
+            {editingMarker ? "Marker bearbeiten" : "Marker hinzufügen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingMarker ? (
+                <>Marker bearbeiten: <span>{editingMarker.name}</span></>
+              ) : (
+                "Neuen Marker hinzufügen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setMarkerModalOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="ginshi_modal_body" style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            {/* Typ */}
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Typ</label>
+              <select
+                className="ginshi_form_input ginshi_form_select"
+                value={mrkType}
+                onChange={(e) => setMrkType(e.target.value)}
+                disabled={!!editingMarker}
+                style={editingMarker ? { opacity: 0.5, cursor: "not-allowed" } : {}}
+              >
+                {MARKER_TYPES.map(t => (
+                  <option key={t.value} value={t.value}>{t.label}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Name */}
+            <div className="ginshi_form_group">
+              <label className="ginshi_form_label">Name</label>
+              <input
+                type="text"
+                className="ginshi_form_input"
+                placeholder="z.B. Hauptlager"
+                value={mrkName}
+                onChange={(e) => setMrkName(e.target.value)}
+              />
+            </div>
+
+            {/* Coordinates */}
+            <div className="ginshi_form_group">
+              <div className="ginshi_coords_header">
+                <label className="ginshi_form_label" style={{ margin: 0 }}>Koordinaten</label>
+                <button
+                  type="button"
+                  className="ginshi_locate_btn"
+                  title="Aktuelle Position übernehmen"
+                  onClick={() => { /* NUI: get current coords */ }}
+                >
+                  <Crosshair size={12} />
+                  GPS Position
+                </button>
+              </div>
+              <div className={`ginshi_coords_grid ${showWField ? "ginshi_coords_grid_4" : "ginshi_coords_grid_3"}`} style={{ marginTop: "0.5rem" }}>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">X</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkX} onChange={(e) => setMrkX(Number(e.target.value))} />
+                </div>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">Y</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkY} onChange={(e) => setMrkY(Number(e.target.value))} />
+                </div>
+                <div className="ginshi_coord_field">
+                  <span className="ginshi_coord_label">Z</span>
+                  <input type="number" className="ginshi_form_input" step="0.01" value={mrkZ} onChange={(e) => setMrkZ(Number(e.target.value))} />
+                </div>
+                {showWField && (
+                  <div className="ginshi_coord_field">
+                    <span className="ginshi_coord_label">W</span>
+                    <input type="number" className="ginshi_form_input" step="0.01" value={mrkW ?? 0} onChange={(e) => setMrkW(Number(e.target.value))} />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Linked Garage (only for garage_spawn) */}
+            {mrkType === "garage_spawn" && (
+              <div className="ginshi_form_group">
+                <label className="ginshi_form_label">Verbundener Garagen Shop</label>
+                <select
+                  className="ginshi_form_input ginshi_form_select"
+                  value={mrkLinkedGarage ?? ""}
+                  onChange={(e) => setMrkLinkedGarage(e.target.value ? Number(e.target.value) : undefined)}
+                >
+                  <option value="">-- Auswählen --</option>
+                  {garageLocations.map(g => (
+                    <option key={g.id} value={g.id}>{g.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
+          <div className="ginshi_modal_actions">
+            <button onClick={handleSaveMarker} className="ginshi_btn_primary" style={{ flex: 1 }}>
+              {editingMarker ? "Speichern" : "Hinzufügen"}
+            </button>
+            <button onClick={() => setMarkerModalOpen(false)} className="ginshi_btn_info" style={{ flex: 1 }}>
               Abbrechen
             </button>
           </div>

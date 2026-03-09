@@ -3312,5 +3312,101 @@
 }
 
 .faction_marker_cols {
-  grid-template-columns: 7rem 1fr 5rem 5rem 5rem 7rem;
+  grid-template-columns: 1fr 1.2fr 0.7fr 0.7fr 0.7fr 0.5fr 0.8fr 9rem;
+}
+
+/* ─── Coords Grid (Marker Modal) ─── */
+.ginshi_coords_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.ginshi_coords_grid.ginshi_coords_grid_3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ginshi_coords_grid.ginshi_coords_grid_4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.ginshi_coord_field {
+  position: relative;
+}
+
+.ginshi_coord_field .ginshi_coord_label {
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: hsl(var(--primary) / 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ginshi_coord_field .ginshi_form_input {
+  padding-left: 1.6rem;
+}
+
+/* ─── GPS / Locate Button ─── */
+.ginshi_coords_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ginshi_locate_btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.02em;
+}
+
+.ginshi_locate_btn:hover {
+  background: hsl(var(--primary) / 0.18);
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+.ginshi_locate_btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ─── Marker type badge colors ─── */
+.ginshi_marker_type {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: hsl(var(--muted) / 0.5);
+  color: hsl(var(--muted-foreground));
+  border: 1px solid hsl(var(--border));
+}
+
+/* ─── Teleport button (special action) ─── */
+.ginshi_action_btn_tp {
+  background: hsl(var(--primary) / 0.12);
+  border-color: hsl(var(--primary) / 0.25);
+  color: hsl(var(--primary));
+}
+
+.ginshi_action_btn_tp:hover {
+  background: hsl(var(--primary) / 0.25);
+  border-color: hsl(var(--primary) / 0.5);
 }
