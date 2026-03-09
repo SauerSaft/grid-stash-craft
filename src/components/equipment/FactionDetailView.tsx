@@ -535,7 +535,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             {shopItems.map((item) => (
               <div key={item.id} className="ginshi_grid_row faction_shop_cols">
                 <div>
-                  <span className={`ginshi_marker_type ${item.type === "weapon" ? "ginshi_type_badge_bad" : ""}`}>
+                  <span className={`ginshi_type_badge ${item.type === "weapon" ? "ginshi_type_badge_bad" : ""}`}>
                     {item.type === "weapon" ? "Waffe" : "Item"}
                   </span>
                 </div>
