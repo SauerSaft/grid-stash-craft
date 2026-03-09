@@ -362,7 +362,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
           </button>
         )}
         {activeTab === "vehicles" && (
-          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }}>
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateVehicle}>
             <Plus size={13} />
             Fahrzeug hinzufügen
           </button>
