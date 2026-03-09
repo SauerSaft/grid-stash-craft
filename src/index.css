@@ -3308,7 +3308,7 @@
 }
 
 .faction_vehicle_cols {
-  grid-template-columns: 1fr 1fr 5rem 5rem 6rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 9rem;
 }
 
 .faction_marker_cols {
