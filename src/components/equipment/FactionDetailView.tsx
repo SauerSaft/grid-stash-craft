@@ -485,7 +485,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
           </div>
           <div className="ginshi_grid_tbody">
-            {mockVehicles.map((veh) => (
+            {vehicles.map((veh) => (
               <div key={veh.id} className="ginshi_grid_row faction_vehicle_cols">
                 <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "hsl(var(--foreground))" }}>{veh.model}</span>
                 <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{veh.label}</span>
@@ -496,7 +496,15 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                 </div>
                 <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>${veh.price}</span>
                 <div className="ginshi_table_actions">
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger"><Trash2 size={10} /></button>
+                  <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditVehicle(veh)}>
+                    <Pencil size={12} />
+                  </button>
+                  <button title="Rang Zugriff" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRankAccessModal("vehicle", veh)}>
+                    <Users size={12} />
+                  </button>
+                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("vehicle", veh.id, veh.label)}>
+                    <Trash2 size={10} />
+                  </button>
                 </div>
               </div>
             ))}
