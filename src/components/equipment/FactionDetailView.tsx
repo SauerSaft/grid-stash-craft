@@ -614,7 +614,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.y}</span>
                   <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.z}</span>
                   <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--muted-foreground))" }}>{marker.w != null ? marker.w : "–"}</span>
-                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--accent-foreground))" }}>{dist}m</span>
+                  <span style={{ textAlign: "center", fontFamily: "monospace", fontSize: "0.82rem", color: "hsl(var(--primary))" }}>{dist}m</span>
                   <div className="ginshi_table_actions">
                     <button title="Teleportieren" className="ginshi_action_btn ginshi_action_btn_tp" onClick={() => { /* NUI callback for teleport */ }}>
                       <Navigation size={12} />
