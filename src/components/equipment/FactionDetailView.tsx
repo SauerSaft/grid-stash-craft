@@ -657,7 +657,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             <div className="ginshi_form_group">
               <label className="ginshi_form_label">Typ</label>
               <select
-                className="ginshi_form_input"
+                className="ginshi_form_input ginshi_form_select"
                 value={shopType}
                 onChange={(e) => setShopType(e.target.value as "weapon" | "item")}
               >
