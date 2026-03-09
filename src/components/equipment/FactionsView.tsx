@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Users, Plus, Search, X, Eye } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import FactionDetailView from "./FactionDetailView";
 
 interface Faction {
   id: string;
