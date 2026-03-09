@@ -291,7 +291,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
                   <button title="Rechte" className="ginshi_action_btn ginshi_action_btn_success" onClick={() => openRightsModal(rank)}>
                     <Users size={12} />
                   </button>
-                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRank(rank.id)}>
+                  <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRank(rank)}>
                     <Trash2 size={10} />
                   </button>
                 </div>
