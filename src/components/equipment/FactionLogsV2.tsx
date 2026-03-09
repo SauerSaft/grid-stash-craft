@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ScrollText, ShoppingCart, Shield, Package, Landmark, ArrowDownToLine, ArrowUpFromLine, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ScrollText, ShoppingCart, Shield, Package, Landmark, ArrowDownToLine, ArrowUpFromLine, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search, X } from "lucide-react";
 
 type LogTab = "waffenshop" | "waffenkammer" | "fraklager" | "frakkasse";
 
@@ -33,13 +33,26 @@ const ITEMS_PER_PAGE = 15;
 const FactionLogsV2 = () => {
   const [activeTab, setActiveTab] = useState<LogTab>("waffenshop");
   const [pages, setPages] = useState<Record<LogTab, number>>({ waffenshop: 1, waffenkammer: 1, fraklager: 1, frakkasse: 1 });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const currentPage = pages[activeTab];
   const setCurrentPage = (p: number) => setPages((prev) => ({ ...prev, [activeTab]: p }));
 
   const allLogs = activeTab === "waffenshop" ? shopLogs : activeTab === "waffenkammer" ? armoryLogs : activeTab === "fraklager" ? storageLogs : treasuryLogs;
-  const totalPages = Math.ceil(allLogs.length / ITEMS_PER_PAGE);
-  const paginatedLogs = allLogs.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  const filteredLogs = useMemo(() => {
+    if (!searchQuery.trim()) return allLogs;
+    const q = searchQuery.toLowerCase();
+    return allLogs.filter((log: any) =>
+      log.name.toLowerCase().includes(q) ||
+      log.date.includes(q) ||
+      ("weapon" in log && log.weapon.toLowerCase().includes(q)) ||
+      ("item" in log && log.item.toLowerCase().includes(q))
+    );
+  }, [allLogs, searchQuery]);
+
+  const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE);
+  const paginatedLogs = filteredLogs.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const getPageRange = () => {
     const maxVisible = 5;
