@@ -1310,6 +1310,94 @@
 .ginshi_modal.ginshi_modal_md { max-width: 600px; }
 .ginshi_modal.ginshi_modal_lg { max-width: 800px; }
 
+/* ---- 2.24a Confirm Dialog (danger/warning) ---- */
+
+.ginshi_confirm_icon_wrap {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.75rem;
+  position: relative;
+}
+
+.ginshi_confirm_icon_wrap::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: ginshi_confirm_pulse 2s ease-in-out infinite;
+}
+
+.ginshi_confirm_danger .ginshi_confirm_icon_wrap {
+  background: hsl(var(--destructive) / 0.15);
+  border: 1px solid hsl(var(--destructive) / 0.3);
+  color: hsl(var(--destructive));
+}
+
+.ginshi_confirm_danger .ginshi_confirm_icon_wrap::before {
+  background: hsl(var(--destructive) / 0.08);
+}
+
+.ginshi_confirm_body {
+  text-align: center;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.ginshi_confirm_title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.ginshi_confirm_desc {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.5;
+}
+
+.ginshi_confirm_actions {
+  display: flex;
+  gap: 0.6rem;
+  padding: 1rem 1.5rem 1.25rem;
+}
+
+.ginshi_btn_danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.2rem;
+  padding: 0 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--destructive-foreground));
+  background: hsl(var(--destructive) / 0.8);
+  border: 1px solid hsl(var(--destructive));
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ginshi_btn_danger:hover {
+  background: hsl(var(--destructive));
+  box-shadow: 0 0 16px hsl(var(--destructive) / 0.3);
+}
+
+@keyframes ginshi_confirm_pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+
 /* Hide default Radix close button inside ginshi_modal */
 .ginshi_modal > button[class*="absolute"] { display: none; }
 

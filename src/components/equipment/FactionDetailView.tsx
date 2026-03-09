@@ -127,6 +127,10 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
   const [rightsRank, setRightsRank] = useState<Rank | null>(null);
   const [rightsState, setRightsState] = useState<Record<string, boolean>>({});
 
+  // ─── Delete Confirm ───
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Rank | null>(null);
+
   const openCreateRank = () => {
     setEditingRank(null);
     setRankLabel("");
