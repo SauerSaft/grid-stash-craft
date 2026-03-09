@@ -254,7 +254,7 @@ const FactionLogsV2 = () => {
         {totalPages > 1 && (
           <div className="ginshi_pagination">
             <span className="ginshi_pagination_info">
-              {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} von {allLogs.length}
+              {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredLogs.length)} von {filteredLogs.length}
             </span>
             <div className="ginshi_pagination_btns">
               <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1} className="ginshi_page_btn">
