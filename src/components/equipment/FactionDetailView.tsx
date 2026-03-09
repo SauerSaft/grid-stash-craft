@@ -95,9 +95,9 @@ const mockShopItems: ShopItem[] = [
 ];
 
 const mockVehicles: Vehicle[] = [
-  { id: 1, model: "police", label: "Police Car", type: "car", price: 0 },
-  { id: 2, model: "policeb", label: "Police Bike", type: "car", price: 0 },
-  { id: 3, model: "polmav", label: "Police Maverick", type: "air", price: 0 },
+  { id: 1, model: "police", label: "Police Car", type: "car", price: 0, rankAccess: ["officer"] },
+  { id: 2, model: "policeb", label: "Police Bike", type: "car", price: 0, rankAccess: ["sergeant"] },
+  { id: 3, model: "polmav", label: "Police Maverick", type: "air", price: 0, rankAccess: ["lieutenant"] },
 ];
 
 const mockMarkers: Marker[] = [
