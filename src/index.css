@@ -2773,6 +2773,21 @@
   gap: 0.1rem;
   padding: 0.5rem 0.75rem 0.75rem;
   animation: loadout_slideDown 0.2s ease;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.loadout_detail::-webkit-scrollbar {
+  width: 3px;
+}
+
+.loadout_detail::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.loadout_detail::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 2px;
 }
 
 @keyframes loadout_slideDown {
