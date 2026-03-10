@@ -1295,7 +1295,60 @@
 }
 
 
-/* ---- 2.24 Modal (dialog overlay) ---- */
+/* ---- 2.24 Dialog primitives (overlay / content / close) ---- */
+
+.ginshi_dialog_overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.8);
+}
+.ginshi_dialog_overlay[data-state="open"]  { animation: fadeIn 150ms ease-out; }
+.ginshi_dialog_overlay[data-state="closed"]{ animation: fadeOut 150ms ease-in; }
+
+.ginshi_dialog_content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 10001;
+  display: grid;
+  width: 100%;
+  max-width: 32rem; /* lg */
+  transform: translate(-50%, -50%);
+  gap: 1rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  border-radius: var(--radius);
+}
+.ginshi_dialog_content[data-state="open"]  { animation: dialogIn 200ms ease-out; }
+.ginshi_dialog_content[data-state="closed"]{ animation: dialogOut 200ms ease-in; }
+
+.ginshi_dialog_close_btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border-radius: 0.125rem;
+  opacity: 0.7;
+  transition: opacity 150ms;
+  color: hsl(var(--foreground));
+}
+.ginshi_dialog_close_btn:hover { opacity: 1; }
+.ginshi_dialog_close_btn:focus { outline: none; }
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes dialogIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes dialogOut {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to   { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+}
+
+/* ---- 2.24b Modal (styled dialog) ---- */
 
 .ginshi_modal {
   max-width: 700px;
