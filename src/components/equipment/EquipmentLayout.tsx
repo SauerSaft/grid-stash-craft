@@ -36,6 +36,8 @@ const EquipmentLayout = () => {
               <WeaponShopGrid />
             ) : selectedCategory === "item-shop" ? (
               <ItemShopGrid />
+            ) : selectedCategory === "starterpaket" ? (
+              <StarterpaketPage />
             ) : selectedCategory === "fraklager" ? (
               <StorageTable />
             ) : selectedCategory === "loadouts" ? (
