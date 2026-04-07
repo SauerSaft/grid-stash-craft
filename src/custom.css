@@ -1241,3 +1241,119 @@
 .faction_marker_cols {
   grid-template-columns: 1fr 1.2fr 0.7fr 0.7fr 0.7fr 0.5fr 0.8fr 9rem;
 }
+
+
+/* ---- Starterpaket ---- */
+
+.starter_banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(135deg, hsla(48, 100%, 50%, 0.06) 0%, hsla(48, 100%, 50%, 0.02) 100%);
+  border: 1px solid hsla(48, 100%, 50%, 0.12);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.starter_banner_glow {
+  position: absolute;
+  top: -40%;
+  left: -10%;
+  width: 50%;
+  height: 180%;
+  background: radial-gradient(ellipse, hsla(48, 100%, 50%, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.starter_banner_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: var(--radius);
+  background: hsla(48, 100%, 50%, 0.1);
+  border: 1px solid hsla(48, 100%, 50%, 0.2);
+  color: hsl(48, 100%, 50%);
+}
+
+.starter_banner_text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.starter_banner_title {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--foreground));
+}
+
+.starter_banner_desc {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+}
+
+.starter_video_wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 0;
+}
+
+.starter_video_frame {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  border-radius: var(--radius);
+  border: 1px solid hsla(0, 0%, 100%, 0.06);
+  background: hsl(var(--surface));
+  overflow: hidden;
+}
+
+.starter_video_iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
+}
+
+.starter_video_scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsla(0, 0%, 0%, 0.03) 2px,
+    hsla(0, 0%, 0%, 0.03) 4px
+  );
+  border-radius: var(--radius);
+}
+
+.starter_video_label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.7;
+}
