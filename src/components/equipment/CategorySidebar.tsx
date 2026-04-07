@@ -7,6 +7,7 @@ interface Category {
 const categories: Category[] = [
   { id: "waffen-shop", label: "Waffen Shop", icon: "weapon" },
   { id: "item-shop", label: "Item Shop", icon: "weapon" },
+  { id: "starterpaket", label: "Starterpaket", icon: "weapon" },
   { id: "waffenkammer", label: "Waffenkammer", icon: "weapon" },
   { id: "fraklager", label: "Fraklager", icon: "weapon" },
   { id: "loadouts", label: "Loadouts", icon: "weapon" },
