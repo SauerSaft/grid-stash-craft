@@ -17,6 +17,9 @@ import {
   Navigation,
   Palette,
   Search,
+  Layers,
+  Warehouse,
+  Save,
 } from "lucide-react";
 import {
   Dialog,
