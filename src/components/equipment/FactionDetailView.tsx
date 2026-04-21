@@ -583,6 +583,12 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
             Marker hinzufügen
           </button>
         )}
+        {activeTab === "loadouts" && (
+          <button className="ginshi_btn_primary" style={{ flexShrink: 0 }} onClick={openCreateLoadout}>
+            <Plus size={13} />
+            Loadout erstellen
+          </button>
+        )}
         {activeTab === "settings" && <div style={{ width: "7rem" }} />}
       </div>
 
