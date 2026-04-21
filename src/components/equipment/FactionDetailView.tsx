@@ -773,7 +773,185 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
         </div>
       )}
 
-      {/* ─── Settings Tab ─── */}
+      {/* ─── Loadouts Tab ─── */}
+      {activeTab === "loadouts" && (
+        <div className="ginshi_grid_table">
+          <div className="ginshi_grid_thead faction_loadout_cols">
+            <span className="ginshi_grid_th">Name</span>
+            <span className="ginshi_grid_th">Beschreibung</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Aktionen</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "center" }}>Items</span>
+            <span className="ginshi_grid_th" style={{ textAlign: "right" }}>Aktionen</span>
+          </div>
+          <div className="ginshi_grid_tbody">
+            {factionLoadouts.map((lo) => {
+              const totalItems = lo.actions.reduce((s, a) => s + a.amount, 0);
+              return (
+                <div key={lo.id} className="ginshi_grid_row faction_loadout_cols">
+                  <span style={{ fontWeight: 600, color: "hsl(var(--foreground))" }}>{lo.name}</span>
+                  <span style={{ fontSize: "0.85rem", color: "hsl(var(--muted-foreground))", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {lo.description || "—"}
+                  </span>
+                  <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--foreground))" }}>
+                    {lo.actions.length}
+                  </span>
+                  <span style={{ textAlign: "center", fontWeight: 700, color: "hsl(var(--primary))" }}>
+                    {totalItems}
+                  </span>
+                  <div className="ginshi_table_actions">
+                    <button title="Bearbeiten" className="ginshi_action_btn ginshi_action_btn_warning" onClick={() => openEditLoadout(lo)}>
+                      <Pencil size={12} />
+                    </button>
+                    <button title="Löschen" className="ginshi_action_btn ginshi_action_btn_danger" onClick={() => handleDeleteRequest("loadout", lo.id, lo.name)}>
+                      <Trash2 size={10} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+            {factionLoadouts.length === 0 && (
+              <div className="ginshi_grid_row" style={{ gridTemplateColumns: "1fr", textAlign: "center", padding: "2rem", color: "hsl(var(--muted-foreground))" }}>
+                <span>Noch keine Fraktions-Loadouts erstellt</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ═══ Loadout Editor Modal ═══ */}
+      <Dialog open={loadoutEditorOpen} onOpenChange={setLoadoutEditorOpen}>
+        <DialogContent className="loadout2_editor_dialog">
+          <DialogTitle className="sr-only">
+            {editingLoadout ? "Loadout bearbeiten" : "Loadout erstellen"}
+          </DialogTitle>
+
+          <div className="ginshi_modal_header">
+            <div className="ginshi_accent_bar" />
+            <span className="ginshi_modal_title">
+              {editingLoadout ? (
+                <>Loadout bearbeiten: <span>{editingLoadout.name}</span></>
+              ) : (
+                "Fraktions-Loadout erstellen"
+              )}
+            </span>
+            <div className="ginshi_modal_spacer" />
+            <button onClick={() => setLoadoutEditorOpen(false)} className="ginshi_modal_close">
+              <X />
+            </button>
+          </div>
+
+          <div className="loadout2_editor_body">
+            <div className="loadout2_editor_field">
+              <label>Name</label>
+              <input
+                type="text"
+                className="loadout2_editor_input"
+                placeholder="z.B. Standard Patrol"
+                value={ldName}
+                onChange={(e) => setLdName(e.target.value)}
+                maxLength={30}
+              />
+            </div>
+            <div className="loadout2_editor_field">
+              <label>Beschreibung</label>
+              <input
+                type="text"
+                className="loadout2_editor_input"
+                placeholder="Optional: kurze Beschreibung"
+                value={ldDescription}
+                onChange={(e) => setLdDescription(e.target.value)}
+                maxLength={60}
+              />
+            </div>
+
+            <div className="loadout2_editor_actions_header">
+              <span>Aktionen ({ldActions.length}/{MAX_LOADOUT_ACTIONS})</span>
+              <button
+                className="ginshi_btn_primary ginshi_btn_sm"
+                onClick={addLoadoutAction}
+                disabled={ldActions.length >= MAX_LOADOUT_ACTIONS}
+              >
+                <Plus size={11} />
+                Hinzufügen
+              </button>
+            </div>
+
+            <div className="loadout2_editor_actions_list">
+              {ldActions.map((action, idx) => {
+                const srcConfig = LOADOUT_SOURCE_CONFIG[action.source];
+                const isWeaponSource = action.source === "waffenkammer" || action.source === "waffen-shop";
+                return (
+                  <div key={action.id} className={`loadout2_editor_action_row ${srcConfig.colorClass}`}>
+                    <span className="loadout2_editor_action_num">{idx + 1}</span>
+
+                    <select
+                      className="loadout2_editor_select loadout2_editor_select_source"
+                      value={action.source}
+                      onChange={(e) => updateLoadoutAction(action.id, "source", e.target.value)}
+                    >
+                      {(Object.keys(LOADOUT_SOURCE_CONFIG) as LoadoutActionSource[]).map((src) => (
+                        <option key={src} value={src}>
+                          {LOADOUT_SOURCE_CONFIG[src].label}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="loadout2_editor_select loadout2_editor_select_item"
+                      value={action.item}
+                      onChange={(e) => updateLoadoutAction(action.id, "item", e.target.value)}
+                    >
+                      {LOADOUT_AVAILABLE_ITEMS[action.source].map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input
+                      type="number"
+                      className="loadout2_editor_input loadout2_editor_input_amount"
+                      min={1}
+                      max={99}
+                      value={isWeaponSource ? 1 : action.amount}
+                      disabled={isWeaponSource}
+                      onChange={(e) => updateLoadoutAction(action.id, "amount", Math.max(1, parseInt(e.target.value) || 1))}
+                    />
+
+                    <button
+                      className="ginshi_action_btn ginshi_action_btn_danger"
+                      onClick={() => removeLoadoutAction(action.id)}
+                    >
+                      <Trash2 />
+                    </button>
+                  </div>
+                );
+              })}
+
+              {ldActions.length === 0 && (
+                <div className="loadout2_editor_empty">
+                  <span>Noch keine Aktionen hinzugefügt</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="loadout2_editor_footer">
+            <button className="ginshi_btn_info" onClick={() => setLoadoutEditorOpen(false)}>
+              Abbrechen
+            </button>
+            <button
+              className="ginshi_btn_success"
+              onClick={handleSaveLoadout}
+              disabled={!ldName.trim() || ldActions.length === 0}
+            >
+              <Save size={13} />
+              {editingLoadout ? "Speichern" : "Erstellen"}
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {activeTab === "settings" && (
         <div className="ginshi_settings_content">
           <div className="ginshi_settings_section">
