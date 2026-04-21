@@ -132,14 +132,72 @@ const mockMarkers: Marker[] = [
   { id: 4, type: "garage_spawn", name: "Garage Auspark", x: 460.10, y: -1020.50, z: 28.07, w: 90.0, linkedGarage: 3 },
 ];
 
-type DetailTab = "ranks" | "shop" | "vehicles" | "markers" | "settings";
+type DetailTab = "ranks" | "shop" | "vehicles" | "markers" | "loadouts" | "settings";
 
 const tabsList: { id: DetailTab; label: string; icon: typeof Shield }[] = [
   { id: "ranks", label: "Ränge", icon: Shield },
   { id: "shop", label: "Shop", icon: ShoppingCart },
   { id: "vehicles", label: "Fahrzeuge", icon: Car },
   { id: "markers", label: "Marker", icon: MapPin },
+  { id: "loadouts", label: "Loadouts", icon: Layers },
   { id: "settings", label: "Sonstige", icon: Settings },
+];
+
+// ─── Loadouts (admin) ───
+type LoadoutActionSource = "fraklager" | "waffenkammer" | "item-shop" | "waffen-shop";
+
+interface FactionLoadoutAction {
+  id: string;
+  source: LoadoutActionSource;
+  item: string;
+  amount: number;
+}
+
+interface FactionLoadout {
+  id: number;
+  name: string;
+  description: string;
+  actions: FactionLoadoutAction[];
+}
+
+const LOADOUT_SOURCE_CONFIG: Record<LoadoutActionSource, { label: string; icon: typeof Warehouse; colorClass: string }> = {
+  "fraklager": { label: "Fraklager", icon: Warehouse, colorClass: "loadout_source_storage" },
+  "waffenkammer": { label: "Waffenkammer", icon: Shield, colorClass: "loadout_source_armory" },
+  "item-shop": { label: "Item Shop", icon: ShoppingCart, colorClass: "loadout_source_itemshop" },
+  "waffen-shop": { label: "Waffen Shop", icon: ShoppingCart, colorClass: "loadout_source_weaponshop" },
+};
+
+const LOADOUT_AVAILABLE_ITEMS: Record<LoadoutActionSource, string[]> = {
+  "fraklager": ["Brot", "Wasser", "Verbandsmaterial", "Munition", "Medikit", "Adrenalin"],
+  "waffenkammer": ["Pistole", "Karabiner", "SMG", "Schrotflinte"],
+  "item-shop": ["Handschellen", "Funkgerät", "Schutzweste", "Medikit", "Taschenlampe", "Nagelbänder"],
+  "waffen-shop": ["Karabiner MK2", "Pistole MK2", "Kampfgewehr"],
+};
+
+const MAX_LOADOUT_ACTIONS = 10;
+const genActionId = () => Math.random().toString(36).substring(2, 11);
+
+const initialFactionLoadouts: FactionLoadout[] = [
+  {
+    id: 1,
+    name: "Standard Patrol",
+    description: "Offizielle Fraktions-Ausrüstung für Streifendienst",
+    actions: [
+      { id: genActionId(), source: "fraklager", item: "Wasser", amount: 3 },
+      { id: genActionId(), source: "waffenkammer", item: "Pistole", amount: 1 },
+      { id: genActionId(), source: "item-shop", item: "Handschellen", amount: 5 },
+    ],
+  },
+  {
+    id: 2,
+    name: "Heavy Response",
+    description: "Schwere Ausrüstung für kritische Einsätze",
+    actions: [
+      { id: genActionId(), source: "fraklager", item: "Verbandsmaterial", amount: 5 },
+      { id: genActionId(), source: "waffenkammer", item: "Karabiner", amount: 1 },
+      { id: genActionId(), source: "item-shop", item: "Schutzweste", amount: 1 },
+    ],
+  },
 ];
 
 const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
