@@ -229,7 +229,7 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
   // ─── Delete Confirm (generic) ───
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop" | "vehicle" | "marker"; id: number; label: string } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ type: "rank" | "shop" | "vehicle" | "marker" | "loadout"; id: number; label: string } | null>(null);
 
   // ─── Shop Item Create/Edit Modal ───
   const [shopModalOpen, setShopModalOpen] = useState(false);
