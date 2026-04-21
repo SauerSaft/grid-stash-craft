@@ -448,8 +448,69 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
 
   const showWField = mrkType === "garage_spawn";
 
+  // ─── Loadouts (admin) ───
+  const [factionLoadouts, setFactionLoadouts] = useState<FactionLoadout[]>(initialFactionLoadouts);
+  const [loadoutEditorOpen, setLoadoutEditorOpen] = useState(false);
+  const [editingLoadout, setEditingLoadout] = useState<FactionLoadout | null>(null);
+  const [ldName, setLdName] = useState("");
+  const [ldDescription, setLdDescription] = useState("");
+  const [ldActions, setLdActions] = useState<FactionLoadoutAction[]>([]);
+
+  const openCreateLoadout = () => {
+    setEditingLoadout(null);
+    setLdName("");
+    setLdDescription("");
+    setLdActions([]);
+    setLoadoutEditorOpen(true);
+  };
+
+  const openEditLoadout = (lo: FactionLoadout) => {
+    setEditingLoadout(lo);
+    setLdName(lo.name);
+    setLdDescription(lo.description);
+    setLdActions(lo.actions.map(a => ({ ...a })));
+    setLoadoutEditorOpen(true);
+  };
+
+  const addLoadoutAction = () => {
+    if (ldActions.length >= MAX_LOADOUT_ACTIONS) return;
+    setLdActions(prev => [
+      ...prev,
+      { id: genActionId(), source: "fraklager", item: LOADOUT_AVAILABLE_ITEMS["fraklager"][0], amount: 1 },
+    ]);
+  };
+
+  const updateLoadoutAction = (id: string, field: keyof FactionLoadoutAction, value: string | number) => {
+    setLdActions(prev => prev.map(a => {
+      if (a.id !== id) return a;
+      if (field === "source") {
+        const newSource = value as LoadoutActionSource;
+        const isWeapon = newSource === "waffenkammer" || newSource === "waffen-shop";
+        return { ...a, source: newSource, item: LOADOUT_AVAILABLE_ITEMS[newSource][0], amount: isWeapon ? 1 : a.amount };
+      }
+      return { ...a, [field]: value };
+    }));
+  };
+
+  const removeLoadoutAction = (id: string) => {
+    setLdActions(prev => prev.filter(a => a.id !== id));
+  };
+
+  const handleSaveLoadout = () => {
+    if (!ldName.trim() || ldActions.length === 0) return;
+    if (editingLoadout) {
+      setFactionLoadouts(prev => prev.map(l => l.id === editingLoadout.id
+        ? { ...l, name: ldName, description: ldDescription, actions: ldActions }
+        : l));
+    } else {
+      const newId = factionLoadouts.length > 0 ? Math.max(...factionLoadouts.map(l => l.id)) + 1 : 1;
+      setFactionLoadouts(prev => [...prev, { id: newId, name: ldName, description: ldDescription, actions: ldActions }]);
+    }
+    setLoadoutEditorOpen(false);
+  };
+
   // ─── Generic delete ───
-  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle" | "marker", id: number, label: string) => {
+  const handleDeleteRequest = (type: "rank" | "shop" | "vehicle" | "marker" | "loadout", id: number, label: string) => {
     setDeleteTarget({ type, id, label });
     setDeleteConfirmOpen(true);
   };
@@ -464,6 +525,8 @@ const FactionDetailView = ({ factionLabel, onBack }: FactionDetailProps) => {
       setVehicles(prev => prev.filter(v => v.id !== deleteTarget.id));
     } else if (deleteTarget.type === "marker") {
       setMarkers(prev => prev.filter(m => m.id !== deleteTarget.id));
+    } else if (deleteTarget.type === "loadout") {
+      setFactionLoadouts(prev => prev.filter(l => l.id !== deleteTarget.id));
     }
     setDeleteConfirmOpen(false);
     setDeleteTarget(null);
