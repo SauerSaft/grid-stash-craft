@@ -27,7 +27,7 @@ const MoneyLaunderingPage = () => {
   const numericAmount = Math.min(Math.max(0, Number(amount) || 0), dirtyMoney);
   const fee = Math.floor((numericAmount * effectiveFeePercent) / 100);
   const payout = numericAmount - fee;
-  const totalSeconds = Math.max(2, Math.ceil((numericAmount / 1000) * secondsPer1k));
+  const totalSeconds = 30;
 
   const quickAmounts = [1000, 5000, 10000, 25000];
 
