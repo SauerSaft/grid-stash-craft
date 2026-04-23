@@ -9,7 +9,7 @@ const formatCurrency = (amount: number) =>
 const MoneyLaunderingPage = () => {
   // Mock-Daten — später aus dem Spielzustand
   const dirtyMoney = 87500;
-  const ownedByOwnFaction = false; // true = eigene Fraktion kontrolliert den Händler
+  const ownedByOwnFaction = true; // true = eigene Fraktion kontrolliert den Händler
   const controllingFaction = "Los Vagos";
   const baseFeePercent = 35;
   const factionDiscount = ownedByOwnFaction ? 18 : 0;
