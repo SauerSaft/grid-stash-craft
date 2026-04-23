@@ -12,6 +12,7 @@ const categories: Category[] = [
   { id: "fraklager", label: "Fraklager", icon: "weapon" },
   { id: "loadouts", label: "Loadouts", icon: "weapon" },
   { id: "fraktionskasse", label: "Fraktionskasse", icon: "weapon" },
+  { id: "geldwaesche", label: "Geldwäsche", icon: "weapon" },
   { id: "mitglieder", label: "Mitglieder", icon: "person" },
   { id: "fraktionen", label: "Fraktionen", icon: "person" },
   { id: "logs", label: "Logs", icon: "weapon" },
