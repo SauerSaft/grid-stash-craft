@@ -105,8 +105,14 @@ const MoneyLaunderingPage = () => {
             </span>
           </div>
           <div className="launder_owner_pct">
-            <Percent size={14} />
-            <span>{effectiveFeePercent}%</span>
+            <span className="launder_owner_pct_label">Waschgebühr</span>
+            <div className="launder_owner_pct_value">
+              <Percent size={12} />
+              <span>{effectiveFeePercent}</span>
+            </div>
+            {factionDiscount > 0 && (
+              <span className="launder_owner_pct_hint">−{factionDiscount}% Rabatt</span>
+            )}
           </div>
         </div>
 
