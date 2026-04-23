@@ -12,6 +12,7 @@ import FactionsView from "./FactionsView";
 import ItemShopGrid from "./ItemShopGrid";
 import StarterpaketPage from "./StarterpaketPage";
 import LoadoutsPage2 from "./LoadoutsPage2";
+import MoneyLaunderingPage from "./MoneyLaunderingPage";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
@@ -46,6 +47,8 @@ const EquipmentLayout = () => {
               <ArmoryTable />
             ) : selectedCategory === "fraktionskasse" ? (
               <FactionTreasury />
+            ) : selectedCategory === "geldwaesche" ? (
+              <MoneyLaunderingPage />
             ) : selectedCategory === "mitglieder" ? (
               <FactionMembers />
             ) : selectedCategory === "fraktionen" ? (
