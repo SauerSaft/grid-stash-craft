@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent } from "lucide-react";
+import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords } from "lucide-react";
 
 type LaunderStatus = "idle" | "running" | "done";
+type CaptureStatus = "idle" | "capturing";
 
 const formatCurrency = (amount: number) =>
   `$${Math.max(0, Math.floor(amount)).toLocaleString("de-DE")}`;
@@ -9,7 +10,7 @@ const formatCurrency = (amount: number) =>
 const MoneyLaunderingPage = () => {
   // Mock-Daten — später aus dem Spielzustand
   const dirtyMoney = 87500;
-  const ownedByOwnFaction = true; // true = eigene Fraktion kontrolliert den Händler
+  const ownedByOwnFaction = false; // true = eigene Fraktion kontrolliert den Händler
   const controllingFaction = "Los Vagos";
   const baseFeePercent = 35;
   const factionDiscount = ownedByOwnFaction ? 18 : 0;
@@ -24,6 +25,13 @@ const MoneyLaunderingPage = () => {
   const [remaining, setRemaining] = useState(0);
   const intervalRef = useRef<number | null>(null);
 
+  // Capture-Modus
+  const captureTotalSeconds = 15 * 60; // 15 Minuten
+  const [captureStatus, setCaptureStatus] = useState<CaptureStatus>("idle");
+  const [captureProgress, setCaptureProgress] = useState(0);
+  const [captureRemaining, setCaptureRemaining] = useState(0);
+  const captureIntervalRef = useRef<number | null>(null);
+
   const numericAmount = Math.min(Math.max(0, Number(amount) || 0), dirtyMoney);
   const fee = Math.floor((numericAmount * effectiveFeePercent) / 100);
   const payout = numericAmount - fee;
@@ -34,8 +42,38 @@ const MoneyLaunderingPage = () => {
   useEffect(() => {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (captureIntervalRef.current) window.clearInterval(captureIntervalRef.current);
     };
   }, []);
+
+  const formatMMSS = (totalSec: number) => {
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
+  const startCapture = () => {
+    if (captureStatus === "capturing" || ownedByOwnFaction) return;
+    setCaptureStatus("capturing");
+    setCaptureProgress(0);
+    setCaptureRemaining(captureTotalSeconds);
+
+    const startedAt = Date.now();
+    const totalMs = captureTotalSeconds * 1000;
+
+    captureIntervalRef.current = window.setInterval(() => {
+      const elapsed = Date.now() - startedAt;
+      const pct = Math.min(100, (elapsed / totalMs) * 100);
+      setCaptureProgress(pct);
+      setCaptureRemaining(Math.max(0, Math.ceil((totalMs - elapsed) / 1000)));
+      if (pct >= 100) {
+        if (captureIntervalRef.current) window.clearInterval(captureIntervalRef.current);
+        // Demo: bleibt im "capturing" state stehen — später: ownership wechseln
+        setCaptureStatus("idle");
+        setCaptureProgress(0);
+      }
+    }, 250);
+  };
 
   const startLaundering = () => {
     if (numericAmount <= 0 || status === "running") return;
@@ -101,8 +139,15 @@ const MoneyLaunderingPage = () => {
             <span className="launder_owner_sub">
               {ownedByOwnFaction
                 ? `Du erhältst einen Rabatt von ${factionDiscount}% auf die Waschgebühr.`
-                : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
+                : captureStatus === "capturing"
+                  ? `Übernahme läuft – noch ${formatMMSS(captureRemaining)} verbleibend.`
+                  : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
             </span>
+            {!ownedByOwnFaction && captureStatus === "capturing" && (
+              <div className="launder_capture_track" role="progressbar" aria-valuenow={Math.round(captureProgress)}>
+                <div className="launder_capture_fill" style={{ width: `${captureProgress}%` }} />
+              </div>
+            )}
           </div>
           <div className="launder_owner_pct">
             <span className="launder_owner_pct_label">Waschgebühr</span>
@@ -112,6 +157,16 @@ const MoneyLaunderingPage = () => {
             </div>
             {factionDiscount > 0 && (
               <span className="launder_owner_pct_hint">−{factionDiscount}% Rabatt</span>
+            )}
+            {!ownedByOwnFaction && (
+              <button
+                onClick={startCapture}
+                disabled={captureStatus === "capturing"}
+                className={`launder_capture_btn ${captureStatus === "capturing" ? "launder_capture_btn_active" : ""}`}
+              >
+                {captureStatus === "capturing" ? <Loader2 size={12} className="launder_spin" /> : <Swords size={12} />}
+                <span>{captureStatus === "capturing" ? "Wird eingenommen" : "Einnehmen"}</span>
+              </button>
             )}
           </div>
         </div>
