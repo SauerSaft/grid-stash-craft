@@ -139,8 +139,15 @@ const MoneyLaunderingPage = () => {
             <span className="launder_owner_sub">
               {ownedByOwnFaction
                 ? `Du erhältst einen Rabatt von ${factionDiscount}% auf die Waschgebühr.`
-                : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
+                : captureStatus === "capturing"
+                  ? `Übernahme läuft – noch ${formatMMSS(captureRemaining)} verbleibend.`
+                  : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
             </span>
+            {!ownedByOwnFaction && captureStatus === "capturing" && (
+              <div className="launder_capture_track" role="progressbar" aria-valuenow={Math.round(captureProgress)}>
+                <div className="launder_capture_fill" style={{ width: `${captureProgress}%` }} />
+              </div>
+            )}
           </div>
           <div className="launder_owner_pct">
             <span className="launder_owner_pct_label">Waschgebühr</span>
@@ -150,6 +157,16 @@ const MoneyLaunderingPage = () => {
             </div>
             {factionDiscount > 0 && (
               <span className="launder_owner_pct_hint">−{factionDiscount}% Rabatt</span>
+            )}
+            {!ownedByOwnFaction && (
+              <button
+                onClick={startCapture}
+                disabled={captureStatus === "capturing"}
+                className={`launder_capture_btn ${captureStatus === "capturing" ? "launder_capture_btn_active" : ""}`}
+              >
+                {captureStatus === "capturing" ? <Loader2 size={12} className="launder_spin" /> : <Swords size={12} />}
+                <span>{captureStatus === "capturing" ? "Wird eingenommen" : "Einnehmen"}</span>
+              </button>
             )}
           </div>
         </div>
