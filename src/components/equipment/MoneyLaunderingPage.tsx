@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent } from "lucide-react";
+import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords } from "lucide-react";
 
 type LaunderStatus = "idle" | "running" | "done";
+type CaptureStatus = "idle" | "capturing";
 
 const formatCurrency = (amount: number) =>
   `$${Math.max(0, Math.floor(amount)).toLocaleString("de-DE")}`;
