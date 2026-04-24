@@ -25,6 +25,13 @@ const MoneyLaunderingPage = () => {
   const [remaining, setRemaining] = useState(0);
   const intervalRef = useRef<number | null>(null);
 
+  // Capture-Modus
+  const captureTotalSeconds = 15 * 60; // 15 Minuten
+  const [captureStatus, setCaptureStatus] = useState<CaptureStatus>("idle");
+  const [captureProgress, setCaptureProgress] = useState(0);
+  const [captureRemaining, setCaptureRemaining] = useState(0);
+  const captureIntervalRef = useRef<number | null>(null);
+
   const numericAmount = Math.min(Math.max(0, Number(amount) || 0), dirtyMoney);
   const fee = Math.floor((numericAmount * effectiveFeePercent) / 100);
   const payout = numericAmount - fee;
@@ -35,8 +42,38 @@ const MoneyLaunderingPage = () => {
   useEffect(() => {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (captureIntervalRef.current) window.clearInterval(captureIntervalRef.current);
     };
   }, []);
+
+  const formatMMSS = (totalSec: number) => {
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
+  const startCapture = () => {
+    if (captureStatus === "capturing" || ownedByOwnFaction) return;
+    setCaptureStatus("capturing");
+    setCaptureProgress(0);
+    setCaptureRemaining(captureTotalSeconds);
+
+    const startedAt = Date.now();
+    const totalMs = captureTotalSeconds * 1000;
+
+    captureIntervalRef.current = window.setInterval(() => {
+      const elapsed = Date.now() - startedAt;
+      const pct = Math.min(100, (elapsed / totalMs) * 100);
+      setCaptureProgress(pct);
+      setCaptureRemaining(Math.max(0, Math.ceil((totalMs - elapsed) / 1000)));
+      if (pct >= 100) {
+        if (captureIntervalRef.current) window.clearInterval(captureIntervalRef.current);
+        // Demo: bleibt im "capturing" state stehen — später: ownership wechseln
+        setCaptureStatus("idle");
+        setCaptureProgress(0);
+      }
+    }, 250);
+  };
 
   const startLaundering = () => {
     if (numericAmount <= 0 || status === "running") return;
