@@ -14,6 +14,8 @@ import StarterpaketPage from "./StarterpaketPage";
 import LoadoutsPage2 from "./LoadoutsPage2";
 import MoneyLaunderingPage from "./MoneyLaunderingPage";
 import SupportPage from "./SupportPage";
+import PlayersPage from "./PlayersPage";
+import BansPage from "./BansPage";
 import bgImage from "@/assets/bg.png";
 import gridImage from "@/assets/grid.png";
 
@@ -52,6 +54,10 @@ const EquipmentLayout = () => {
               <MoneyLaunderingPage />
             ) : selectedCategory === "support" ? (
               <SupportPage />
+            ) : selectedCategory === "spieler" ? (
+              <PlayersPage />
+            ) : selectedCategory === "bans" ? (
+              <BansPage />
             ) : selectedCategory === "mitglieder" ? (
               <FactionMembers />
             ) : selectedCategory === "fraktionen" ? (
