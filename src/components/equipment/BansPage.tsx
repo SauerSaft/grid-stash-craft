@@ -212,21 +212,51 @@ const BansPage = () => {
           </div>
 
           <div className="bans_filter_row">
-            <select
-              className="bans_filter_select"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value as FilterKey)}
-            >
-              {filterTabs.map((t) => {
-                const count =
-                  t.id === "all" ? bans.length : bans.filter((b) => b.status === t.id).length;
+            <div className="bans_dropdown" ref={filterRef}>
+              {(() => {
+                const current = filterTabs.find((t) => t.id === filter)!;
+                const CurIcon = current.icon;
+                const curCount =
+                  filter === "all" ? bans.length : bans.filter((b) => b.status === filter).length;
                 return (
-                  <option key={t.id} value={t.id}>
-                    {t.label} ({count})
-                  </option>
+                  <button
+                    type="button"
+                    className={`bans_dropdown_trigger ${filterOpen ? "bans_dropdown_trigger_open" : ""}`}
+                    onClick={() => setFilterOpen((o) => !o)}
+                  >
+                    <CurIcon size={13} />
+                    <span className="bans_dropdown_label">{current.label}</span>
+                    <span className="bans_dropdown_count">{curCount}</span>
+                    <ChevronDown size={13} className="bans_dropdown_chev" />
+                  </button>
                 );
-              })}
-            </select>
+              })()}
+              {filterOpen && (
+                <div className="bans_dropdown_menu">
+                  {filterTabs.map((t) => {
+                    const Icon = t.icon;
+                    const count =
+                      t.id === "all" ? bans.length : bans.filter((b) => b.status === t.id).length;
+                    const isActive = t.id === filter;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        className={`bans_dropdown_item ${isActive ? "bans_dropdown_item_active" : ""}`}
+                        onClick={() => {
+                          setFilter(t.id);
+                          setFilterOpen(false);
+                        }}
+                      >
+                        <Icon size={13} />
+                        <span className="bans_dropdown_label">{t.label}</span>
+                        <span className="bans_dropdown_count">{count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             <span className="bans_filter_count">
               <Ban size={11} />
               {filtered.length}
