@@ -198,30 +198,26 @@ const BansPage = () => {
             )}
           </div>
 
-          <div className="ginshi_tab_bar">
-            {filterTabs.map((t) => {
-              const Icon = t.icon;
-              const isActive = filter === t.id;
-              const count =
-                t.id === "all" ? bans.length : bans.filter((b) => b.status === t.id).length;
-              return (
-                <button
-                  key={t.id}
-                  className={`ginshi_tab ${isActive ? "ginshi_tab_active" : ""}`}
-                  onClick={() => setFilter(t.id)}
-                >
-                  <Icon size={14} />
-                  {t.label}
-                  <span
-                    className={`ginshi_tab_count ${
-                      isActive ? "ginshi_tab_count_active" : "ginshi_tab_count_inactive"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="bans_filter_row">
+            <select
+              className="bans_filter_select"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value as FilterKey)}
+            >
+              {filterTabs.map((t) => {
+                const count =
+                  t.id === "all" ? bans.length : bans.filter((b) => b.status === t.id).length;
+                return (
+                  <option key={t.id} value={t.id}>
+                    {t.label} ({count})
+                  </option>
+                );
+              })}
+            </select>
+            <span className="bans_filter_count">
+              <Ban size={11} />
+              {filtered.length}
+            </span>
           </div>
 
           <div className="support_ticket_list">
