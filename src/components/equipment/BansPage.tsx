@@ -180,7 +180,7 @@ const BansPage = () => {
         </div>
       </div>
 
-      <div className="support_layout">
+      <div className="support_layout bans_layout">
         {/* LEFT */}
         <div className="support_list_panel">
           <div className="logs_search_wrap">
