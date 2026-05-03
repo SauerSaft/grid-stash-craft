@@ -138,6 +138,18 @@ const BansPage = () => {
   const [selectedId, setSelectedId] = useState<number>(mockBans[0].id);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterKey>("all");
+  const [filterOpen, setFilterOpen] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setFilterOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
