@@ -2187,7 +2187,7 @@
   left: 0;
   right: 0;
   z-index: 40;
-  background: rgba(15, 18, 27, 0.96);
+  background: rgba(20, 20, 22, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
