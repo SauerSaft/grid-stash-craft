@@ -14,6 +14,7 @@ import {
   Clock,
   AlertCircle,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
 
 type BanStatus = "active" | "lifted" | "expired";
