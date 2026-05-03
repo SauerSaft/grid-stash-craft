@@ -792,14 +792,18 @@
 
 .ginshi_inline_badge {
   display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 0.2rem 0.45rem;
+  padding: 0.2rem 0.5rem;
   border-radius: var(--radius);
   font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
+.ginshi_inline_badge svg { display: block; flex-shrink: 0; }
 
 .ginshi_inline_badge_primary {
   background: hsl(var(--primary) / 0.1);
