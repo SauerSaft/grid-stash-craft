@@ -23,19 +23,30 @@ const EquipmentLayout = () => {
   const [selectedCategory, setSelectedCategory] = useState("waffen-shop");
 
   return (
-    <div className="ginshi_root">
-      <div className="ginshi_panel">
-        <img src={bgImage} alt="" className="ginshi_bg_pattern" draggable={false} />
-        <img src={gridImage} alt="" className="ginshi_grid_overlay" draggable={false} />
+    <div className="ginshi_root fixed inset-0 z-[9999] flex items-center justify-center">
+
+      <div className="relative flex h-[87vh] w-[82vw] flex-col overflow-hidden rounded-[0.4vw] border-[0.052vw] border-[rgba(255,217,0,0.12)] bg-[rgba(10,10,8,0.97)] shadow-[0_1vw_4vw_rgba(0,0,0,0.85)]">
+        <img
+          src={bgImage}
+          alt=""
+          draggable={false}
+          className="pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover object-center opacity-80"
+        />
+        <img
+          src={gridImage}
+          alt=""
+          draggable={false}
+          className="pointer-events-none absolute inset-0 z-[2] h-full w-full object-cover object-center opacity-40 [mix-blend-mode:color-dodge]"
+        />
 
         <EquipmentHeader />
 
-        <div className="ginshi_body">
-          <div className="ginshi_sidebar">
+        <div className="relative z-10 flex flex-1 overflow-hidden">
+          <div className="overflow-y-auto border-r-[0.052vw] border-[var(--glass-border)] p-3">
             <CategorySidebar selected={selectedCategory} onSelect={setSelectedCategory} />
           </div>
 
-          <div className="ginshi_content">
+          <div className="flex flex-1 flex-col overflow-hidden p-4">
             {selectedCategory === "waffen-shop" ? (
               <WeaponShopGrid />
             ) : selectedCategory === "item-shop" ? (
@@ -65,9 +76,11 @@ const EquipmentLayout = () => {
             ) : selectedCategory === "logs" ? (
               <FactionLogsV2 />
             ) : (
-              <div className="ginshi_section" style={{ alignItems: "center", justifyContent: "center" }}>
-                <Package size={48} style={{ opacity: 0.4, color: "hsl(var(--muted-foreground))" }} />
-                <p style={{ opacity: 0.4, fontSize: "0.875rem", fontWeight: 600, color: "hsl(var(--muted-foreground))" }}>Noch nicht verfügbar</p>
+              <div className="ginshi_section items-center justify-center">
+                <Package size={48} className="text-muted-foreground opacity-40" />
+                <p className="text-sm font-semibold text-muted-foreground opacity-40">
+                  Noch nicht verfügbar
+                </p>
               </div>
             )}
           </div>
