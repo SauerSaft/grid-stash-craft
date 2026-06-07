@@ -38,7 +38,7 @@ type Ownership = "own" | "foreign" | "uncontrolled";
 const MoneyLaunderingPage = () => {
   // Mock-Daten — später aus dem Spielzustand
   const dirtyMoney = 87500;
-  const ownership: Ownership = "uncontrolled";
+  const ownership = "uncontrolled" as Ownership;
   const ownedByOwnFaction = ownership === "own";
   const isUncontrolled = ownership === "uncontrolled";
   const controllingFaction = "Los Vagos";
