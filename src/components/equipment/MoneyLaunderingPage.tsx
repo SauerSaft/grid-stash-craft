@@ -136,11 +136,25 @@ const MoneyLaunderingPage = () => {
     "border-[hsl(var(--success)/0.3)] bg-[linear-gradient(135deg,hsl(var(--success)/0.08),transparent_60%),var(--glass-bg)]";
   const ownerBannerForeign =
     "border-[hsl(var(--destructive)/0.25)] bg-[linear-gradient(135deg,hsl(var(--destructive)/0.06),transparent_60%),var(--glass-bg)]";
+  const ownerBannerNeutral =
+    "border-[var(--glass-border-strong)] bg-[linear-gradient(135deg,hsl(var(--primary)/0.05),transparent_60%),var(--glass-bg)]";
 
   const ownerIconBase =
     "flex h-[2.4rem] w-[2.4rem] flex-shrink-0 items-center justify-center rounded-[var(--radius)]";
   const ownerIconOwn = "bg-[hsl(var(--success)/0.12)] text-[hsl(var(--success))]";
   const ownerIconForeign = "bg-[hsl(var(--destructive)/0.12)] text-[hsl(var(--destructive))]";
+  const ownerIconNeutral = "bg-primary/10 text-primary";
+
+  const ownerBannerClass = ownedByOwnFaction
+    ? ownerBannerOwn
+    : isUncontrolled
+      ? ownerBannerNeutral
+      : ownerBannerForeign;
+  const ownerIconClass = ownedByOwnFaction
+    ? ownerIconOwn
+    : isUncontrolled
+      ? ownerIconNeutral
+      : ownerIconForeign;
 
   return (
     <div className="flex flex-1 flex-col gap-3 overflow-hidden">
