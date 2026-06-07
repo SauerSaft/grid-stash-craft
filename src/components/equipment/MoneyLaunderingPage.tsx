@@ -242,7 +242,9 @@ const MoneyLaunderingPage = () => {
                 className={`mt-[0.4rem] inline-flex cursor-pointer items-center gap-[0.35rem] rounded-[calc(var(--radius)-4px)] border px-[0.6rem] py-[0.3rem] text-[10.5px] font-bold uppercase tracking-[0.08em] transition-colors disabled:cursor-not-allowed ${
                   captureStatus === "capturing"
                     ? "border-primary/35 bg-primary/[0.08] text-primary"
-                    : "border-destructive/30 bg-destructive/[0.08] text-destructive hover:border-destructive/50 hover:bg-destructive/[0.16]"
+                    : isUncontrolled
+                      ? "border-primary/35 bg-primary/[0.08] text-primary hover:border-primary/55 hover:bg-primary/[0.16]"
+                      : "border-destructive/30 bg-destructive/[0.08] text-destructive hover:border-destructive/50 hover:bg-destructive/[0.16]"
                 }`}
               >
                 {captureStatus === "capturing" ? <Loader2 size={12} className="animate-spin" /> : <Swords size={12} />}
