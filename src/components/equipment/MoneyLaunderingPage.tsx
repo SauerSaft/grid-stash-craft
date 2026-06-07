@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords } from "lucide-react";
+import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords, ShieldQuestion } from "lucide-react";
 
 type LaunderStatus = "idle" | "running" | "done";
 type CaptureStatus = "idle" | "capturing";
@@ -33,10 +33,14 @@ const btnSuccess =
 const chipBase =
   "flex-1 cursor-pointer rounded-[var(--radius)] border border-[var(--glass-border)] bg-[var(--glass-subtle)] p-[0.45rem] text-[12px] font-bold tabular-nums text-muted-foreground transition-all hover:border-[var(--glass-border-strong)] hover:bg-[var(--glass-border)] hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50";
 
+type Ownership = "own" | "foreign" | "uncontrolled";
+
 const MoneyLaunderingPage = () => {
   // Mock-Daten — später aus dem Spielzustand
   const dirtyMoney = 87500;
-  const ownedByOwnFaction = false;
+  const ownership = "uncontrolled" as Ownership;
+  const ownedByOwnFaction = ownership === "own";
+  const isUncontrolled = ownership === "uncontrolled";
   const controllingFaction = "Los Vagos";
   const baseFeePercent = 35;
   const factionDiscount = ownedByOwnFaction ? 18 : 0;
@@ -132,11 +136,25 @@ const MoneyLaunderingPage = () => {
     "border-[hsl(var(--success)/0.3)] bg-[linear-gradient(135deg,hsl(var(--success)/0.08),transparent_60%),var(--glass-bg)]";
   const ownerBannerForeign =
     "border-[hsl(var(--destructive)/0.25)] bg-[linear-gradient(135deg,hsl(var(--destructive)/0.06),transparent_60%),var(--glass-bg)]";
+  const ownerBannerNeutral =
+    "border-[var(--glass-border-strong)] bg-[linear-gradient(135deg,hsl(var(--primary)/0.05),transparent_60%),var(--glass-bg)]";
 
   const ownerIconBase =
     "flex h-[2.4rem] w-[2.4rem] flex-shrink-0 items-center justify-center rounded-[var(--radius)]";
   const ownerIconOwn = "bg-[hsl(var(--success)/0.12)] text-[hsl(var(--success))]";
   const ownerIconForeign = "bg-[hsl(var(--destructive)/0.12)] text-[hsl(var(--destructive))]";
+  const ownerIconNeutral = "bg-primary/10 text-primary";
+
+  const ownerBannerClass = ownedByOwnFaction
+    ? ownerBannerOwn
+    : isUncontrolled
+      ? ownerBannerNeutral
+      : ownerBannerForeign;
+  const ownerIconClass = ownedByOwnFaction
+    ? ownerIconOwn
+    : isUncontrolled
+      ? ownerIconNeutral
+      : ownerIconForeign;
 
   return (
     <div className="flex flex-1 flex-col gap-3 overflow-hidden">
@@ -162,22 +180,34 @@ const MoneyLaunderingPage = () => {
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto">
         {/* Faction Ownership Banner */}
-        <div className={`${ownerBannerBase} ${ownedByOwnFaction ? ownerBannerOwn : ownerBannerForeign}`}>
+        <div className={`${ownerBannerBase} ${ownerBannerClass}`}>
           <div className={cornerTL} />
           <div className={cornerBR} />
-          <div className={`${ownerIconBase} ${ownedByOwnFaction ? ownerIconOwn : ownerIconForeign}`}>
-            {ownedByOwnFaction ? <ShieldCheck size={20} /> : <AlertTriangle size={20} />}
+          <div className={`${ownerIconBase} ${ownerIconClass}`}>
+            {ownedByOwnFaction ? (
+              <ShieldCheck size={20} />
+            ) : isUncontrolled ? (
+              <ShieldQuestion size={20} />
+            ) : (
+              <AlertTriangle size={20} />
+            )}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-[0.15rem]">
             <span className="text-[14px] font-bold uppercase tracking-[0.04em] text-foreground">
-              {ownedByOwnFaction ? "Diese Wäscherei gehört deiner Fraktion" : `Kontrolliert von: ${controllingFaction}`}
+              {ownedByOwnFaction
+                ? "Diese Wäscherei gehört deiner Fraktion"
+                : isUncontrolled
+                  ? "Unkontrolliert"
+                  : `Kontrolliert von: ${controllingFaction}`}
             </span>
             <span className="text-[12px] font-medium text-muted-foreground">
               {ownedByOwnFaction
                 ? `Du erhältst einen Rabatt von ${factionDiscount}% auf die Waschgebühr.`
                 : captureStatus === "capturing"
                   ? `Übernahme läuft – noch ${formatMMSS(captureRemaining)} verbleibend.`
-                  : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
+                  : isUncontrolled
+                    ? "Nehme die Wäscherei mit deiner Fraktion ein, um Rabatte zu erhalten."
+                    : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
             </span>
             {!ownedByOwnFaction && captureStatus === "capturing" && (
               <div
@@ -212,7 +242,9 @@ const MoneyLaunderingPage = () => {
                 className={`mt-[0.4rem] inline-flex cursor-pointer items-center gap-[0.35rem] rounded-[calc(var(--radius)-4px)] border px-[0.6rem] py-[0.3rem] text-[10.5px] font-bold uppercase tracking-[0.08em] transition-colors disabled:cursor-not-allowed ${
                   captureStatus === "capturing"
                     ? "border-primary/35 bg-primary/[0.08] text-primary"
-                    : "border-destructive/30 bg-destructive/[0.08] text-destructive hover:border-destructive/50 hover:bg-destructive/[0.16]"
+                    : isUncontrolled
+                      ? "border-primary/35 bg-primary/[0.08] text-primary hover:border-primary/55 hover:bg-primary/[0.16]"
+                      : "border-destructive/30 bg-destructive/[0.08] text-destructive hover:border-destructive/50 hover:bg-destructive/[0.16]"
                 }`}
               >
                 {captureStatus === "capturing" ? <Loader2 size={12} className="animate-spin" /> : <Swords size={12} />}
