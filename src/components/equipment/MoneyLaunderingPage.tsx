@@ -180,22 +180,34 @@ const MoneyLaunderingPage = () => {
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto">
         {/* Faction Ownership Banner */}
-        <div className={`${ownerBannerBase} ${ownedByOwnFaction ? ownerBannerOwn : ownerBannerForeign}`}>
+        <div className={`${ownerBannerBase} ${ownerBannerClass}`}>
           <div className={cornerTL} />
           <div className={cornerBR} />
-          <div className={`${ownerIconBase} ${ownedByOwnFaction ? ownerIconOwn : ownerIconForeign}`}>
-            {ownedByOwnFaction ? <ShieldCheck size={20} /> : <AlertTriangle size={20} />}
+          <div className={`${ownerIconBase} ${ownerIconClass}`}>
+            {ownedByOwnFaction ? (
+              <ShieldCheck size={20} />
+            ) : isUncontrolled ? (
+              <ShieldQuestion size={20} />
+            ) : (
+              <AlertTriangle size={20} />
+            )}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-[0.15rem]">
             <span className="text-[14px] font-bold uppercase tracking-[0.04em] text-foreground">
-              {ownedByOwnFaction ? "Diese Wäscherei gehört deiner Fraktion" : `Kontrolliert von: ${controllingFaction}`}
+              {ownedByOwnFaction
+                ? "Diese Wäscherei gehört deiner Fraktion"
+                : isUncontrolled
+                  ? "Unkontrolliert"
+                  : `Kontrolliert von: ${controllingFaction}`}
             </span>
             <span className="text-[12px] font-medium text-muted-foreground">
               {ownedByOwnFaction
                 ? `Du erhältst einen Rabatt von ${factionDiscount}% auf die Waschgebühr.`
                 : captureStatus === "capturing"
                   ? `Übernahme läuft – noch ${formatMMSS(captureRemaining)} verbleibend.`
-                  : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
+                  : isUncontrolled
+                    ? "Nehme die Wäscherei mit deiner Fraktion ein, um Rabatte zu erhalten."
+                    : "Übernehmt die Wäscherei als Fraktion, um Rabatte zu erhalten."}
             </span>
             {!ownedByOwnFaction && captureStatus === "capturing" && (
               <div
