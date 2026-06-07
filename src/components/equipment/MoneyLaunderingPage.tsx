@@ -33,10 +33,14 @@ const btnSuccess =
 const chipBase =
   "flex-1 cursor-pointer rounded-[var(--radius)] border border-[var(--glass-border)] bg-[var(--glass-subtle)] p-[0.45rem] text-[12px] font-bold tabular-nums text-muted-foreground transition-all hover:border-[var(--glass-border-strong)] hover:bg-[var(--glass-border)] hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50";
 
+type Ownership = "own" | "foreign" | "uncontrolled";
+
 const MoneyLaunderingPage = () => {
   // Mock-Daten — später aus dem Spielzustand
   const dirtyMoney = 87500;
-  const ownedByOwnFaction = false;
+  const ownership: Ownership = "uncontrolled";
+  const ownedByOwnFaction = ownership === "own";
+  const isUncontrolled = ownership === "uncontrolled";
   const controllingFaction = "Los Vagos";
   const baseFeePercent = 35;
   const factionDiscount = ownedByOwnFaction ? 18 : 0;
