@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords, ShieldQuestion } from "lucide-react";
+import WaveProgress from "./WaveProgress";
 
 type LaunderStatus = "idle" | "running" | "done";
 type CaptureStatus = "idle" | "capturing";
@@ -370,15 +371,7 @@ const MoneyLaunderingPage = () => {
                 </div>
               </div>
 
-              <div className="relative h-[14px] w-full overflow-hidden rounded-[var(--radius)] border border-[var(--glass-border-strong)] bg-[var(--glass-input-bg)]">
-                <div
-                  style={{ width: `${progress}%` }}
-                  className="relative h-full overflow-hidden bg-[linear-gradient(90deg,hsl(var(--primary)/0.6),hsl(var(--primary)),hsl(var(--primary)/0.85))] shadow-[0_0_12px_hsl(var(--gold-glow)/0.5)] transition-[width] duration-100 ease-linear"
-                >
-                  <div className="absolute inset-0 animate-launder-shine bg-[linear-gradient(90deg,transparent_0%,hsla(0,0%,100%,0.25)_50%,transparent_100%)] bg-[length:30%_100%] bg-no-repeat" />
-                </div>
-                <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(90deg,transparent_0,transparent_calc(10%-1px),hsla(0,0%,0%,0.25)_calc(10%-1px),hsla(0,0%,0%,0.25)_10%)]" />
-              </div>
+              <WaveProgress progress={progress} height={56} />
             </div>
           )}
 
