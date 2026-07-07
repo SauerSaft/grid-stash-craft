@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Banknote, ArrowRight, Loader2, ShieldCheck, AlertTriangle, CheckCircle2, Clock, Percent, Swords, ShieldQuestion } from "lucide-react";
+import WaveProgress from "./WaveProgress";
 
 type LaunderStatus = "idle" | "running" | "done";
 type CaptureStatus = "idle" | "capturing";
