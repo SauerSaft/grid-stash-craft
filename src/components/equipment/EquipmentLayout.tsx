@@ -25,7 +25,7 @@ const EquipmentLayout = () => {
   return (
     <div className="ginshi_root fixed inset-0 z-[9999] flex items-center justify-center">
 
-      <div className="relative flex h-[87vh] w-[82vw] flex-col overflow-hidden rounded-[0.4vw] border-[0.052vw] border-[rgba(255,217,0,0.12)] bg-[rgba(10,10,8,0.97)] shadow-[0_1vw_4vw_rgba(0,0,0,0.85)]">
+      <div className="relative flex h-[87vh] w-[82vw] flex-col overflow-hidden rounded-[0.4vw] border-[0.052vw] border-[rgba(168,85,247,0.18)] bg-[rgba(10,8,14,0.97)] shadow-[0_1vw_4vw_rgba(0,0,0,0.85)]">
         <img
           src={bgImage}
           alt=""
