@@ -8,18 +8,18 @@ const EquipmentHeader = () => {
           src={iconEquipment}
           alt=""
           draggable={false}
-          className="mt-[0.3vw] h-[2.1vw] w-[2.1vw] flex-shrink-0 object-contain [filter:drop-shadow(rgba(255,215,56,0.75)_-0.85vw_0_1.04vw)]"
+          className="mt-[0.3vw] h-[2.1vw] w-[2.1vw] flex-shrink-0 object-contain [filter:drop-shadow(rgba(192,132,252,0.75)_-0.85vw_0_1.04vw)]"
         />
         <div className="ml-[-0.78vw] flex flex-col gap-[0.1vw]">
           <div className="flex items-baseline gap-[0.15vw] leading-none">
             <span className="font-orbitron text-[1.15vw] font-bold tracking-[-0.02em] text-white [text-shadow:rgba(255,255,255,0.25)_0_0_0.63vw]">
               LATENIGHT
             </span>
-            <span className="-ml-[0.15vw] inline-block skew-x-[-10deg] bg-[linear-gradient(188deg,rgb(255,217,0)_0%,rgba(202,172,0,0.85)_100%)] bg-clip-text font-orbitron text-[1.65vw] font-bold text-transparent">
+            <span className="-ml-[0.15vw] inline-block skew-x-[-10deg] bg-[linear-gradient(188deg,rgb(192,132,252)_0%,rgba(126,58,214,0.85)_100%)] bg-clip-text font-orbitron text-[1.65vw] font-bold text-transparent">
               V
             </span>
           </div>
-          <span className="text-[0.68vw] font-semibold uppercase leading-none tracking-[0.06em] text-[rgba(255,217,0,0.75)]">
+          <span className="text-[0.68vw] font-semibold uppercase leading-none tracking-[0.06em] text-[rgba(192,132,252,0.85)]">
             Ausrüstungen
           </span>
         </div>
