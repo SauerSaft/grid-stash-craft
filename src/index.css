@@ -20,14 +20,14 @@
     --card-foreground: 240 5% 90%;
     --popover: 240 6% 8%;
     --popover-foreground: 240 5% 90%;
-    --primary: 48 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 271 91% 65%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 240 4% 14%;
     --secondary-foreground: 240 5% 90%;
     --muted: 240 4% 14%;
     --muted-foreground: 240 4% 55%;
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 271 91% 65%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 80% 60%;
     --destructive-foreground: 0 0% 98%;
     --success: 140 60% 48%;
@@ -38,13 +38,13 @@
     /* -- Borders & input -- */
     --border: 0 0% 100% / 0.08;
     --input: 0 0% 100% / 0.06;
-    --ring: 48 100% 50%;
+    --ring: 271 91% 65%;
     --radius: 0.15rem;
 
-    /* -- Gold accents -- */
-    --gold: 48 100% 50%;
-    --gold-dim: 48 80% 40%;
-    --gold-glow: 48 100% 50%;
+    /* -- Gold accents (now purple) -- */
+    --gold: 271 91% 65%;
+    --gold-dim: 271 70% 50%;
+    --gold-glow: 271 91% 70%;
 
     /* -- Surfaces -- */
     --surface: 240 6% 8%;
@@ -54,12 +54,12 @@
     /* -- Sidebar -- */
     --sidebar-background: 240 7% 5%;
     --sidebar-foreground: 240 5% 90%;
-    --sidebar-primary: 48 100% 50%;
-    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-primary: 271 91% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4% 14%;
     --sidebar-accent-foreground: 240 5% 90%;
     --sidebar-border: 0 0% 100% / 0.08;
-    --sidebar-ring: 48 100% 50%;
+    --sidebar-ring: 271 91% 65%;
 
     /* -- Reusable surface tokens -- */
     --glass-border: rgba(255, 255, 255, 0.06);
@@ -69,7 +69,7 @@
     --glass-row-border: rgba(255, 255, 255, 0.03);
     --glass-subtle: rgba(255, 255, 255, 0.03);
     --glass-input-bg: rgba(0, 0, 0, 0.4);
-    --gold-rgb: 255, 217, 0;
+    --gold-rgb: 168, 85, 247;
   }
 }
 
